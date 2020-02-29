@@ -1,0 +1,90 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
+    defaultConfig {
+        applicationId rootProject.ext.android.applicationId
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
+        multiDexEnabled true
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        ndk {
+            abiFilters "armeabi-v7a", "x86"
+        }
+        vectorDrawables.useSupportLibrary = true
+        multiDexEnabled true
+        kapt {
+            arguments {
+                arg("AROUTER_MODULE_NAME", project.getName())
+            }
+        }
+    }
+    signingConfigs {
+        release {
+            storeFile file(RELEASE_STORE_FILE)
+            keyAlias RELEASE_KEY_ALIAS
+            keyPassword RELEASE_KEY_PASSWORD
+            storePassword RELEASE_STORE_PASSWORD
+        }
+    }
+    buildTypes {
+        debug {
+            minifyEnabled false
+            shrinkResources false
+            signingConfig signingConfigs.release
+//            multiDexKeepFile file("manifest_keep.txt")  //指定类打包在主dex文件，暂时用不到
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        release {
+            //是否运行混淆
+            minifyEnabled true
+            shrinkResources true
+            signingConfig signingConfigs.release
+//            multiDexKeepFile file("manifest_keep.txt") //指定类打包在主dex文件，暂时用不到
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    dataBinding {
+        enabled = true
+    }
+    applicationVariants.all { variant ->
+        def buildType = variant.buildType.name
+        def createTime = new Date().format("YYYYMMdd_HHmm", TimeZone.getTimeZone("GMT+08:00"))
+        variant.outputs.all {
+            outputFileName = createTime + "_" + buildType + ".apk"
+        }
+    }
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation project(':base')
+    if (!Boolean.valueOf(rootProject.ext.isModule)) {
+        //main模块
+        implementation project(':module_home')
+        implementation project(':module_star')
+        implementation project(':module_message')
+        implementation project(':module_mine')
+    }
+    kapt rootProject.ext.dependencies.arouter_compiler
+}

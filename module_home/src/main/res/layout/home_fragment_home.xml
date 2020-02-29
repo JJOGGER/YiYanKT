@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:orientation="vertical"
+             android:layout_width="match_parent"
+             android:clipChildren="false"
+             android:layout_height="match_parent">
+
+    <com.scwang.smartrefresh.horizontal.SmartRefreshHorizontal
+            android:id="@+id/srl_refresh"
+            android:background="@color/main_gray"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <FrameLayout
+                android:clipChildren="false"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+            <com.jogger.widget.HomeViewPager
+                    android:id="@+id/vp_content"
+                    android:layout_height="@dimen/dp_400"
+                    android:layout_gravity="center"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+                    android:paddingLeft="@dimen/dp_50"
+                    android:paddingRight="@dimen/dp_50"
+                    android:layout_width="wrap_content"/>
+        </FrameLayout>
+    </com.scwang.smartrefresh.horizontal.SmartRefreshHorizontal>
+</FrameLayout>

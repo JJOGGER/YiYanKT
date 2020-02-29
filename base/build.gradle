@@ -1,0 +1,70 @@
+apply plugin: 'com.android.library'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+android {
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
+    defaultConfig {
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+//Arouter路由配置
+        kapt {
+            arguments {
+                arg("AROUTER_MODULE_NAME", project.getName())
+            }
+        }
+    }
+
+    buildTypes {
+        debug {
+            // 日志开关标识
+            buildConfigField "boolean", "LOG_DEBUG", "true"
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        release {
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            // 日志开关标识
+            buildConfigField "boolean", "LOG_DEBUG", "false"
+        }
+    }
+
+}
+
+dependencies {
+    api fileTree(dir: 'libs', include: ['*.jar'])
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    //androidx
+    api rootProject.ext.androidxs
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+
+    //Arouter路由
+    kapt rootProject.ext.dependencies.arouter_compiler
+    api rootProject.ext.dependencies.arouter_api
+    api rootProject.ext.dependencies.arouter_annotation
+    api rootProject.ext.dependencies.multidex
+//    implementation rootProject.ext.dependencies.lifecycle
+//    implementation rootProject.ext.dependencies.rxjava
+//    implementation rootProject.ext.dependencies.rxandroid
+    api rootProject.ext.dependencies.retrofit
+    api rootProject.ext.dependencies.converterGson
+//    implementation rootProject.ext.dependencies.adapterRxjava
+    api rootProject.ext.dependencies.glide
+    api rootProject.ext.dependencies.adapterHelper
+    api rootProject.ext.dependencies.eventbus
+    api rootProject.ext.dependencies.zxing
+    api rootProject.ext.dependencies.permission
+    api project(':qmui')
+    api rootProject.ext.dependencies.mmkv
+    api 'com.scwang.smartrefresh:SmartRefreshHorizontal:1.0.0-andx-1'
+    api 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0'//必须依赖 版本 1.1.0-andx-16 以上
+    api 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0'  //没有使用特殊Header，可以不加这行
+}

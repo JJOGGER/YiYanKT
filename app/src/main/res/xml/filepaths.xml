@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <external-path
+        name="external_storage_root"
+        path="." />
+    <external-path
+        name="files_root"
+        path="Android/data/com.leavesc.gpay/" />
+    <!--<root-path-->
+        <!--name="root_path"-->
+        <!--path="." />-->
+    <external-path
+        name="gdt_sdk_download_path"
+        path="GDTDOWNLOAD" />
+    <external-path
+        name="app"
+        path="Download" />
+    <external-files-path
+        name="download"
+        path="Download" />
+</paths>

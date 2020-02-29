@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="app_primary_color" format="color" /> <!-- topbar -->
+    <attr name="app_content_bg_color" format="color" /> <!-- message-->
+
+    <declare-styleable name="WaveSideBar">
+        <attr name="textColor" format="color|reference" />
+        <attr name="backgroundColor" format="color|reference" />
+        <attr name="chooseTextColor" format="color|reference" />
+        <attr name="textSize" format="dimension" />
+        <attr name="hintTextSize" format="dimension" />
+        <attr name="radius" format="dimension" />
+        <attr name="circleRadius" format="dimension" />
+    </declare-styleable>
+    <attr name="number" format="integer" />
+    <attr name="textsize" format="integer" />
+    <attr name="ssc_textsize" format="dimension" />
+    <attr name="type" format="integer" />
+    <declare-styleable name="NumberIcon">
+        <attr name="number" />
+        <attr name="textsize" />
+        <attr name="number_visible" format="boolean" />
+    </declare-styleable>
+    <declare-styleable name="SSCIcon">
+        <attr name="number" />
+        <attr name="type" />
+        <attr name="ssc_textsize" />
+    </declare-styleable>
+    <declare-styleable name="CodeContainer">
+        <attr name="is_single_line" format="boolean" />
+    </declare-styleable>
+    <declare-styleable name="wave">
+        <!-- 波浪颜色 -->
+        <attr name="color" format="color" />
+        <!-- 填充模式 -->
+        <attr name="fill_mode">
+            <!-- 填充顶部，使顶部是直线，底部是波浪线 -->
+            <enum name="top" value="1" />
+            <!-- 填充底部，使底部是直线，顶部是波浪线 -->
+            <enum name="bottom" value="2" />
+        </attr>
+        <!-- 波浪变化速率，<0 向右的效果，>0 向左的效果-->
+        <attr name="speed" format="integer" />
+        <!-- 水波浪初始状态相位角  -->
+        <attr name="phi" format="integer" />
+        <!-- 水波浪角频率，默认值 1，显示一个三角函数周期  -->
+        <attr name="omega" format="float" />
+    </declare-styleable>
+
+    <declare-styleable name="Banner">
+        <attr name="delay_time" format="integer" />
+        <attr name="scroll_time" format="integer" />
+        <attr name="is_auto_play" format="boolean" />
+        <attr name="title_background" format="color|reference" />
+        <attr name="title_textcolor" format="color" />
+        <attr name="title_textsize" format="dimension" />
+        <attr name="title_height" format="dimension" />
+        <attr name="is_custom_adapter" format="boolean" />
+        <attr name="indicator_width" format="dimension" />
+        <attr name="indicator_height" format="dimension" />
+        <attr name="indicator_margin" format="dimension" />
+        <attr name="indicator_drawable_selected" format="reference" />
+        <attr name="indicator_drawable_unselected" format="reference" />
+        <attr name="banner_layout" format="reference" />
+        <attr name="banner_default_image" format="reference" />
+        <attr name="image_scale_type" format="enum">
+            <enum name="center" value="0" />
+            <enum name="center_crop" value="1" />
+            <enum name="center_inside" value="2" />
+            <enum name="fit_center" value="3" />
+            <enum name="fit_end" value="4" />
+            <enum name="fit_start" value="5" />
+            <enum name="fit_xy" value="6" />
+            <enum name="matrix" value="7" />
+        </attr>
+    </declare-styleable>
+    <declare-styleable name="pickerview">
+        <attr name="wheelview_gravity">
+            <enum name="center" value="17" />
+            <enum name="left" value="3" />
+            <enum name="right" value="5" />
+        </attr>
+        <attr name="wheelview_textSize" format="dimension" />
+        <attr name="wheelview_textColorOut" format="color" />
+        <attr name="wheelview_textColorCenter" format="color" />
+        <attr name="wheelview_dividerColor" format="color" />
+        <attr name="wheelview_lineSpacingMultiplier" format="float" />
+    </declare-styleable>
+</resources>

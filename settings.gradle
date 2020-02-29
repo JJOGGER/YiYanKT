@@ -1,0 +1,1 @@
+include ':app', ':qmui', ':module_home', ':module_star', ':module_message', ':base', ':module_mine'

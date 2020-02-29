@@ -1,0 +1,36 @@
+apply plugin: 'com.android.library'
+
+//noinspection GroovyMissingReturnStatement
+android {
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
+    lintOptions {
+        abortOnError false
+    }
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            consumerProguardFiles 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+dependencies {
+    api fileTree(include: ['*.jar'], dir: 'libs')
+    implementation rootProject.ext.androidxs
+}
+
+// deploy
+File deployConfig = rootProject.file('gradle/deploy.properties')
+if (deployConfig.exists()) {
+    apply from: rootProject.file('gradle/deploy.gradle')
+}
