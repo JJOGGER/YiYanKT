@@ -26,7 +26,8 @@ android {
 }
 dependencies {
     api fileTree(include: ['*.jar'], dir: 'libs')
-    implementation rootProject.ext.androidxs
+    api rootProject.ext.androidxs
+    api 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
 }
 
 // deploy

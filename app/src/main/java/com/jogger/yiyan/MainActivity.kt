@@ -1,12 +1,19 @@
 package com.jogger.yiyan
 
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.jogger.base.BaseActivity
+import com.jogger.base.BaseFragment
 import com.jogger.base.BaseViewModel
+import com.jogger.manager.QDSkinManager
 import com.jogger.yiyan.databinding.ActivityMainBinding
+import com.qmuiteam.qmui.skin.QMUISkinManager
+import com.qmuiteam.qmui.util.QMUIStatusBarHelper
 import ex.MODULE_HOME_MAIN
 import ex.getFragment
 import kotlinx.android.synthetic.main.activity_main.*
@@ -42,7 +49,32 @@ class MainActivity : BaseActivity<BaseViewModel, ActivityMainBinding>() {
         })
         setTabStatus(mIndex)
     }
+    private val mOnSkinChangeListener = QMUISkinManager.OnSkinChangeListener { oldSkin, newSkin ->
+        if (newSkin == QDSkinManager.SKIN_WHITE) {
+            QMUIStatusBarHelper.setStatusBarLightMode(this)
+        } else {
+            QMUIStatusBarHelper.setStatusBarDarkMode(this)
+        }
+    }
 
+
+    private fun renderSkinMakerBtn() {
+    }
+
+    override  fun onStart() {
+        super.onStart()
+        QMUISkinManager.defaultInstance(this).addSkinChangeListener(mOnSkinChangeListener)
+    }
+
+    override  fun onResume() {
+        super.onResume()
+        renderSkinMakerBtn()
+    }
+
+    override  fun onStop() {
+        super.onStop()
+        QMUISkinManager.defaultInstance(this).removeSkinChangeListener(mOnSkinChangeListener)
+    }
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putInt(TAB_INDEX, mIndex)

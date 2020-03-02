@@ -24,8 +24,9 @@ import android.content.res.Configuration;
 import android.os.Binder;
 import android.os.Build;
 import android.os.Environment;
-import android.text.TextUtils;
 import androidx.annotation.Nullable;
+import android.text.TextUtils;
+
 import com.qmuiteam.qmui.QMUILog;
 
 import java.io.File;
@@ -135,8 +136,28 @@ public class QMUIDeviceHelper {
         return "v9".equals(sMiuiVersionName);
     }
 
+    public static boolean isFlymeLowerThan8() {
+        boolean isLower = false;
+        if (sFlymeVersionName != null && !sFlymeVersionName.equals("")) {
+            Pattern pattern = Pattern.compile("(\\d+\\.){2}\\d");
+            Matcher matcher = pattern.matcher(sFlymeVersionName);
+            if (matcher.find()) {
+                String versionString = matcher.group();
+                if (versionString != null && !versionString.equals("")) {
+                    String[] version = versionString.split("\\.");
+                    if (version.length >= 1) {
+                        if (Integer.parseInt(version[0]) < 8) {
+                            isLower = true;
+                        }
+                    }
+
+                }
+            }
+        }
+        return isMeizu() && isLower;
+    }
+
     public static boolean isFlymeVersionHigher5_2_4() {
-        //查不到默认高于5.2.4
         boolean isHigher = true;
         if (sFlymeVersionName != null && !sFlymeVersionName.equals("")) {
             Pattern pattern = Pattern.compile("(\\d+\\.){2}\\d");
@@ -146,20 +167,17 @@ public class QMUIDeviceHelper {
                 if (versionString != null && !versionString.equals("")) {
                     String[] version = versionString.split("\\.");
                     if (version.length == 3) {
-                        if (Integer.valueOf(version[0]) < 5) {
+                        int majorVersion = Integer.parseInt(version[0]);
+                        if (majorVersion < 5) {
                             isHigher = false;
-                        } else if (Integer.valueOf(version[0]) > 5) {
-                            isHigher = true;
-                        } else {
-                            if (Integer.valueOf(version[1]) < 2) {
+                        } else if (majorVersion == 5) {
+                            int minorVersion = Integer.parseInt(version[1]);
+                            if (minorVersion < 2) {
                                 isHigher = false;
-                            } else if (Integer.valueOf(version[1]) > 2) {
-                                isHigher = true;
-                            } else {
-                                if (Integer.valueOf(version[2]) < 4) {
+                            } else if (minorVersion == 2) {
+                                int patchVersion = Integer.parseInt(version[2]);
+                                if (patchVersion < 4) {
                                     isHigher = false;
-                                } else if (Integer.valueOf(version[2]) >= 5) {
-                                    isHigher = true;
                                 }
                             }
                         }
@@ -205,17 +223,17 @@ public class QMUIDeviceHelper {
      * 两台设备的系统虽然为 android 6.0，但不支持状态栏icon颜色改变，因此经常需要对它们进行额外判断。
      */
     public static boolean isZUKZ1() {
-        final String board = android.os.Build.MODEL;
+        final String board = Build.MODEL;
         return board != null && board.toLowerCase().contains(ZUKZ1);
     }
 
     public static boolean isZTKC2016() {
-        final String board = android.os.Build.MODEL;
+        final String board = Build.MODEL;
         return board != null && board.toLowerCase().contains(ZTEC2016);
     }
 
     private static boolean isPhone(String[] boards) {
-        final String board = android.os.Build.BOARD;
+        final String board = Build.BOARD;
         if (board == null) {
             return false;
         }

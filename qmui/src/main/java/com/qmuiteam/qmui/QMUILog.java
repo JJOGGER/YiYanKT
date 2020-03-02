@@ -23,11 +23,11 @@ package com.qmuiteam.qmui;
  */
 public class QMUILog {
     public interface QMUILogDelegate {
-        void e(final String tag, final String msg, final Object ... obj);
-        void w(final String tag, final String msg, final Object ... obj);
-        void i(final String tag, final String msg, final Object ... obj);
-        void d(final String tag, final String msg, final Object ... obj);
-        void printErrStackTrace(String tag, Throwable tr, final String format, final Object ... obj);
+        void e(final String tag, final String msg, final Object... obj);
+        void w(final String tag, final String msg, final Object... obj);
+        void i(final String tag, final String msg, final Object... obj);
+        void d(final String tag, final String msg, final Object... obj);
+        void printErrStackTrace(String tag, Throwable tr, final String format, final Object... obj);
     }
 
     private static QMUILogDelegate sDelegete = null;

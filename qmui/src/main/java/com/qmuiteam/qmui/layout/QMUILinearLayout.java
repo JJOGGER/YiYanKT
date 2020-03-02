@@ -18,8 +18,9 @@ package com.qmuiteam.qmui.layout;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.util.AttributeSet;
 import androidx.annotation.ColorInt;
+import android.util.AttributeSet;
+
 import com.qmuiteam.qmui.alpha.QMUIAlphaLinearLayout;
 
 /**
@@ -143,7 +144,7 @@ public class QMUILinearLayout extends QMUIAlphaLinearLayout implements IQMUILayo
     }
 
     @Override
-    public void setRadiusAndShadow(int radius, @QMUILayoutHelper.HideRadiusSide int hideRadiusSide, int shadowElevation, final float shadowAlpha) {
+    public void setRadiusAndShadow(int radius, @HideRadiusSide int hideRadiusSide, int shadowElevation, final float shadowAlpha) {
         mLayoutHelper.setRadiusAndShadow(radius, hideRadiusSide, shadowElevation, shadowAlpha);
     }
 
@@ -158,7 +159,7 @@ public class QMUILinearLayout extends QMUIAlphaLinearLayout implements IQMUILayo
     }
 
     @Override
-    public void setRadius(int radius, @QMUILayoutHelper.HideRadiusSide int hideRadiusSide) {
+    public void setRadius(int radius, @HideRadiusSide int hideRadiusSide) {
         mLayoutHelper.setRadius(radius, hideRadiusSide);
     }
 
@@ -229,6 +230,26 @@ public class QMUILinearLayout extends QMUIAlphaLinearLayout implements IQMUILayo
     }
 
     @Override
+    public void updateBottomSeparatorColor(int color) {
+        mLayoutHelper.updateBottomSeparatorColor(color);
+    }
+
+    @Override
+    public void updateLeftSeparatorColor(int color) {
+        mLayoutHelper.updateLeftSeparatorColor(color);
+    }
+
+    @Override
+    public void updateRightSeparatorColor(int color) {
+        mLayoutHelper.updateRightSeparatorColor(color);
+    }
+
+    @Override
+    public void updateTopSeparatorColor(int color) {
+        mLayoutHelper.updateTopSeparatorColor(color);
+    }
+
+    @Override
     public void setShadowElevation(int elevation) {
         mLayoutHelper.setShadowElevation(elevation);
     }
@@ -268,5 +289,30 @@ public class QMUILinearLayout extends QMUIAlphaLinearLayout implements IQMUILayo
         super.dispatchDraw(canvas);
         mLayoutHelper.drawDividers(canvas, getWidth(), getHeight());
         mLayoutHelper.dispatchRoundBorderDraw(canvas);
+    }
+
+    @Override
+    public boolean hasBorder() {
+        return mLayoutHelper.hasBorder();
+    }
+
+    @Override
+    public boolean hasLeftSeparator() {
+        return mLayoutHelper.hasLeftSeparator();
+    }
+
+    @Override
+    public boolean hasTopSeparator() {
+        return mLayoutHelper.hasTopSeparator();
+    }
+
+    @Override
+    public boolean hasRightSeparator() {
+        return mLayoutHelper.hasRightSeparator();
+    }
+
+    @Override
+    public boolean hasBottomSeparator() {
+        return mLayoutHelper.hasBottomSeparator();
     }
 }

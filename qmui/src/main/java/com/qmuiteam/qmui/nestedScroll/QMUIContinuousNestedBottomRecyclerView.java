@@ -20,6 +20,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.View;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
@@ -33,7 +34,7 @@ public class QMUIContinuousNestedBottomRecyclerView extends RecyclerView
     public static final String KEY_SCROLL_INFO_POSITION = "@qmui_scroll_info_bottom_rv_pos";
     public static final String KEY_SCROLL_INFO_OFFSET = "@qmui_scroll_info_bottom_rv_offset";
 
-    private IQMUIContinuousNestedBottomView.OnScrollNotifier mOnScrollNotifier;
+    private OnScrollNotifier mOnScrollNotifier;
     private final int[] mScrollConsumed = new int[2];
 
     public QMUIContinuousNestedBottomRecyclerView(@NonNull Context context) {

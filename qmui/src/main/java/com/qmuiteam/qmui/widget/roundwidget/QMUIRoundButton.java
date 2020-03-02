@@ -17,12 +17,17 @@
 package com.qmuiteam.qmui.widget.roundwidget;
 
 import android.content.Context;
+import android.content.res.ColorStateList;
 import android.util.AttributeSet;
-import android.widget.Button;
 
 import com.qmuiteam.qmui.R;
 import com.qmuiteam.qmui.alpha.QMUIAlphaButton;
+import com.qmuiteam.qmui.skin.QMUISkinValueBuilder;
+import com.qmuiteam.qmui.skin.defaultAttr.IQMUISkinDefaultAttrProvider;
 import com.qmuiteam.qmui.util.QMUIViewHelper;
+
+import androidx.annotation.Nullable;
+import androidx.collection.SimpleArrayMap;
 
 /**
  * 使按钮能方便地指定圆角、边框颜色、边框粗细、背景色
@@ -41,10 +46,22 @@ import com.qmuiteam.qmui.util.QMUIViewHelper;
  * 然后使用 {@link QMUIRoundButtonDrawable} 提供的方法进行设置。
  * </p>
  * <p>
+ *
  * @see QMUIRoundButtonDrawable
  * </p>
  */
-public class QMUIRoundButton extends QMUIAlphaButton {
+public class QMUIRoundButton extends QMUIAlphaButton implements IQMUISkinDefaultAttrProvider {
+
+    private QMUIRoundButtonDrawable mRoundBg;
+    private static SimpleArrayMap<String, Integer> sDefaultSkinAttrs;
+
+    static {
+        sDefaultSkinAttrs = new SimpleArrayMap<>(3);
+        sDefaultSkinAttrs.put(QMUISkinValueBuilder.BACKGROUND, R.attr.qmui_skin_support_round_btn_bg_color);
+        sDefaultSkinAttrs.put(QMUISkinValueBuilder.BORDER, R.attr.qmui_skin_support_round_btn_border_color);
+        sDefaultSkinAttrs.put(QMUISkinValueBuilder.TEXT_COLOR, R.attr.qmui_skin_support_round_btn_text_color);
+    }
+
 
     public QMUIRoundButton(Context context) {
         super(context);
@@ -62,9 +79,35 @@ public class QMUIRoundButton extends QMUIAlphaButton {
     }
 
     private void init(Context context, AttributeSet attrs, int defStyleAttr) {
-        QMUIRoundButtonDrawable bg = QMUIRoundButtonDrawable.fromAttributeSet(context, attrs, defStyleAttr);
-        QMUIViewHelper.setBackgroundKeepingPadding(this, bg);
+        mRoundBg = QMUIRoundButtonDrawable.fromAttributeSet(context, attrs, defStyleAttr);
+        QMUIViewHelper.setBackgroundKeepingPadding(this, mRoundBg);
         setChangeAlphaWhenDisable(false);
         setChangeAlphaWhenPress(false);
+    }
+
+    @Override
+    public void setBackgroundColor(int color) {
+        mRoundBg.setBgData(ColorStateList.valueOf(color));
+    }
+
+    public void setBgData(@Nullable ColorStateList colors) {
+        mRoundBg.setBgData(colors);
+    }
+
+    public void setStrokeData(int width, @Nullable ColorStateList colors) {
+        mRoundBg.setStrokeData(width, colors);
+    }
+
+    public int getStrokeWidth(){
+        return mRoundBg.getStrokeWidth();
+    }
+
+    public void setStrokeColors(ColorStateList colors) {
+        mRoundBg.setStrokeColors(colors);
+    }
+
+    @Override
+    public SimpleArrayMap<String, Integer> getDefaultSkinAttrs() {
+        return sDefaultSkinAttrs;
     }
 }

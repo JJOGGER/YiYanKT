@@ -18,36 +18,46 @@ package com.qmuiteam.qmui.widget.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
-import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.TypedValue;
-import android.view.*;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import androidx.annotation.IntDef;
-import androidx.annotation.LayoutRes;
-import androidx.core.content.ContextCompat;
+
 import com.qmuiteam.qmui.R;
-import com.qmuiteam.qmui.util.QMUIDisplayHelper;
+import com.qmuiteam.qmui.skin.QMUISkinHelper;
+import com.qmuiteam.qmui.skin.QMUISkinManager;
+import com.qmuiteam.qmui.skin.QMUISkinValueBuilder;
+import com.qmuiteam.qmui.util.QMUIResHelper;
 import com.qmuiteam.qmui.widget.QMUILoadingView;
+import com.qmuiteam.qmui.widget.textview.QMUISpanTouchFixTextView;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
+import androidx.annotation.IntDef;
+import androidx.annotation.LayoutRes;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatImageView;
+
 /**
- * 提供一个浮层展示在屏幕中间, 一般使用 {@link QMUITipDialog.Builder} 或 {@link QMUITipDialog.CustomBuilder} 生成。
+ * 提供一个浮层展示在屏幕中间, 一般使用 {@link Builder} 或 {@link CustomBuilder} 生成。
  * <ul>
- * <li>{@link QMUITipDialog.Builder} 提供了一个图标和一行文字的样式, 其中图标有几种类型可选, 见 {@link QMUITipDialog.Builder.IconType}</li>
- * <li>{@link QMUITipDialog.CustomBuilder} 支持传入自定义的 layoutResId, 达到自定义 TipDialog 的效果。</li>
+ * <li>{@link Builder} 提供了一个图标和一行文字的样式, 其中图标有几种类型可选, 见 {@link Builder.IconType}</li>
+ * <li>{@link CustomBuilder} 支持传入自定义的 layoutResId, 达到自定义 TipDialog 的效果。</li>
  * </ul>
  *
  * @author cginechen
  * @date 2016-10-14
  */
 
-public class QMUITipDialog extends Dialog {
+public class QMUITipDialog extends QMUIBaseDialog {
+
 
     public QMUITipDialog(Context context) {
         this(context, R.style.QMUI_TipDialog);
@@ -56,21 +66,6 @@ public class QMUITipDialog extends Dialog {
     public QMUITipDialog(Context context, int themeResId) {
         super(context, themeResId);
         setCanceledOnTouchOutside(false);
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        initDialogWidth();
-    }
-
-    private void initDialogWidth() {
-        Window window = getWindow();
-        if (window != null) {
-            WindowManager.LayoutParams wmLp = window.getAttributes();
-            wmLp.width = ViewGroup.LayoutParams.MATCH_PARENT;
-            window.setAttributes(wmLp);
-        }
     }
 
     /**
@@ -114,8 +109,11 @@ public class QMUITipDialog extends Dialog {
 
         private CharSequence mTipWord;
 
+        private QMUISkinManager mSkinManager;
+
         public Builder(Context context) {
             mContext = context;
+            mSkinManager = QMUISkinManager.defaultInstance(context);
         }
 
         /**
@@ -136,8 +134,17 @@ public class QMUITipDialog extends Dialog {
             return this;
         }
 
-        public QMUITipDialog create(){
+        public Builder setSkinManager(@Nullable QMUISkinManager skinManager) {
+            mSkinManager = skinManager;
+            return this;
+        }
+
+        public QMUITipDialog create() {
             return create(true);
+        }
+
+        public QMUITipDialog create(boolean cancelable) {
+            return create(cancelable, R.style.QMUI_TipDialog);
         }
 
         /**
@@ -146,69 +153,103 @@ public class QMUITipDialog extends Dialog {
          * @param cancelable 按系统返回键是否可以取消
          * @return 创建的 Dialog
          */
-        public QMUITipDialog create(boolean cancelable) {
-            QMUITipDialog dialog = new QMUITipDialog(mContext);
+        public QMUITipDialog create(boolean cancelable, int style) {
+            QMUITipDialog dialog = new QMUITipDialog(mContext, style);
             dialog.setCancelable(cancelable);
-            dialog.setContentView(R.layout.qmui_tip_dialog_layout);
-            ViewGroup contentWrap = (ViewGroup) dialog.findViewById(R.id.contentWrap);
+            dialog.setSkinManager(mSkinManager);
+            Context dialogContext = dialog.getContext();
+            QMUITipDialogView dialogView = new QMUITipDialogView(dialogContext);
 
+            QMUISkinValueBuilder builder = QMUISkinValueBuilder.acquire();
             if (mCurrentIconType == ICON_TYPE_LOADING) {
-                QMUILoadingView loadingView = new QMUILoadingView(mContext);
-                loadingView.setColor(Color.WHITE);
-                loadingView.setSize(QMUIDisplayHelper.dp2px(mContext, 32));
-                LinearLayout.LayoutParams loadingViewLP = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                loadingView.setLayoutParams(loadingViewLP);
-                contentWrap.addView(loadingView);
+                QMUILoadingView loadingView = new QMUILoadingView(dialogContext);
+                loadingView.setColor(QMUIResHelper.getAttrColor(
+                        dialogContext, R.attr.qmui_skin_support_tip_dialog_loading_color));
 
-            } else if (mCurrentIconType == ICON_TYPE_SUCCESS || mCurrentIconType == ICON_TYPE_FAIL || mCurrentIconType == ICON_TYPE_INFO) {
-                ImageView imageView = new ImageView(mContext);
-                LinearLayout.LayoutParams imageViewLP = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                imageView.setLayoutParams(imageViewLP);
+                loadingView.setSize(QMUIResHelper.getAttrDimen(
+                        dialogContext, R.attr.qmui_tip_dialog_loading_size));
+                builder.tintColor(R.attr.qmui_skin_support_tip_dialog_loading_color);
+                QMUISkinHelper.setSkinValue(loadingView, builder);
+                dialogView.addView(loadingView, onCreateIconOrLoadingLayoutParams(dialogContext));
 
+            } else if (mCurrentIconType == ICON_TYPE_SUCCESS ||
+                    mCurrentIconType == ICON_TYPE_FAIL ||
+                    mCurrentIconType == ICON_TYPE_INFO) {
+                ImageView imageView = new AppCompatImageView(mContext);
+
+                builder.clear();
+                Drawable drawable;
                 if (mCurrentIconType == ICON_TYPE_SUCCESS) {
-                    imageView.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.qmui_icon_notify_done));
+                    drawable = QMUIResHelper.getAttrDrawable(
+                            dialogContext, R.attr.qmui_skin_support_tip_dialog_icon_success_src);
+                    builder.src( R.attr.qmui_skin_support_tip_dialog_icon_success_src);
                 } else if (mCurrentIconType == ICON_TYPE_FAIL) {
-                    imageView.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.qmui_icon_notify_error));
+                    drawable = QMUIResHelper.getAttrDrawable(
+                            dialogContext, R.attr.qmui_skin_support_tip_dialog_icon_error_src);
+                    builder.src(R.attr.qmui_skin_support_tip_dialog_icon_error_src);
                 } else {
-                    imageView.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.qmui_icon_notify_info));
+                    drawable = QMUIResHelper.getAttrDrawable(
+                            dialogContext, R.attr.qmui_skin_support_tip_dialog_icon_info_src);
+                    builder.src(R.attr.qmui_skin_support_tip_dialog_icon_info_src);
                 }
-
-                contentWrap.addView(imageView);
+                imageView.setImageDrawable(drawable);
+                QMUISkinHelper.setSkinValue(imageView, builder);
+                dialogView.addView(imageView, onCreateIconOrLoadingLayoutParams(dialogContext));
 
             }
 
             if (mTipWord != null && mTipWord.length() > 0) {
-                TextView tipView = new TextView(mContext);
-                LinearLayout.LayoutParams tipViewLP = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-
-                if (mCurrentIconType != ICON_TYPE_NOTHING) {
-                    tipViewLP.topMargin = QMUIDisplayHelper.dp2px(mContext, 12);
-                }
-                tipView.setLayoutParams(tipViewLP);
-
+                TextView tipView = new QMUISpanTouchFixTextView(mContext);
                 tipView.setEllipsize(TextUtils.TruncateAt.END);
                 tipView.setGravity(Gravity.CENTER);
-                tipView.setMaxLines(2);
-                tipView.setTextColor(ContextCompat.getColor(mContext, R.color.qmui_config_color_white));
-                tipView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
+                tipView.setTextSize(TypedValue.COMPLEX_UNIT_PX,
+                        QMUIResHelper.getAttrDimen(dialogContext, R.attr.qmui_tip_dialog_text_size));
+                tipView.setTextColor(QMUIResHelper.getAttrColor(
+                        dialogContext, R.attr.qmui_skin_support_tip_dialog_text_color));
                 tipView.setText(mTipWord);
 
-                contentWrap.addView(tipView);
+                builder.clear();
+                builder.textColor(R.attr.qmui_skin_support_tip_dialog_text_color);
+                QMUISkinHelper.setSkinValue(tipView, builder);
+                dialogView.addView(tipView, onCreateTextLayoutParams(dialogContext, mCurrentIconType));
             }
+            builder.release();
+            dialog.setContentView(dialogView);
             return dialog;
+        }
+
+        protected LinearLayout.LayoutParams onCreateIconOrLoadingLayoutParams(Context context) {
+            return new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        }
+
+        protected LinearLayout.LayoutParams onCreateTextLayoutParams(Context context, @IconType int iconType) {
+            LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            if (iconType != ICON_TYPE_NOTHING) {
+                lp.topMargin = QMUIResHelper.getAttrDimen(context, R.attr.qmui_tip_dialog_text_margin_top);
+            }
+            return lp;
         }
 
     }
 
     /**
-     * 传入自定义的布局并使用这个布局生成 TipDialog
+     * CustomBuilder with xml layout
      */
     public static class CustomBuilder {
         private Context mContext;
         private int mContentLayoutId;
+        private QMUISkinManager mSkinManager;
 
         public CustomBuilder(Context context) {
             mContext = context;
+            mSkinManager = QMUISkinManager.defaultInstance(context);
+        }
+
+        public CustomBuilder setSkinManager(@Nullable QMUISkinManager skinManager) {
+            mSkinManager = skinManager;
+            return this;
         }
 
         public CustomBuilder setContent(@LayoutRes int layoutId) {
@@ -216,16 +257,13 @@ public class QMUITipDialog extends Dialog {
             return this;
         }
 
-        /**
-         * 创建 Dialog, 但没有弹出来, 如果要弹出来, 请调用返回值的 {@link Dialog#show()} 方法
-         *
-         * @return 创建的 Dialog
-         */
         public QMUITipDialog create() {
             QMUITipDialog dialog = new QMUITipDialog(mContext);
-            dialog.setContentView(R.layout.qmui_tip_dialog_layout);
-            ViewGroup contentWrap = (ViewGroup) dialog.findViewById(R.id.contentWrap);
-            LayoutInflater.from(mContext).inflate(mContentLayoutId, contentWrap, true);
+            dialog.setSkinManager(mSkinManager);
+            Context dialogContext = dialog.getContext();
+            QMUITipDialogView tipDialogView = new QMUITipDialogView(dialogContext);
+            LayoutInflater.from(dialogContext).inflate(mContentLayoutId, tipDialogView, true);
+            dialog.setContentView(tipDialogView);
             return dialog;
         }
     }

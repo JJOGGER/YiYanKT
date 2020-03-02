@@ -19,8 +19,8 @@ package com.qmuiteam.qmui.span;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Typeface;
-import android.text.style.ReplacementSpan;
 import androidx.annotation.NonNull;
+import android.text.style.ReplacementSpan;
 
 /**
  * 支持调整字体大小的 span。{@link android.text.style.AbsoluteSizeSpan} 可以调整字体大小，但在中英文混排下由于 decent 的不同，

@@ -20,9 +20,9 @@ import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.os.Parcel;
 import android.os.Parcelable;
+import androidx.annotation.Nullable;
 import android.text.TextPaint;
 import android.text.style.TypefaceSpan;
-import androidx.annotation.Nullable;
 
 /**
  * 支持以 Typeface 的方式设置 span 的字体，实现自定义字体的效果
@@ -31,7 +31,7 @@ public class QMUICustomTypefaceSpan extends TypefaceSpan {
 
     /* http://stackoverflow.com/questions/6612316/how-set-spannable-object-font-with-custom-font#answer-10741161 */
 
-    public static final Parcelable.Creator<QMUICustomTypefaceSpan> CREATOR = new Parcelable.Creator<QMUICustomTypefaceSpan>() {
+    public static final Creator<QMUICustomTypefaceSpan> CREATOR = new Creator<QMUICustomTypefaceSpan>() {
         @Override
         public QMUICustomTypefaceSpan createFromParcel(Parcel source) {
             return null;

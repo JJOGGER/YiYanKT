@@ -19,13 +19,13 @@ package com.qmuiteam.qmui.widget.webview;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.SystemClock;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.view.KeyCharacterMap;
 import android.view.KeyEvent;
 import android.webkit.ValueCallback;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 
 public class QMUIWebViewClient extends WebViewClient {
 

@@ -3,6 +3,7 @@ package ex
 import android.app.Application
 import android.content.Context
 import com.alibaba.android.arouter.launcher.ARouter
+import com.jogger.manager.QDSkinManager
 import com.tencent.mmkv.MMKV
 
 /**
@@ -21,6 +22,7 @@ fun initApp(app: Application) {
     ARouter.openLog()
     ARouter.openDebug()
     ARouter.init(app)
+    QDSkinManager.install(app)
 
 }
 

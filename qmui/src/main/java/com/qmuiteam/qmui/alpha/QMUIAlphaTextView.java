@@ -18,12 +18,13 @@ package com.qmuiteam.qmui.alpha;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import androidx.appcompat.widget.AppCompatTextView;
+
+import com.qmuiteam.qmui.widget.textview.QMUISpanTouchFixTextView;
 
 /**
  * 在 pressed 和 disabled 时改变 View 的透明度
  */
-public class QMUIAlphaTextView extends AppCompatTextView {
+public class QMUIAlphaTextView extends QMUISpanTouchFixTextView implements QMUIAlphaViewInf {
 
     private QMUIAlphaViewHelper mAlphaViewHelper;
 
@@ -47,8 +48,8 @@ public class QMUIAlphaTextView extends AppCompatTextView {
     }
 
     @Override
-    public void setPressed(boolean pressed) {
-        super.setPressed(pressed);
+    protected void onSetPressed(boolean pressed) {
+        super.onSetPressed(pressed);
         getAlphaViewHelper().onPressedChanged(this, pressed);
     }
 
@@ -63,6 +64,7 @@ public class QMUIAlphaTextView extends AppCompatTextView {
      *
      * @param changeAlphaWhenPress 是否要在 press 时改变透明度
      */
+    @Override
     public void setChangeAlphaWhenPress(boolean changeAlphaWhenPress) {
         getAlphaViewHelper().setChangeAlphaWhenPress(changeAlphaWhenPress);
     }
@@ -72,6 +74,7 @@ public class QMUIAlphaTextView extends AppCompatTextView {
      *
      * @param changeAlphaWhenDisable 是否要在 disabled 时改变透明度
      */
+    @Override
     public void setChangeAlphaWhenDisable(boolean changeAlphaWhenDisable) {
         getAlphaViewHelper().setChangeAlphaWhenDisable(changeAlphaWhenDisable);
     }

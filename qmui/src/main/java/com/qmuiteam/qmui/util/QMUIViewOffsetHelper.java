@@ -32,8 +32,9 @@
 
 package com.qmuiteam.qmui.util;
 
-import androidx.core.view.ViewCompat;
 import android.view.View;
+
+import androidx.core.view.ViewCompat;
 
 /**
  * Utility helper for moving a {@link View} around using
@@ -43,7 +44,7 @@ import android.view.View;
  * Also the setting of absolute offsets (similar to translationX/Y), rather than additive
  * offsets.
  */
-public class QMUIViewOffsetHelper {
+public final class QMUIViewOffsetHelper {
 
     private final View mView;
 

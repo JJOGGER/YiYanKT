@@ -35,8 +35,10 @@ package com.qmuiteam.qmui.nestedScroll;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.View;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
+
 import com.qmuiteam.qmui.util.QMUIViewOffsetHelper;
+
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 
 public class QMUIViewOffsetBehavior<V extends View> extends CoordinatorLayout.Behavior<V> {
 

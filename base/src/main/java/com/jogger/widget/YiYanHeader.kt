@@ -13,7 +13,7 @@ import android.view.animation.Animation
 import android.view.animation.Transformation
 import androidx.annotation.ColorInt
 import androidx.annotation.NonNull
-import com.scwang.smartrefresh.header.R
+import com.jogger.base.R
 import com.scwang.smartrefresh.header.storehouse.StoreHouseBarItem
 import com.scwang.smartrefresh.layout.api.RefreshHeader
 import com.scwang.smartrefresh.layout.api.RefreshKernel
@@ -79,7 +79,7 @@ class YiYaHeader : InternalAbstract, RefreshHeader {
         mDropHeight = SmartUtil.dp2px(40f)
         mHorizontalRandomness = Resources.getSystem().displayMetrics.widthPixels / 2
         mBackgroundColor = Color.TRANSPARENT
-        setTextColor(resources.getColor(com.jogger.base.R.color.refresh_bg))
+        setTextColor(resources.getColor(R.color.refresh_bg))
         val ta = context.obtainStyledAttributes(attrs, R.styleable.StoreHouseHeader)
         mLineWidth = ta.getDimensionPixelOffset(R.styleable.StoreHouseHeader_shhLineWidth, mLineWidth)
         mDropHeight = ta.getDimensionPixelOffset(R.styleable.StoreHouseHeader_shhDropHeight, mDropHeight)

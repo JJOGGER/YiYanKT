@@ -10,7 +10,7 @@
     <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/main_gray"
+            app:qmui_skin_background="?attr/app_skin_common_background_1"
             tools:context=".ui.MainActivity">
 
         <FrameLayout
@@ -22,10 +22,10 @@
 
         <LinearLayout
                 android:id="@+id/bottom_group"
+                app:qmui_skin_background="?attr/qmui_skin_support_tab_bg"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_42"
                 android:layout_alignParentBottom="true"
-                android:background="@color/main_white"
                 android:orientation="horizontal">
 
             <FrameLayout
@@ -39,6 +39,7 @@
                         android:layout_width="@dimen/dp_16"
                         android:adjustViewBounds="true"
                         android:focusable="true"
+                        app:qmui_skin_tint_color="?attr/app_skin_common_img_tint_color"
                         android:src="@drawable/selector_tab_home"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -53,9 +54,10 @@
 
                 <ImageView
                         android:id="@+id/tab_star"
-                        android:layout_width="@dimen/dp_16"
+                        android:layout_width="@dimen/dp_18"
                         android:adjustViewBounds="true"
                         android:focusable="true"
+                        app:qmui_skin_tint_color="?attr/app_skin_common_img_tint_color"
                         android:src="@drawable/selector_tab_star"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -72,6 +74,7 @@
                         android:id="@+id/tab_message"
                         android:focusable="true"
                         android:layout_width="@dimen/dp_16"
+                        app:qmui_skin_tint_color="?attr/app_skin_common_img_tint_color"
                         android:adjustViewBounds="true"
                         android:src="@drawable/selector_tab_message"
                         android:layout_height="wrap_content"
@@ -89,6 +92,7 @@
                         android:id="@+id/tab_mine"
                         android:layout_width="@dimen/dp_16"
                         android:focusable="true"
+                        app:qmui_skin_tint_color="?attr/app_skin_common_img_tint_color"
                         android:adjustViewBounds="true"
                         android:src="@drawable/selector_tab_mine"
                         android:layout_height="wrap_content"

@@ -17,9 +17,9 @@
 
 package com.qmuiteam.qmui.widget.section;
 
+import androidx.annotation.NonNull;
 import android.view.View;
 import android.view.ViewGroup;
-import androidx.annotation.NonNull;
 
 public abstract class QMUIDefaultStickySectionAdapter<
         H extends QMUISection.Model<H>,

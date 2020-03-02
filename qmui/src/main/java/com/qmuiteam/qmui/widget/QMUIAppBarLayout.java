@@ -18,17 +18,20 @@ package com.qmuiteam.qmui.widget;
 
 import android.content.Context;
 import android.graphics.Rect;
-import android.util.AttributeSet;
-import android.view.View;
+import com.google.android.material.appbar.AppBarLayout;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import com.google.android.material.appbar.AppBarLayout;
+import android.util.AttributeSet;
+import android.view.View;
+
 import com.qmuiteam.qmui.util.QMUIWindowInsetHelper;
 
 import java.lang.reflect.Field;
 
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+
 /**
- * add support for API 19 when use with {@link androidx.coordinatorlayout.widget.CoordinatorLayout}
+ * add support for API 19 when use with {@link CoordinatorLayout}
  * and {@link QMUICollapsingTopBarLayout}
  * <p>
  * notice: we use reflection to change the field value in AppBarLayout. use it only if you need to

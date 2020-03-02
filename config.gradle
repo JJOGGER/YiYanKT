@@ -14,7 +14,7 @@ ext {
     //version配置
     versions = [
             appcompat : "1.1.0",
-            material  : '1.0.0',
+            material  : '1.1.0',
             junit     : "4.12",
             extensions: '2.2.0-rc01',
             constraint: '1.1.3',

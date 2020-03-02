@@ -25,10 +25,12 @@ import android.view.ViewGroup;
 import android.view.WindowInsets;
 import android.webkit.WebView;
 import android.widget.FrameLayout;
-import androidx.annotation.NonNull;
-import androidx.core.view.WindowInsetsCompat;
+
 import com.qmuiteam.qmui.util.QMUINotchHelper;
 import com.qmuiteam.qmui.widget.QMUIWindowInsetLayout;
+
+import androidx.annotation.NonNull;
+import androidx.core.view.WindowInsetsCompat;
 
 public class QMUIWebViewContainer extends QMUIWindowInsetLayout {
 
@@ -88,7 +90,7 @@ public class QMUIWebViewContainer extends QMUIWindowInsetLayout {
     public boolean applySystemWindowInsets19(Rect insets) {
         if (getFitsSystemWindows()) {
             Rect childInsets = new Rect(insets);
-            mQMUIWindowInsetHelper.computeInsetsWithGravity(this, childInsets);
+            mQMUIWindowInsetHelper.computeInsets(this, childInsets);
             setPadding(childInsets.left, childInsets.top, childInsets.right, childInsets.bottom);
             return true;
         }
@@ -121,7 +123,7 @@ public class QMUIWebViewContainer extends QMUIWindowInsetLayout {
             }
 
             Rect childInsets = new Rect(insetLeft, insetTop, insetRight, insetBottom);
-            mQMUIWindowInsetHelper.computeInsetsWithGravity(this, childInsets);
+            mQMUIWindowInsetHelper.computeInsets(this, childInsets);
             setPadding(childInsets.left, childInsets.top, childInsets.right, childInsets.bottom);
             return true;
         }

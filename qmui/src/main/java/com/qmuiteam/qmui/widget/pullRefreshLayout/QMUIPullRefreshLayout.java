@@ -22,26 +22,34 @@ import android.os.Build;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.*;
+import android.view.MotionEvent;
+import android.view.VelocityTracker;
+import android.view.View;
+import android.view.ViewConfiguration;
+import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.Scroller;
+
+import com.qmuiteam.qmui.BuildConfig;
+import com.qmuiteam.qmui.R;
+import com.qmuiteam.qmui.nestedScroll.QMUIContinuousNestedScrollLayout;
+import com.qmuiteam.qmui.skin.QMUISkinValueBuilder;
+import com.qmuiteam.qmui.skin.defaultAttr.IQMUISkinDefaultAttrProvider;
+import com.qmuiteam.qmui.util.QMUIDisplayHelper;
+import com.qmuiteam.qmui.util.QMUIResHelper;
+import com.qmuiteam.qmui.widget.section.QMUIStickySectionLayout;
+
 import androidx.annotation.ColorInt;
 import androidx.annotation.ColorRes;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.collection.SimpleArrayMap;
 import androidx.core.content.ContextCompat;
-import androidx.core.view.MotionEventCompat;
 import androidx.core.view.NestedScrollingParent;
 import androidx.core.view.NestedScrollingParentHelper;
 import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable;
-import com.qmuiteam.qmui.BuildConfig;
-import com.qmuiteam.qmui.R;
-import com.qmuiteam.qmui.nestedScroll.QMUIContinuousNestedScrollLayout;
-import com.qmuiteam.qmui.util.QMUIDisplayHelper;
-import com.qmuiteam.qmui.util.QMUIResHelper;
-import com.qmuiteam.qmui.widget.section.QMUIStickySectionLayout;
 
 /**
  * 下拉刷新控件, 作为容器，下拉时会将子 View 下移, 并拉出 RefreshView（表示正在刷新的 View）
@@ -188,17 +196,17 @@ public class QMUIPullRefreshLayout extends ViewGroup implements NestedScrollingP
         if (view == null) {
             return false;
         }
-        if(view instanceof QMUIContinuousNestedScrollLayout) {
+        if (view instanceof QMUIContinuousNestedScrollLayout) {
             QMUIContinuousNestedScrollLayout layout = (QMUIContinuousNestedScrollLayout) view;
             return layout.getCurrentScroll() > 0;
         }
 
-        if(view instanceof QMUIStickySectionLayout){
+        if (view instanceof QMUIStickySectionLayout) {
             QMUIStickySectionLayout layout = (QMUIStickySectionLayout) view;
             return defaultCanScrollUp(layout.getRecyclerView());
         }
 
-        if (android.os.Build.VERSION.SDK_INT < 14) {
+        if (Build.VERSION.SDK_INT < 14) {
             if (view instanceof AbsListView) {
                 final AbsListView absListView = (AbsListView) view;
                 return absListView.getChildCount() > 0
@@ -286,17 +294,17 @@ public class QMUIPullRefreshLayout extends ViewGroup implements NestedScrollingP
 
     /**
      * child view call, to ensure disallowInterceptTouchEvent make sense
-     *
+     * <p>
      * how to optimize this...
      */
-    public void openSafeDisallowInterceptTouchEvent(){
+    public void openSafeDisallowInterceptTouchEvent() {
         mSafeDisallowInterceptTouchEvent = true;
     }
 
     @Override
     public void requestDisallowInterceptTouchEvent(boolean b) {
 
-        if(mSafeDisallowInterceptTouchEvent){
+        if (mSafeDisallowInterceptTouchEvent) {
             super.requestDisallowInterceptTouchEvent(b);
             mSafeDisallowInterceptTouchEvent = false;
         }
@@ -305,7 +313,7 @@ public class QMUIPullRefreshLayout extends ViewGroup implements NestedScrollingP
         // scrolling, ignore this request so that the vertical scroll event
         // isn't stolen
         //noinspection StatementWithEmptyBody
-        if ((android.os.Build.VERSION.SDK_INT < 21 && mTargetView instanceof AbsListView)
+        if ((Build.VERSION.SDK_INT < 21 && mTargetView instanceof AbsListView)
                 || (mTargetView != null && !ViewCompat.isNestedScrollingEnabled(mTargetView))) {
             // Nope.
         } else {
@@ -415,7 +423,7 @@ public class QMUIPullRefreshLayout extends ViewGroup implements NestedScrollingP
                 startDragging(x, y);
                 break;
 
-            case MotionEventCompat.ACTION_POINTER_UP:
+            case MotionEvent.ACTION_POINTER_UP:
                 onSecondaryPointerUp(ev);
                 break;
 
@@ -490,7 +498,7 @@ public class QMUIPullRefreshLayout extends ViewGroup implements NestedScrollingP
                 break;
             }
             case MotionEvent.ACTION_POINTER_DOWN: {
-                pointerIndex = MotionEventCompat.getActionIndex(ev);
+                pointerIndex = ev.getActionIndex();
                 if (pointerIndex < 0) {
                     Log.e(TAG, "Got ACTION_POINTER_DOWN event but have an invalid action index.");
                     return false;
@@ -701,7 +709,7 @@ public class QMUIPullRefreshLayout extends ViewGroup implements NestedScrollingP
 
 
     private void onSecondaryPointerUp(MotionEvent ev) {
-        final int pointerIndex = MotionEventCompat.getActionIndex(ev);
+        final int pointerIndex = ev.getActionIndex();
         final int pointerId = ev.getPointerId(pointerIndex);
         if (pointerId == mActivePointerId) {
             // This was our active pointer going up. Choose a new
@@ -993,7 +1001,7 @@ public class QMUIPullRefreshLayout extends ViewGroup implements NestedScrollingP
                 // if there is a velocity, pass it on
                 if (mTargetView instanceof RecyclerView) {
                     ((RecyclerView) mTargetView).fling(0, (int) mScroller.getCurrVelocity());
-                } else if (mTargetView instanceof AbsListView && android.os.Build.VERSION.SDK_INT >= 21) {
+                } else if (mTargetView instanceof AbsListView && Build.VERSION.SDK_INT >= 21) {
                     ((AbsListView) mTargetView).fling((int) mScroller.getCurrVelocity());
                 }
             }
@@ -1072,7 +1080,7 @@ public class QMUIPullRefreshLayout extends ViewGroup implements NestedScrollingP
         void onPull(int offset, int total, int overPull);
     }
 
-    public static class RefreshView extends AppCompatImageView implements IRefreshView {
+    public static class RefreshView extends AppCompatImageView implements IRefreshView, IQMUISkinDefaultAttrProvider {
         private static final int MAX_ALPHA = 255;
         private static final float TRIM_RATE = 0.85f;
         private static final float TRIM_OFFSET = 0.4f;
@@ -1083,10 +1091,18 @@ public class QMUIPullRefreshLayout extends ViewGroup implements NestedScrollingP
         private CircularProgressDrawable mProgress;
         private int mCircleDiameter;
 
+        private static SimpleArrayMap<String, Integer> sDefaultSkinAttrs;
+
+        static {
+            sDefaultSkinAttrs = new SimpleArrayMap<>(4);
+            sDefaultSkinAttrs.put(QMUISkinValueBuilder.TINT_COLOR, R.attr.qmui_skin_support_pull_refresh_view_color);
+        }
+
         public RefreshView(Context context) {
             super(context);
             mProgress = new CircularProgressDrawable(context);
-            setColorSchemeColors(QMUIResHelper.getAttrColor(context, R.attr.qmui_config_color_blue));
+            setColorSchemeColors(QMUIResHelper.getAttrColor(
+                    context, R.attr.qmui_skin_support_pull_refresh_view_color));
             mProgress.setStyle(CircularProgressDrawable.LARGE);
             mProgress.setAlpha(MAX_ALPHA);
             mProgress.setArrowScale(0.8f);
@@ -1152,6 +1168,11 @@ public class QMUIPullRefreshLayout extends ViewGroup implements NestedScrollingP
 
         public void setColorSchemeColors(@ColorInt int... colors) {
             mProgress.setColorSchemeColors(colors);
+        }
+
+        @Override
+        public SimpleArrayMap<String, Integer> getDefaultSkinAttrs() {
+            return sDefaultSkinAttrs;
         }
     }
 }

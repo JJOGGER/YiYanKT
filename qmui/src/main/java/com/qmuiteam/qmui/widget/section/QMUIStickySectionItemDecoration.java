@@ -17,12 +17,13 @@
 package com.qmuiteam.qmui.widget.section;
 
 import android.graphics.Canvas;
-import android.view.View;
-import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.view.View;
+import android.view.ViewGroup;
 
 import java.lang.ref.WeakReference;
 

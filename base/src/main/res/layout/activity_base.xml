@@ -12,7 +12,7 @@
                 android:id="@+id/fl_content"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/topbar_height"
+                android:layout_marginTop="?attr/qmui_topbar_height"
                 android:fitsSystemWindows="true"/>
 
         <com.qmuiteam.qmui.widget.QMUITopBarLayout

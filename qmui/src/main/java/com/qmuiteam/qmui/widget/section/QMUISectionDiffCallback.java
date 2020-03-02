@@ -16,15 +16,17 @@
 
 package com.qmuiteam.qmui.widget.section;
 
-import android.util.SparseIntArray;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DiffUtil;
+import android.util.SparseIntArray;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.qmuiteam.qmui.widget.section.QMUISection.*;
+import static com.qmuiteam.qmui.widget.section.QMUISection.ITEM_INDEX_LOAD_AFTER;
+import static com.qmuiteam.qmui.widget.section.QMUISection.ITEM_INDEX_LOAD_BEFORE;
+import static com.qmuiteam.qmui.widget.section.QMUISection.ITEM_INDEX_SECTION_HEADER;
 
 public class QMUISectionDiffCallback<H extends QMUISection.Model<H>, T extends QMUISection.Model<T>>
         extends DiffUtil.Callback {
@@ -79,7 +81,7 @@ public class QMUISectionDiffCallback<H extends QMUISection.Model<H>, T extends Q
                 continue;
             }
             generationInfo.appendIndex(i, ITEM_INDEX_SECTION_HEADER);
-            if (section.isFold() || section.getItemCount() == 0) {
+            if (section.isFold()) {
                 continue;
             }
             onGenerateCustomIndexBeforeItemList(generationInfo, section, i);

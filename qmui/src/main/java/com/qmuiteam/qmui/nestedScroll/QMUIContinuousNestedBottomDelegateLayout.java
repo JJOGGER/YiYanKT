@@ -20,16 +20,27 @@ import android.content.Context;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.util.AttributeSet;
-import android.view.*;
+import android.view.MotionEvent;
+import android.view.VelocityTracker;
+import android.view.View;
+import android.view.ViewConfiguration;
+import android.view.ViewGroup;
 import android.view.animation.Interpolator;
 import android.widget.FrameLayout;
 import android.widget.OverScroller;
-import androidx.annotation.NonNull;
-import androidx.core.view.*;
+
 import com.qmuiteam.qmui.layout.QMUIFrameLayout;
 import com.qmuiteam.qmui.util.QMUILangHelper;
 import com.qmuiteam.qmui.util.QMUIViewHelper;
 import com.qmuiteam.qmui.util.QMUIViewOffsetHelper;
+
+import androidx.annotation.NonNull;
+import androidx.core.view.NestedScrollingChild;
+import androidx.core.view.NestedScrollingChild2;
+import androidx.core.view.NestedScrollingChildHelper;
+import androidx.core.view.NestedScrollingParent2;
+import androidx.core.view.NestedScrollingParentHelper;
+import androidx.core.view.ViewCompat;
 
 import static com.qmuiteam.qmui.QMUIInterpolatorStaticHolder.QUNITIC_INTERPOLATOR;
 
@@ -44,7 +55,7 @@ public abstract class QMUIContinuousNestedBottomDelegateLayout extends QMUIFrame
     private View mContentView;
     private QMUIViewOffsetHelper mHeaderViewOffsetHelper;
     private QMUIViewOffsetHelper mContentViewOffsetHelper;
-    private IQMUIContinuousNestedBottomView.OnScrollNotifier mOnScrollNotifier;
+    private OnScrollNotifier mOnScrollNotifier;
 
     private static final int INVALID_POINTER = -1;
     private boolean isBeingDragged;
@@ -85,9 +96,9 @@ public abstract class QMUIContinuousNestedBottomDelegateLayout extends QMUIFrame
             throw new IllegalStateException("the view create by onCreateContentView() " +
                     "should implement from IQMUIContinuousNestedBottomView");
         }
-        addView(mHeaderView, new FrameLayout.LayoutParams(
+        addView(mHeaderView, new LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, getHeaderHeightLayoutParam()));
-        addView(mContentView, new FrameLayout.LayoutParams(
+        addView(mContentView, new LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         mHeaderViewOffsetHelper = new QMUIViewOffsetHelper(mHeaderView);
         mContentViewOffsetHelper = new QMUIViewOffsetHelper(mContentView);
@@ -113,7 +124,7 @@ public abstract class QMUIContinuousNestedBottomDelegateLayout extends QMUIFrame
     private int getMiniOffset() {
         IQMUIContinuousNestedBottomView b = (IQMUIContinuousNestedBottomView) mContentView;
         int contentHeight = b.getContentHeight();
-        FrameLayout.LayoutParams headerLp = (LayoutParams) mHeaderView.getLayoutParams();
+        LayoutParams headerLp = (LayoutParams) mHeaderView.getLayoutParams();
         int minOffset = -mHeaderView.getHeight() - headerLp.bottomMargin + getHeaderStickyHeight();
         if (contentHeight != IQMUIContinuousNestedBottomView.HEIGHT_IS_ENOUGH_TO_SCROLL) {
             minOffset += mContentView.getHeight() - contentHeight;
@@ -198,7 +209,7 @@ public abstract class QMUIContinuousNestedBottomDelegateLayout extends QMUIFrame
         int canConsume = 0;
 
 
-        FrameLayout.LayoutParams headerLp = (LayoutParams) mHeaderView.getLayoutParams();
+        LayoutParams headerLp = (LayoutParams) mHeaderView.getLayoutParams();
         int minOffset = getMiniOffset();
         if (dyUnConsumed > 0) {
             canConsume = Math.min(mHeaderView.getTop() - minOffset, dyUnConsumed);
@@ -250,7 +261,7 @@ public abstract class QMUIContinuousNestedBottomDelegateLayout extends QMUIFrame
         if (getContentHeight() != HEIGHT_IS_ENOUGH_TO_SCROLL) {
             return 0;
         }
-        return mHeaderView.getHeight() +
+        return mHeaderView.getHeight() - getHeaderStickyHeight() +
                 ((IQMUIContinuousNestedBottomView) mContentView).getScrollOffsetRange();
     }
 
@@ -661,11 +672,17 @@ public abstract class QMUIContinuousNestedBottomDelegateLayout extends QMUIFrame
                 final int y = scroller.getCurrY();
                 int unconsumedY = y - mLastFlingY;
                 mLastFlingY = y;
-                if (!mChildHelper.hasNestedScrollingParent(ViewCompat.TYPE_NON_TOUCH)) {
-                    startNestedScroll(ViewCompat.SCROLL_AXIS_VERTICAL, ViewCompat.TYPE_NON_TOUCH);
+                IQMUIContinuousNestedBottomView bottomView = (IQMUIContinuousNestedBottomView) mContentView;
+                boolean canScroll = unconsumedY <= 0 || bottomView.getCurrentScroll() < bottomView.getScrollOffsetRange();
+                if(canScroll){
+                    if (!mChildHelper.hasNestedScrollingParent(ViewCompat.TYPE_NON_TOUCH)) {
+                        startNestedScroll(ViewCompat.SCROLL_AXIS_VERTICAL, ViewCompat.TYPE_NON_TOUCH);
+                    }
+                    consumeScroll(unconsumedY);
+                    postOnAnimation();
+                }else{
+                    stop();
                 }
-                consumeScroll(unconsumedY);
-                postOnAnimation();
             }
 
             mEatRunOnAnimationRequest = false;

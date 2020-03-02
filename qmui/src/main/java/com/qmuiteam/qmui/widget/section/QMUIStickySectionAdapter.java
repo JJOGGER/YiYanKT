@@ -16,19 +16,22 @@
 
 package com.qmuiteam.qmui.widget.section;
 
-import android.util.Log;
-import android.util.SparseIntArray;
-import android.view.View;
-import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.RecyclerView;
+import android.util.Log;
+import android.util.SparseIntArray;
+import android.view.View;
+import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.qmuiteam.qmui.widget.section.QMUISection.*;
+import static com.qmuiteam.qmui.widget.section.QMUISection.ITEM_INDEX_CUSTOM_OFFSET;
+import static com.qmuiteam.qmui.widget.section.QMUISection.ITEM_INDEX_LOAD_AFTER;
+import static com.qmuiteam.qmui.widget.section.QMUISection.ITEM_INDEX_LOAD_BEFORE;
+import static com.qmuiteam.qmui.widget.section.QMUISection.ITEM_INDEX_SECTION_HEADER;
 
 public abstract class QMUIStickySectionAdapter<
         H extends QMUISection.Model<H>, T extends QMUISection.Model<T>, VH extends QMUIStickySectionAdapter.ViewHolder> extends RecyclerView.Adapter<VH> {

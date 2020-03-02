@@ -17,9 +17,14 @@
 
 <resources>
     <!-- dialog -->
+    <item name="qmui_dialog_title_id" type="id"/>
+    <item name="qmui_dialog_operator_layout_id" type="id"/>
+    <item name="qmui_dialog_content_id" type="id"/>
     <item name="qmui_dialog_edit_input" type="id"/>
     <item name="qmui_dialog_edit_right_icon" type="id"/>
-
+    <item name="qmui_bottom_sheet_title" type="id"/>
+    <item name="qmui_bottom_sheet_cancel" type="id"/>
+    
     <item name="qmui_tab_segment_item_id" type="id"/>
 
     <item name="qmui_view_can_not_cache_tag" type="id"/>
@@ -29,4 +34,18 @@
     <item name="qmui_view_offset_helper" type="id"/>
 
     <item name="qmui_window_inset_keyboard_area_consumer" type="id"/>
+
+    <item name="qmui_do_not_intercept_keyboard_inset" type="id"/>
+
+    <item name="qmui_popup_close_btn_id" type="id"/>
+
+    <item name="qmui_skin_current" type="id"/>
+    <item name="qmui_skin_value" type="id" />
+    <item name="qmui_skin_default_attr_provider" type="id" />
+    <item name="qmui_skin_dispatch_interceptor" type="id" />
+    <item name="qmui_skin_skip_for_maker" type="id"/>
+    <item name="qmui_skin_adapter" type="id"/>
+
+    <item name="qmui_click_timestamp" type="id"/>
+    <item name="qmui_click_debounce_action" type="id"/>
 </resources>

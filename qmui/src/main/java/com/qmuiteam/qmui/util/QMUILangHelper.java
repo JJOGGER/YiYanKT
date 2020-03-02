@@ -16,7 +16,6 @@
 
 package com.qmuiteam.qmui.util;
 
-
 import androidx.annotation.Nullable;
 
 import java.io.Closeable;
@@ -44,6 +43,20 @@ public class QMUILangHelper {
     public static int getNumberDigits(long number) {
         if (number <= 0) return 0;
         return (int) (Math.log10(number) + 1);
+    }
+
+
+    public static String formatNumberToLimitedDigits(int number, int maxDigits) {
+        if (getNumberDigits(number) > maxDigits) {
+            StringBuilder result = new StringBuilder();
+            for (int digit = 1; digit <= maxDigits; digit++) {
+                result.append("9");
+            }
+            result.append("+");
+            return result.toString();
+        } else {
+            return String.valueOf(number);
+        }
     }
 
     /**

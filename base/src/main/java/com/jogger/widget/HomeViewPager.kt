@@ -22,7 +22,6 @@ class HomeViewPager : ViewPager {
 
         override fun transformPage(page: View, position: Float) {
             //setScaleY只支持api11以上
-            LogUtils.e("--------pos:${position}")
             if (position < -1) {
                 page.setScaleX(MIN_SCALE)
                 page.setScaleY(MIN_SCALE)

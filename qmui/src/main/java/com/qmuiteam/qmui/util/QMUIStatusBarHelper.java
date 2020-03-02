@@ -21,11 +21,12 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
-import android.view.*;
-import android.widget.FrameLayout;
 import androidx.annotation.ColorInt;
 import androidx.annotation.IntDef;
 import androidx.core.view.ViewCompat;
+import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -88,7 +89,7 @@ public class QMUIStatusBarHelper {
 
         // 小米和魅族4.4 以上版本支持沉浸式
         // 小米 Android 6.0 ，开发版 7.7.13 及以后版本设置黑色字体又需要 clear FLAG_TRANSLUCENT_STATUS, 因此还原为官方模式
-        if (QMUIDeviceHelper.isMeizu() || (QMUIDeviceHelper.isMIUI() && Build.VERSION.SDK_INT < Build.VERSION_CODES.M)) {
+        if (QMUIDeviceHelper.isFlymeLowerThan8() || (QMUIDeviceHelper.isMIUI() && Build.VERSION.SDK_INT < Build.VERSION_CODES.M)) {
             window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS,
                     WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             return;
@@ -125,32 +126,7 @@ public class QMUIStatusBarHelper {
 //            }
         }
     }
-    public static void setStatusbarColor(Activity activity, int statusBackColor) {
-        if (!supportTranslucent()) {
-            // 版本小于4.4，绝对不考虑沉浸式
-            return;
-        }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Window window = activity.getWindow();
-            //取消设置Window半透明的Flag
-            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            //添加Flag把状态栏设为可绘制模式
-            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            //设置状态栏为透明
-            window.setStatusBarColor(statusBackColor);
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            Window window = activity.getWindow();
-            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            ViewGroup decorViewGroup = (ViewGroup) window.getDecorView();
-            View statusBarView = new View(window.getContext());
-            int statusBarHeight = getStatusbarHeight(window.getContext());
-            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT, statusBarHeight);
-            params.gravity = Gravity.TOP;
-            statusBarView.setLayoutParams(params);
-            statusBarView.setBackgroundColor(statusBackColor);
-            decorViewGroup.addView(statusBarView);
-        }
-    }
+
     @TargetApi(28)
     private static void handleDisplayCutoutMode(final Window window) {
         View decorView = window.getDecorView();
@@ -193,10 +169,6 @@ public class QMUIStatusBarHelper {
      */
     public static boolean setStatusBarLightMode(Activity activity) {
         if (activity == null) return false;
-        if (!supportTranslucent()) {
-            // 版本小于4.4
-            return false;
-        }
         // 无语系列：ZTK C2016只能时间和电池图标变色。。。。
         if (QMUIDeviceHelper.isZTKC2016()) {
             return false;
