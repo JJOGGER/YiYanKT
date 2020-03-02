@@ -1,10 +1,12 @@
 package com.jogger.http.basic
 
 import android.annotation.SuppressLint
+import com.jogger.base.BuildConfig
 import com.jogger.http.basic.config.getBaseUrl
 import com.jogger.http.interceptor.HeaderInterceptor
 import com.jogger.http.interceptor.RetryIntercepter
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.security.cert.CertificateException
@@ -56,6 +58,11 @@ object RetrofitManager {
             .addInterceptor(RetryIntercepter(3))
             .addInterceptor(HeaderInterceptor())
             .retryOnConnectionFailure(true)
+        if (BuildConfig.DEBUG) {
+            val httpLoggingInterceptor = HttpLoggingInterceptor()
+            httpLoggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
+            builder.addInterceptor(httpLoggingInterceptor)
+        }
         val trustAllCerts = arrayOf<TrustManager>(object : X509TrustManager {
             @SuppressLint("TrustAllX509TrustManager")
             @Throws(CertificateException::class)

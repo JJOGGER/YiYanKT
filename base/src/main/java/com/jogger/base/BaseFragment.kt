@@ -21,7 +21,7 @@ import java.lang.reflect.ParameterizedType
  */
 abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding> : Fragment() {
 
-    protected lateinit var viewModel: VM
+    protected lateinit var mViewModel: VM
 
     protected var mBinding: DB? = null
 
@@ -48,7 +48,7 @@ abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding> : Fragment
         super.onViewCreated(view, savedInstanceState)
         onVisible()
         createViewModel()
-        lifecycle.addObserver(viewModel)
+        lifecycle.addObserver(mViewModel)
         //注册 UI事件
         registorDefUIChange()
         initView(savedInstanceState)
@@ -82,16 +82,16 @@ abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding> : Fragment
      * 注册 UI 事件
      */
     private fun registorDefUIChange() {
-        viewModel.defUI.showDialog.observe(viewLifecycleOwner, Observer {
+        mViewModel.defUI.showDialog.observe(viewLifecycleOwner, Observer {
             //            showLoading()
         })
-        viewModel.defUI.dismissDialog.observe(viewLifecycleOwner, Observer {
+        mViewModel.defUI.dismissDialog.observe(viewLifecycleOwner, Observer {
             //            dismissLoading()
         })
-        viewModel.defUI.toastEvent.observe(viewLifecycleOwner, Observer {
+        mViewModel.defUI.toastEvent.observe(viewLifecycleOwner, Observer {
             showToast(it)
         })
-        viewModel.defUI.msgEvent.observe(viewLifecycleOwner, Observer {
+        mViewModel.defUI.msgEvent.observe(viewLifecycleOwner, Observer {
             //            handleEvent(it)
         })
     }
@@ -115,7 +115,7 @@ abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding> : Fragment
         if (type is ParameterizedType) {
             val tp = type.actualTypeArguments[0]
             val tClass = tp as? Class<VM> ?: BaseViewModel::class.java
-            viewModel = ViewModelProvider(this, ViewModelFactory()).get(tClass) as VM
+            mViewModel = ViewModelProvider(this, ViewModelFactory()).get(tClass) as VM
         }
     }
 

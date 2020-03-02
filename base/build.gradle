@@ -64,6 +64,7 @@ dependencies {
     api rootProject.ext.dependencies.permission
     api project(':qmui')
     api rootProject.ext.dependencies.mmkv
+    implementation rootProject.ext.dependencies.okhttpLogging
     api 'com.scwang.smartrefresh:SmartRefreshHorizontal:1.0.0-andx-1'
     api 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0'//必须依赖 版本 1.1.0-andx-16 以上
     api 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0'  //没有使用特殊Header，可以不加这行

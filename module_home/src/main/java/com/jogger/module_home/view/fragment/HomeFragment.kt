@@ -22,6 +22,7 @@ import com.jogger.base.BaseFragment
 import com.jogger.base.BaseViewModel
 import com.jogger.manager.QDSkinManager
 import com.jogger.module_home.R
+import com.jogger.module_home.view.viewmodel.HomeViewModel
 import com.jogger.widget.YiYaHeader
 import ex.MODULE_HOME_MAIN
 import ex.showToast
@@ -34,7 +35,7 @@ import kotlinx.android.synthetic.main.home_fragment_subscribe.*
  * 描述：
  */
 @Route(path = MODULE_HOME_MAIN)
-class HomeFragment : BaseFragment<BaseViewModel, ViewDataBinding>() {
+class HomeFragment : BaseFragment<HomeViewModel, ViewDataBinding>() {
     companion object {
         fun newInstance(): HomeFragment {
             val homeFragment = HomeFragment()
@@ -46,6 +47,7 @@ class HomeFragment : BaseFragment<BaseViewModel, ViewDataBinding>() {
         vp_content.adapter = MyPagerAdapter()
 //        vp_content.setPageTransformer(true,MyZoomOutPageTransformer())
         srl_refresh.setRefreshHeader(YiYaHeader(mContext!!))
+        mViewModel.getSubcribeArticles()
     }
 
     override fun layoutId(): Int = com.jogger.module_home.R.layout.home_fragment_home
@@ -78,14 +80,13 @@ class HomeFragment : BaseFragment<BaseViewModel, ViewDataBinding>() {
             val mgr=mContext!!.assets
                 //设置字体
             val textView = view.findViewById(R.id.tv_title) as TextView
-            textView.setText("------pos:" + position)
+            textView.setText("------订阅 所有:" + position)
             if (position==1){
                 val tf=Typeface.createFromAsset(mgr, "fonts/fzqkyuesong.TTF");
                 textView.setTypeface(tf)
             }else if (position==2){
                 val tf=Typeface.createFromAsset(mgr, "fonts/fzss.ttf");
                 textView.setTypeface(tf)
-
             }else if (position==3){
                 val tf=Typeface.createFromAsset(mgr, "fonts/fzsx.ttf");
                 textView.setTypeface(tf)
@@ -102,6 +103,7 @@ class HomeFragment : BaseFragment<BaseViewModel, ViewDataBinding>() {
                     QDSkinManager.changeSkin(QDSkinManager.SKIN_WHITE)
                 } else
                     QDSkinManager.changeSkin(QDSkinManager.SKIN_DARK)
+                mViewModel.getSubcribeArticles()
             }
             container.addView(view)
             return view

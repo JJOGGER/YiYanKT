@@ -17,11 +17,13 @@
 package com.qmuiteam.qmui.widget;
 
 import android.content.Context;
+import android.content.res.AssetManager;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils.TruncateAt;
 import android.util.AttributeSet;
@@ -195,6 +197,7 @@ public class QMUITopBar extends QMUIRelativeLayout implements IQMUISkinHandlerVi
      */
     public QMUIQQFaceView setTitle(String title) {
         QMUIQQFaceView titleView = getTitleView();
+        titleView.setTypeface(Typeface.createFromAsset(getContext().getAssets(), "fonts/fzss.ttf"));
         titleView.setText(title);
         if (QMUILangHelper.isNullOrEmpty(title)) {
             titleView.setVisibility(GONE);
@@ -325,14 +328,14 @@ public class QMUITopBar extends QMUIRelativeLayout implements IQMUISkinHandlerVi
         return mTitleContainerRect;
     }
 
-    void disableBackgroundSetter(){
+    void disableBackgroundSetter() {
         mIsBackgroundSetterDisabled = true;
         super.setBackgroundDrawable(null);
     }
 
     @Override
     public void setBackgroundDrawable(Drawable background) {
-        if(!mIsBackgroundSetterDisabled){
+        if (!mIsBackgroundSetterDisabled) {
             super.setBackgroundDrawable(background);
         }
     }

@@ -28,19 +28,55 @@ open class BaseViewModel : ViewModel(), LifecycleObserver {
         }
     }
 
-    fun launchGo(
-        block: suspend CoroutineScope.() -> Unit,
-        error: suspend CoroutineScope.(ResponseThrowable) -> Unit = {
+//    fun launchGo(
+//        block: suspend CoroutineScope.() -> Unit,
+//        error: suspend CoroutineScope.(ResponseThrowable) -> Unit = {
+//            defUI.toastEvent.postValue("${it.code}:${it.errMsg}")
+//        },
+//        complete: suspend CoroutineScope.() -> Unit = {},
+//        isShowDialog: Boolean = true
+//    ) {
+//        if (isShowDialog) defUI.showDialog.call()
+//        launchUI {
+//            handleException(
+//                withContext(Dispatchers.IO) { block },
+//
+//                { error(it) },
+//                {
+//                    defUI.dismissDialog.call()
+//                    complete()
+//                }
+//            )
+//        }
+//    }
+
+    private suspend fun <T> executeResponse(res: T, success: suspend CoroutineScope.(T) -> Unit) {
+        coroutineScope {
+            if (res != null)
+                success(res)
+            else throw ResponseThrowable(-1, "")
+        }
+    }
+
+    fun <T> launchOnlyresult(
+        block: suspend CoroutineScope.() -> T,
+        success: (T) -> Unit,
+        error: (ResponseThrowable) -> Unit = {
             defUI.toastEvent.postValue("${it.code}:${it.errMsg}")
         },
-        complete: suspend CoroutineScope.() -> Unit = {},
+        complete: () -> Unit = {},
         isShowDialog: Boolean = true
     ) {
         if (isShowDialog) defUI.showDialog.call()
         launchUI {
             handleException(
-                withContext(Dispatchers.IO) { block },
-                { error(it) },
+                { withContext(Dispatchers.IO) { block() } },
+                { res ->
+                    executeResponse(res) { success(it) }
+                },
+                {
+                    error(it)
+                },
                 {
                     defUI.dismissDialog.call()
                     complete()
@@ -49,18 +85,15 @@ open class BaseViewModel : ViewModel(), LifecycleObserver {
         }
     }
 
-    private fun executeResponse(res: BaseException, function: () -> Unit) {
-
-    }
-
-    private suspend fun handleException(
-        block: suspend CoroutineScope.() -> Unit,
-        error: suspend CoroutineScope.(BaseException) -> Unit,
+    private suspend fun <T> handleException(
+        block: suspend CoroutineScope.() -> T,
+        success: suspend CoroutineScope.(T) -> Unit,
+        error: suspend CoroutineScope.(ResponseThrowable) -> Unit,
         complete: suspend CoroutineScope.() -> Unit
     ) {
         coroutineScope {
             try {
-                block()
+                success(block())
             } catch (e: Throwable) {
                 error(ExceptionHandle.handleException(e))
             } finally {
