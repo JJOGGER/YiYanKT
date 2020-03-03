@@ -1,6 +1,6 @@
 package com.jogger.entity
 
-class OriginBook(
+data class OriginBook(
     val picpath: String? = null,
     val bookid: String? = null,
     val ava: String? = null,

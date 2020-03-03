@@ -3,14 +3,15 @@ package com.jogger.base
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.gson.Gson
 import com.jogger.event.Message
 import com.jogger.event.SingleLiveEvent
-import com.jogger.http.basic.exception.BaseException
 import com.jogger.http.basic.exception.ExceptionHandle
 import com.jogger.http.basic.exception.ResponseThrowable
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import java.lang.reflect.ParameterizedType
 
 /**
  * Created by jogger on 2020/2/27
@@ -58,7 +59,16 @@ open class BaseViewModel : ViewModel(), LifecycleObserver {
         }
     }
 
-    fun <T> launchOnlyresult(
+    private suspend fun <T> executeResponse2(res: Any, success: suspend CoroutineScope.(T) -> Unit) {
+        coroutineScope {
+            //            res.toString()
+            val clz = (javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[0] as Class<T>
+            val obj = Gson().fromJson(res.toString(), clz)
+            success(obj)
+        }
+    }
+
+    fun <T> launchTest(
         block: suspend CoroutineScope.() -> T,
         success: (T) -> Unit,
         error: (ResponseThrowable) -> Unit = {
@@ -71,6 +81,37 @@ open class BaseViewModel : ViewModel(), LifecycleObserver {
         launchUI {
             handleException(
                 { withContext(Dispatchers.IO) { block() } },
+                { res ->
+                    executeResponse(res) { success(it) }
+                },
+                {
+                    error(it)
+                },
+                {
+                    defUI.dismissDialog.call()
+                    complete()
+                }
+            )
+        }
+    }
+
+    fun <T> launchOnlyresult(
+        block: suspend CoroutineScope.() -> T,
+        success: (T) -> Unit,
+        error: (ResponseThrowable) -> Unit = {
+            defUI.toastEvent.postValue("${it.code}:${it.errMsg}")
+        },
+        complete: () -> Unit = {},
+        isShowDialog: Boolean = true
+    ) {
+        if (isShowDialog) defUI.showDialog.call()
+        launchUI {
+            handleException(
+                {
+                    withContext(Dispatchers.IO) {
+                        block()
+                    }
+                },
                 { res ->
                     executeResponse(res) { success(it) }
                 },

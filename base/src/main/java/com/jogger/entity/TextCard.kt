@@ -1,7 +1,5 @@
 package com.jogger.entity
 
-import java.util.*
-
 
 data class TextCard (
      val picpath: String? = null,
@@ -20,8 +18,8 @@ data class TextCard (
      val title: String? = null,
      val rec: String? = null,
      val original: String? = null,
-     val showtime: Date? = null,
+     val showtime: String? = null,
      val priv: String? = null,
      val replycnt: String? = null,
-     val datetime: Date? = null
+     val datetime: String? = null
 )
