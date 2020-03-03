@@ -38,26 +38,32 @@
     <style name="QDCommonDescription">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginBottom">20dp</item>
+        <item name="android:layout_marginBottom">@dimen/dp_20</item>
         <item name="android:gravity">center</item>
         <item name="android:textColor">@color/app_color_description</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">@dimen/text_size_15</item>
     </style>
 
     <style name="QDTopBar" parent="QMUI.TopBar">
-        <item name="qmui_topbar_height">48dp</item>
-        <item name="qmui_topbar_image_btn_height">48dp</item>
+        <item name="qmui_topbar_height">@dimen/dp_48</item>
+        <item name="qmui_topbar_image_btn_height">@dimen/dp_48</item>
+        <item name="qmui_topbar_title_color">@color/main_black</item>
+        <item name="qmui_topbar_subtitle_color">@color/qmui_config_color_white</item>
+        <item name="qmui_topbar_text_btn_color_state_list">@color/s_topbar_btn_color</item>
+        <!--<item name="qmui_topbar_left_back_drawable_id">@mipmap/icon_back</item>-->
+        <item name="qmui_topbar_title_text_size">@dimen/text_size_18</item>
+        <item name="qmui_topbar_image_btn_width">@dimen/dp_54</item>
     </style>
 
     <style name="QDRoundButtonStyle" parent="@style/Button.Compat">
-        <item name="android:layout_height">40dp</item>
+        <item name="android:layout_height">@dimen/dp_40</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:paddingLeft">?attr/qmui_content_spacing_horizontal</item>
         <item name="android:paddingRight">?attr/qmui_content_spacing_horizontal</item>
         <item name="qmui_borderColor">?attr/qmui_skin_support_round_btn_border_color</item>
         <item name="qmui_backgroundColor">@color/s_app_color_blue_3</item>
         <item name="android:textColor">@color/s_app_color_blue_2</item>
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">@dimen/text_size_14</item>
         <item name="android:gravity">center</item>
     </style>
 
