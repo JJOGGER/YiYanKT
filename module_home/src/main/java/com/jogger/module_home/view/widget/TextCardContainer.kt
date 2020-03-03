@@ -5,6 +5,7 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.widget.FrameLayout
 import androidx.databinding.DataBindingUtil
+import com.jogger.entity.TextCard
 import com.jogger.module_home.R
 import com.jogger.module_home.databinding.HomeTextCardContainerLayoutBinding
 
@@ -18,10 +19,10 @@ class TextCardContainer : FrameLayout {
     constructor(context: Context?) : this(context, null)
     constructor(context: Context?, attrs: AttributeSet?) : this(context, attrs, 0)
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
-        init(context, attrs)
+        init(context)
     }
 
-    fun init(context: Context?, attrs: AttributeSet?) {
+    fun init(context: Context?) {
         mBinding = DataBindingUtil.inflate(
             LayoutInflater.from(context),
             R.layout.home_text_card_container_layout,
@@ -30,7 +31,7 @@ class TextCardContainer : FrameLayout {
         )
     }
 
-    fun setHeaderImage(imgUrl: String) {
+    fun setData(card: TextCard) {
 
     }
 
