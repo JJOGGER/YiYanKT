@@ -49,6 +49,7 @@ class MainActivity : BaseActivity<BaseViewModel, ActivityMainBinding>() {
         })
         setTabStatus(mIndex)
     }
+
     private val mOnSkinChangeListener = QMUISkinManager.OnSkinChangeListener { oldSkin, newSkin ->
         if (newSkin == QDSkinManager.SKIN_WHITE) {
             QMUIStatusBarHelper.setStatusBarLightMode(this)
@@ -61,20 +62,22 @@ class MainActivity : BaseActivity<BaseViewModel, ActivityMainBinding>() {
     private fun renderSkinMakerBtn() {
     }
 
-    override  fun onStart() {
+    override fun hasTitleAction() = false
+    override fun onStart() {
         super.onStart()
         QMUISkinManager.defaultInstance(this).addSkinChangeListener(mOnSkinChangeListener)
     }
 
-    override  fun onResume() {
+    override fun onResume() {
         super.onResume()
         renderSkinMakerBtn()
     }
 
-    override  fun onStop() {
+    override fun onStop() {
         super.onStop()
         QMUISkinManager.defaultInstance(this).removeSkinChangeListener(mOnSkinChangeListener)
     }
+
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putInt(TAB_INDEX, mIndex)

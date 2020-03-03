@@ -18,6 +18,8 @@
     <attr name="app_skin_common_background" format="color|reference"/>
     <attr name="app_skin_common_background_1" format="color|reference"/>
     <attr name="app_skin_common_img_tint_color" format="color|reference"/>
+    <attr name="app_skin_card_text_color" format="color"/>
+    <attr name="app_skin_card_function_tint_color" format="color|reference"/>
     <attr name="app_skin_home_text_color" format="color|reference"/>
     <attr name="app_skin_common_title_text_color" format="color|reference"/>
     <attr name="app_skin_common_desc_text_color" format="color|reference"/>
@@ -32,6 +34,7 @@
     <attr name="app_skin_span_pressed_text_color" format="color"/>
     <attr name="app_skin_span_normal_bg_color" format="color"/>
     <attr name="app_skin_span_pressed_bg_color" format="color"/>
+    <attr name="app_skin_line_bg_color" format="color"/>
     <attr name="app_skin_alpha_test" format="float"/>
 
 
@@ -63,13 +66,14 @@
 
         <item name="app_skin_common_background">@color/qmui_config_color_white</item>
         <item name="app_skin_common_background_1">@color/qmui_config_color_background</item>
-        <item name="app_skin_home_text_color">?attr/qmui_config_color_gray_6</item>
+        <item name="app_skin_home_text_color">@color/qmui_config_color_50_white</item>
         <item name="app_skin_common_title_text_color">?attr/qmui_config_color_gray_1</item>
         <item name="app_skin_progress_bar_text_color">@color/qmui_config_color_gray_1</item>
         <item name="app_skin_span_normal_text_color">@color/qmui_config_color_pure_black</item>
         <item name="app_skin_span_pressed_text_color">@color/app_color_blue_pressed</item>
         <item name="app_skin_span_normal_bg_color">@color/qmui_config_color_gray_8</item>
         <item name="app_skin_span_pressed_bg_color">@color/qmui_config_color_gray_6</item>
+        <item name="app_skin_line_bg_color">@color/qmui_config_color_gray_8</item>
         <item name="app_skin_alpha_test">1</item>
         <item name="qmui_skin_support_topbar_title_color">@color/qmui_config_color_pure_black</item>
         <item name="qmui_skin_support_topbar_subtitle_color">@color/qmui_config_color_gray_3</item>
@@ -91,6 +95,9 @@
 
         <item name="app_primary_color">@color/qmui_config_color_white</item>
         <item name="app_skin_common_img_tint_color">@color/qmui_config_color_pure_black</item>
+        <item name="app_skin_card_function_tint_color">@color/qmui_config_color_black</item>
+
+        <item name="app_skin_card_text_color">@color/qmui_config_color_75_pure_black</item>
         <item name="app_skin_common_desc_text_color">@color/qmui_config_color_75_pure_black</item>
         <item name="app_skin_btn_test_bg">@color/s_app_color_gray</item>
         <item name="app_skin_btn_test_border">@color/s_app_color_gray_dark</item>
@@ -160,6 +167,8 @@
         <item name="app_skin_common_background">@color/main_black</item>
         <item name="app_skin_common_background_1">@color/sub_black</item>
         <item name="app_skin_common_img_tint_color">@color/qmui_config_color_gray_6</item>
+        <item name="app_skin_card_function_tint_color">@color/qmui_config_color_50_white</item>
+        <item name="app_skin_card_text_color">@color/qmui_config_color_50_white</item>
         <item name="app_skin_home_text_color">?attr/qmui_config_color_gray_8</item>
         <item name="app_skin_common_title_text_color">@color/qmui_config_color_75_white</item>
         <item name="app_skin_progress_bar_bg_color">@color/qmui_config_color_gray_1</item>
@@ -169,6 +178,7 @@
         <item name="app_skin_span_pressed_text_color">@color/qmui_config_color_50_white</item>
         <item name="app_skin_span_normal_bg_color">@color/qmui_config_color_gray_4</item>
         <item name="app_skin_span_pressed_bg_color">@color/qmui_config_color_gray_2</item>
+        <item name="app_skin_line_bg_color">@color/qmui_config_color_50_white</item>
         <item name="app_skin_alpha_test">0.5</item>
     </style>
 

@@ -49,6 +49,6 @@ class HomeViewPager : ViewPager {
 
         //自由控制缩放比例
         private val MAX_SCALE = 1f
-        private val MIN_SCALE = 0.8f//0.85f
+        private val MIN_SCALE = 0.95f//0.85f
     }
 }

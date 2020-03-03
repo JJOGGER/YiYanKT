@@ -71,9 +71,9 @@ abstract class BaseActivity<VM : BaseViewModel, DB : ViewDataBinding> : AppCompa
 
     }
 
-    fun isFullScreen(): Boolean = false
-    fun isNeedEventBus(): Boolean = false
-    fun hasTitleAction(): Boolean = true
+    open fun isFullScreen() = false
+    open fun isNeedEventBus()= false
+    open fun hasTitleAction() = true
     //    protected abstract fun initBinding(parent: ViewGroup?)
 //    protected fun <T : ViewDataBinding> bindingLayout(viewParent: ViewGroup?): T {
 //        return if (viewParent != null) {
@@ -85,7 +85,8 @@ abstract class BaseActivity<VM : BaseViewModel, DB : ViewDataBinding> : AppCompa
     protected fun useQMUISkinLayoutInflaterFactory(): Boolean {
         return true
     }
-     override fun onStart() {
+
+    override fun onStart() {
         super.onStart()
         if (mSkinManager != null) {
             mSkinManager!!.register(this)

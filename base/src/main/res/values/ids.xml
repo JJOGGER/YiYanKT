@@ -25,4 +25,6 @@
     <item name="topbar_right_change_button" type="id"/>
 
     <item name="layout_for_test" type="id"/>
+    <item name="home_clock_funciton" type="id"/>
+    <item name="clock_funciton" type="id"/>
 </resources>

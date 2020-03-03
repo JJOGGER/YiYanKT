@@ -14,7 +14,7 @@ data class TextCard (
      val creator:UserData? = null,
      val content: String? = null,
      val feedid: String? = null,
-     val category: String? = null,
+     val category: Int? = null,
      val title: String? = null,
      val rec: String? = null,
      val original: String? = null,
