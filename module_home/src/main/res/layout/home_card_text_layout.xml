@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/text_container"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <TextView
+                android:id="@+id/tv_text_title"
+                android:paddingTop="@dimen/dp_16"
+                android:paddingStart="@dimen/dp_16"
+                android:paddingEnd="@dimen/dp_16"
+                tools:text="标题"
+                android:textSize="22sp"
+                app:qmui_skin_text_color="?attr/app_skin_card_text_color"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        <com.qmuiteam.qmui.widget.QMUIVerticalTextView
+                android:id="@+id/tv_content"
+                android:paddingTop="@dimen/dp_16"
+                android:paddingStart="@dimen/dp_16"
+                android:paddingEnd="@dimen/dp_16"
+                tools:text="xxxxxxxxxxxxxxxxxxxx"
+                android:lineSpacingExtra="@dimen/dp_3"
+                android:textColor="@color/qmui_config_color_black"
+                android:textSize="18sp"
+                app:qmui_skin_text_color="?attr/app_skin_card_text_color"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="0dp"/>
+
+        <TextView
+                android:id="@+id/tv_text_from"
+                android:paddingTop="@dimen/dp_16"
+                android:paddingStart="@dimen/dp_16"
+                android:paddingEnd="@dimen/dp_16"
+                tools:text="xxxxxxxxxxxxxxxxxxxx"
+                android:layout_gravity="center_horizontal|bottom"
+                android:textSize="14sp"
+                android:paddingBottom="@dimen/dp_10"
+                app:qmui_skin_text_color="?attr/app_skin_card_text_color"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+    </LinearLayout>
+</layout>

@@ -27,7 +27,7 @@ import java.util.*
  * Created by jogger on 2020/2/29
  * 描述：
  */
-class YiYaHeader : InternalAbstract, RefreshHeader {
+class YiYanHeader : InternalAbstract, RefreshHeader {
     //<editor-fold desc="Field">
     var mItemList: MutableList<StoreHouseBarItem> = ArrayList()
 
@@ -168,13 +168,13 @@ class YiYaHeader : InternalAbstract, RefreshHeader {
     //</editor-fold>
 
     //<editor-fold desc="API">
-    fun setLoadingAniDuration(duration: Int): YiYaHeader {
+    fun setLoadingAniDuration(duration: Int): YiYanHeader {
         mLoadingAniDuration = duration
         mLoadingAniSegDuration = duration
         return this
     }
 
-    fun setLineWidth(width: Int): YiYaHeader {
+    fun setLineWidth(width: Int): YiYanHeader {
         mLineWidth = width
         for (i in mItemList.indices) {
             mItemList[i].setLineWidth(width)
@@ -182,7 +182,7 @@ class YiYaHeader : InternalAbstract, RefreshHeader {
         return this
     }
 
-    fun setTextColor(@ColorInt color: Int): YiYaHeader {
+    fun setTextColor(@ColorInt color: Int): YiYanHeader {
         mTextColor = color
         for (i in mItemList.indices) {
             mItemList[i].setColor(color)
@@ -190,23 +190,23 @@ class YiYaHeader : InternalAbstract, RefreshHeader {
         return this
     }
 
-    fun setDropHeight(height: Int): YiYaHeader {
+    fun setDropHeight(height: Int): YiYanHeader {
         mDropHeight = height
         return this
     }
 
-    fun initWithString(str: String?): YiYaHeader {
+    fun initWithString(str: String?): YiYanHeader {
         initWithString(str, 25)
         return this
     }
 
-    fun initWithString(str: String?, fontSize: Int): YiYaHeader {
+    fun initWithString(str: String?, fontSize: Int): YiYanHeader {
         val pointList = YiYanHeaderPath.getPath(str, fontSize * 0.01f, 14)
         initWithPointList(pointList)
         return this
     }
 
-    fun initWithStringArray(id: Int): YiYaHeader {
+    fun initWithStringArray(id: Int): YiYanHeader {
         val thisView = this
         val points = thisView.resources.getStringArray(id)
         val pointList = ArrayList<FloatArray>()
@@ -222,12 +222,12 @@ class YiYaHeader : InternalAbstract, RefreshHeader {
         return this
     }
 
-    fun setScale(scale: Float): YiYaHeader {
+    fun setScale(scale: Float): YiYanHeader {
         mScale = scale
         return this
     }
 
-    fun initWithPointList(pointList: List<FloatArray>): YiYaHeader {
+    fun initWithPointList(pointList: List<FloatArray>): YiYanHeader {
 
         var drawWidth = 0f
         var drawHeight = 0f

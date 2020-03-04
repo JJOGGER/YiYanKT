@@ -27,4 +27,5 @@
     <item name="layout_for_test" type="id"/>
     <item name="home_clock_funciton" type="id"/>
     <item name="clock_funciton" type="id"/>
+    <item name="search_funciton" type="id"/>
 </resources>

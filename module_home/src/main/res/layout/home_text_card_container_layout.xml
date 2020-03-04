@@ -47,155 +47,34 @@
                         android:scaleType="fitXY"
                         android:layout_height="@dimen/dp_140"/>
 
-                <TextView
-                        android:id="@+id/tv_title"
-                        android:paddingTop="@dimen/dp_16"
-                        android:paddingStart="@dimen/dp_16"
-                        android:paddingEnd="@dimen/dp_16"
-                        tools:text="标题"
-                        android:textSize="22sp"
-                        app:qmui_skin_text_color="?attr/app_skin_card_text_color"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
                 <FrameLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         >
 
-                    <LinearLayout
-                            android:orientation="vertical"
-                            android:id="@+id/text_container"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                    <include
+                            layout="@layout/home_card_text_layout"
+                            android:id="@+id/text_layout"/>
 
-                        <TextView
-                                android:id="@+id/tv_content"
-                                android:paddingTop="@dimen/dp_16"
-                                android:paddingStart="@dimen/dp_16"
-                                android:paddingEnd="@dimen/dp_16"
-                                tools:text="xxxxxxxxxxxxxxxxxxxx"
-                                android:lineSpacingExtra="@dimen/dp_3"
-                                android:textColor="@color/qmui_config_color_black"
-                                android:textSize="16sp"
-                                app:qmui_skin_text_color="?attr/app_skin_card_text_color"
-                                android:layout_width="match_parent"
-                                android:layout_weight="1"
-                                android:layout_height="0dp"/>
-
-                        <TextView
-                                android:id="@+id/tv_from"
-                                android:paddingTop="@dimen/dp_16"
-                                android:paddingStart="@dimen/dp_16"
-                                android:paddingEnd="@dimen/dp_16"
-                                tools:text="xxxxxxxxxxxxxxxxxxxx"
-                                android:visibility="gone"
-                                android:layout_gravity="center_horizontal|bottom"
-                                android:textSize="12sp"
-                                android:paddingBottom="@dimen/dp_10"
-                                app:qmui_skin_text_color="?attr/app_skin_card_text_color"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-                    </LinearLayout>
-
-                    <LinearLayout
-                            android:id="@+id/music_container"
-                            android:orientation="vertical"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent">
-
-                        <ImageView
-                                android:layout_gravity="center_horizontal|bottom"
-                                android:visibility="gone"
-                                android:layout_marginBottom="@dimen/dp_20"
-                                android:id="@+id/iv_play"
-                                android:src="@drawable/music_play"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-                    </LinearLayout>
+                    <include
+                            layout="@layout/home_card_music_layout"
+                            android:id="@+id/music_layout"/>
                 </FrameLayout>
 
-                <TextView
-                        android:id="@+id/tv_category"
-                        app:qmui_skin_text_color="?attr/app_skin_home_text_color"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
-                <TextView
-                        android:id="@+id/tv_created"
-                        android:paddingBottom="@dimen/dp_6"
-                        app:qmui_skin_text_color="?attr/app_skin_home_text_color"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
-
-                <View
+                <FrameLayout
                         android:layout_width="match_parent"
-                        android:layout_height="0.5dp"
-                        app:qmui_skin_background="?attr/app_skin_line_bg_color"/>
+                        android:layout_height="wrap_content">
 
-                <LinearLayout
-                        android:orientation="horizontal"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/dp_40">
+                    <include
+                            layout="@layout/home_card_common_bottom_layout"
+                            android:id="@+id/common_bottom"/>
 
-                    <FrameLayout
-                            android:layout_width="0dp"
-                            android:id="@+id/span_collection"
-                            android:layout_weight="1"
-                            android:layout_height="match_parent">
+                    <include
+                            layout="@layout/home_card_topic_bottom_layout"
+                            android:id="@+id/topic_bottom"/>
+                </FrameLayout>
 
-                        <TextView
-                                android:id="@+id/tv_collection"
-                                android:layout_gravity="center"
-                                android:drawableStart="@drawable/icon_short_collect_21_line_gray"
-                                app:qmui_skin_tint_color="?attr/app_skin_card_function_tint_color"
-                                android:layout_width="wrap_content"
-                                android:drawablePadding="@dimen/dp_4"
-                                android:gravity="center"
-                                android:text="0"
-                                app:qmui_skin_text_color="?attr/app_skin_home_text_color"
-                                android:layout_height="wrap_content"/>
-                    </FrameLayout>
-
-                    <FrameLayout
-                            android:layout_width="0dp"
-                            android:id="@+id/span_comment"
-                            android:layout_weight="1"
-                            android:layout_height="match_parent">
-
-                        <TextView
-                                android:id="@+id/tv_comment"
-                                android:layout_gravity="center"
-                                android:drawableStart="@drawable/icon_short_comment_21_line_gray"
-                                app:qmui_skin_tint_color="?attr/app_skin_card_function_tint_color"
-                                android:layout_width="wrap_content"
-                                android:drawablePadding="@dimen/dp_4"
-                                android:gravity="center"
-                                android:text="0"
-                                app:qmui_skin_text_color="?attr/app_skin_home_text_color"
-                                android:layout_height="wrap_content"/>
-                    </FrameLayout>
-
-                    <FrameLayout
-                            android:layout_width="0dp"
-                            android:id="@+id/span_like"
-                            android:layout_weight="1"
-                            android:layout_height="match_parent">
-
-                        <TextView
-                                android:id="@+id/tv_like"
-                                android:layout_gravity="center"
-                                android:drawableStart="@drawable/selector_card_function_like"
-                                app:qmui_skin_tint_color="?attr/app_skin_card_function_tint_color"
-                                android:layout_width="wrap_content"
-                                android:drawablePadding="@dimen/dp_4"
-                                android:gravity="center"
-                                android:text="0"
-                                app:qmui_skin_text_color="?attr/app_skin_home_text_color"
-                                android:layout_height="wrap_content"/>
-                    </FrameLayout>
-                </LinearLayout>
             </LinearLayout>
         </androidx.cardview.widget.CardView>
     </LinearLayout>

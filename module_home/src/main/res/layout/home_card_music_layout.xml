@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+            android:id="@+id/music_container"
+            android:orientation="vertical"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <TextView
+                android:id="@+id/tv_music_title"
+                android:layout_gravity="center"
+                android:paddingTop="@dimen/dp_16"
+                android:paddingStart="@dimen/dp_16"
+                android:paddingEnd="@dimen/dp_16"
+                tools:text="标题"
+                android:textSize="22sp"
+                app:qmui_skin_text_color="?attr/app_skin_card_text_color"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                android:id="@+id/tv_music_from"
+                android:paddingTop="@dimen/dp_16"
+                android:paddingStart="@dimen/dp_16"
+                android:paddingEnd="@dimen/dp_16"
+                tools:text="xxxxxxxxxxxxxxxxxxxx"
+                android:layout_gravity="center_horizontal|bottom"
+                android:textSize="12sp"
+                android:paddingBottom="@dimen/dp_10"
+                app:qmui_skin_text_color="?attr/app_skin_card_text_color"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <View
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
+
+        <ImageView
+                android:layout_gravity="center_horizontal|bottom"
+                android:layout_marginBottom="@dimen/dp_20"
+                android:id="@+id/iv_play"
+                android:src="@drawable/music_play"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+    </LinearLayout>
+</layout>

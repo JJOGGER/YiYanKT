@@ -4,7 +4,6 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import androidx.viewpager.widget.ViewPager
-import com.jogger.utils.LogUtils
 
 
 /**
@@ -15,7 +14,8 @@ class HomeViewPager : ViewPager {
     constructor(context: Context) : this(context, null)
 
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs) {
-       setPageTransformer(true,MyZoomOutPageTransformer())
+        setPageTransformer(true, MyZoomOutPageTransformer())
+        setCurrentItem(0, false)//触发onPageScrolled，防止初始化时transformPage 所有position都为0
     }
 
     inner class MyZoomOutPageTransformer : PageTransformer {

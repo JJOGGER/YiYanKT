@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.qmuiteam.qmui.widget.QMUIWindowInsetLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:fitsSystemWindows="true"
+            android:layout_marginTop="?attr/qmui_topbar_height"
+            android:orientation="vertical"
+            android:layout_height="match_parent">
+        <androidx.viewpager.widget.ViewPager
+                android:id="@+id/vp_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
+    </LinearLayout>
+
+    <com.qmuiteam.qmui.widget.QMUITopBarLayout
+            android:id="@+id/topbar"
+            android:layout_width="match_parent"
+            android:fitsSystemWindows="true"
+            android:layout_height="?attr/qmui_topbar_height">
+
+        <com.jogger.module_star.widget.CustomTabLayout
+                android:id="@+id/tl_tab"
+                android:layout_width="wrap_content"
+                android:layout_gravity="center"
+                android:layout_height="match_parent"
+                app:tabGravity="center"
+                app:tabIndicatorColor="@color/btn_filled_blue_bg_normal"
+                app:tabIndicatorFullWidth="false"
+                app:tabIndicatorHeight="@dimen/dp_2"
+                app:tabMode="scrollable"
+                app:tabTextColor="@color/color_333333"/>
+
+    </com.qmuiteam.qmui.widget.QMUITopBarLayout>
+</com.qmuiteam.qmui.widget.QMUIWindowInsetLayout>

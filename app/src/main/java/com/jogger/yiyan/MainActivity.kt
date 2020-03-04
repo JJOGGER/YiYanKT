@@ -1,20 +1,17 @@
 package com.jogger.yiyan
 
-import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
-import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.jogger.base.BaseActivity
-import com.jogger.base.BaseFragment
 import com.jogger.base.BaseViewModel
 import com.jogger.manager.QDSkinManager
 import com.jogger.yiyan.databinding.ActivityMainBinding
 import com.qmuiteam.qmui.skin.QMUISkinManager
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper
 import ex.MODULE_HOME_MAIN
+import ex.MODULE_STAR_MAIN
 import ex.getFragment
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -86,7 +83,7 @@ class MainActivity : BaseActivity<BaseViewModel, ActivityMainBinding>() {
     private fun initBottom() {
 
         mBottomPath.add(MODULE_HOME_MAIN)
-        mBottomPath.add(MODULE_HOME_MAIN)
+        mBottomPath.add(MODULE_STAR_MAIN)
         mBottomPath.add(MODULE_HOME_MAIN)
         mBottomPath.add(MODULE_HOME_MAIN)
     }
