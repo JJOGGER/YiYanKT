@@ -1,15 +1,19 @@
 package com.jogger.module_star.fragment
 
 import android.os.Bundle
+import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.jogger.base.BaseFragment
 import com.jogger.constant.CARD_CATEGORY
+import com.jogger.manager.AssetsManager
 import com.jogger.module_star.R
 import com.jogger.module_star.viewmodel.StarViewModel
+import com.jogger.utils.LogUtils
 import ex.INDEX
+import kotlinx.android.synthetic.main.star_fragment.*
 import kotlinx.android.synthetic.main.star_fragment_main.*
 
 /**
@@ -62,15 +66,24 @@ class StarFragment : BaseFragment<StarViewModel, ViewDataBinding>() {
             for (i in mTabTypes) {
                 mFragments.add(StarItemFragment.getInstance(i._value))
             }
+        } else {
+            val fragment = StarItemFragment()
+            val bundle = Bundle()
+            bundle.putInt(INDEX, CARD_CATEGORY.TYPE_TOPIC_FIND._value)
+            fragment.arguments = bundle
+            mFragments.add(fragment)
+            mFragments.add(StarItemFragment.getInstance(CARD_CATEGORY.TYPE_TOPIC._value))
         }
-        vp_content.adapter = StarPageAdapter(childFragmentManager)
-
+        vp_item.adapter = StarPageAdapter(childFragmentManager)
+        tab.setTypeFace(
+            AssetsManager.getFontTypeFace(AssetsManager.ASSETS_FONT3)
+        )
+        tab.setupWithViewPager(vp_item, true)
     }
 
     override fun layoutId(): Int = R.layout.star_fragment
 
     inner class StarPageAdapter(f: FragmentManager) : FragmentStatePagerAdapter(f) {
-
         override fun getItem(position: Int): Fragment =
             mFragments[position]
 

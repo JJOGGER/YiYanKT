@@ -10,6 +10,7 @@ import com.jogger.base.BaseFragment
 import com.jogger.base.BaseViewModel
 import com.jogger.constant.CARD_CATEGORY
 import com.jogger.module_star.R
+import ex.INDEX
 import ex.MODULE_STAR_MAIN
 import kotlinx.android.synthetic.main.star_fragment_main.*
 
@@ -37,7 +38,9 @@ class StarMainFragment : BaseFragment<BaseViewModel, ViewDataBinding>() {
             return when {
                 position == 0 -> StarItemFragment.getInstance(CARD_CATEGORY.TYPE_HOT._value)
                 position == 1 -> StarFragment.getInstance(StarFragment.TYPE_FIND)
-                else -> StarFragment.getInstance(StarFragment.TYPE_TOPIC)
+                else ->{
+                    StarFragment.getInstance(StarFragment.TYPE_TOPIC)
+                }
             }
         }
 

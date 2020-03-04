@@ -27,13 +27,15 @@
         <com.jogger.module_star.widget.CustomTabLayout
                 android:id="@+id/tl_tab"
                 android:layout_width="wrap_content"
+                android:layout_marginStart="@dimen/dp_100"
+                android:layout_marginEnd="@dimen/dp_100"
                 android:layout_gravity="center"
                 android:layout_height="match_parent"
                 app:tabGravity="center"
                 app:tabIndicatorColor="@color/btn_filled_blue_bg_normal"
                 app:tabIndicatorFullWidth="false"
                 app:tabIndicatorHeight="@dimen/dp_2"
-                app:tabMode="scrollable"
+                app:tabMode="fixed"
                 app:tabTextColor="@color/color_333333"/>
 
     </com.qmuiteam.qmui.widget.QMUITopBarLayout>

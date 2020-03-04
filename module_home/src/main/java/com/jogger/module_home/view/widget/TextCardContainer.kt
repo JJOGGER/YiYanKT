@@ -24,7 +24,6 @@ import java.util.*
  */
 class TextCardContainer : FrameLayout {
     private lateinit var mBinding: HomeTextCardContainerLayoutBinding
-    private var mDateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CHINA)
 
     constructor(context: Context?) : this(context, null)
     constructor(context: Context?, attrs: AttributeSet?) : this(context, attrs, 0)
@@ -36,7 +35,7 @@ class TextCardContainer : FrameLayout {
 //        LayoutInflater.from(context).inflate( R.layout.home_text_card_container_layout,this)
         mBinding = DataBindingUtil.inflate(
             LayoutInflater.from(context),
-            com.jogger.module_home.R.layout.home_text_card_container_layout,
+            R.layout.home_text_card_container_layout,
             this,
             true
         )
@@ -51,7 +50,7 @@ class TextCardContainer : FrameLayout {
         }
         if (!TextUtils.isEmpty(card.showtime)) {
             mBinding.tvDate.visibility = View.VISIBLE
-            val date = card.showtime!!.split(" ")[0].split("-")
+            val date = card.showtime!!.split("-"," ")
             mBinding.tvDate.text = "${date[0]}\n/\n${date[1]}\n/\n${date[2]}"
         }
         if (card.creator != null && card.originbook != null)

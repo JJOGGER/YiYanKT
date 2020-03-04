@@ -16,7 +16,6 @@
         <TextView
                 android:gravity="center"
                 android:visibility="gone"
-                android:paddingStart="@dimen/dp_12"
                 android:id="@+id/tv_date"
                 app:qmui_skin_text_color="?attr/app_skin_home_text_color"
                 android:textSize="@dimen/text_size_12"
@@ -31,7 +30,7 @@
                 app:cardUseCompatPadding="false"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_marginStart="@dimen/dp_10"
+                android:layout_marginStart="@dimen/dp_5"
                 android:layout_marginEnd="@dimen/dp_10"
                 app:qmui_skin_background="?attr/app_skin_common_background"
                 android:layout_height="match_parent">

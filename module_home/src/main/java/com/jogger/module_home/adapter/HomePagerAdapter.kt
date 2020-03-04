@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.viewpager.widget.PagerAdapter
 import com.jogger.entity.TextCard
 import com.jogger.module_home.view.widget.TextCardContainer
+import com.jogger.utils.LogUtils
 import com.jogger.widget.HomeViewPager
 
 /**
@@ -14,7 +15,6 @@ import com.jogger.widget.HomeViewPager
 class HomePagerAdapter(vpContent: HomeViewPager) : PagerAdapter() {
     private val mDatas = arrayListOf<TextCard>()
     private val vpContent: HomeViewPager = vpContent
-    private val padding = vpContent.paddingStart
     override fun getCount(): Int {
         return mDatas.size
     }
@@ -27,7 +27,7 @@ class HomePagerAdapter(vpContent: HomeViewPager) : PagerAdapter() {
         val cardContainer = TextCardContainer(container.context)
 //        if (position == 0) {
 //            LogUtils.e("-------pos=0")
-//            vpContent.setPadding(0, 0, padding, 0)
+//            cardContainer.setPadding(0, 0, padding, 0)
 //        } else {
 //            LogUtils.e("-------pos=$position")
 //            vpContent.setPadding(padding, 0, padding, 0)
@@ -43,7 +43,6 @@ class HomePagerAdapter(vpContent: HomeViewPager) : PagerAdapter() {
         container.addView(cardContainer, params)
         return cardContainer
     }
-
     override fun getItemPosition(`object`: Any): Int {
         return POSITION_NONE
     }

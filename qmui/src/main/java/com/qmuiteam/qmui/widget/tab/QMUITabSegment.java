@@ -23,6 +23,7 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.database.DataSetObserver;
 import android.graphics.Canvas;
+import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Gravity;
@@ -225,7 +226,9 @@ public class QMUITabSegment extends HorizontalScrollView implements IQMUILayout,
     public void setDefaultTextSize(int normalTextSize, int selectedTextSize){
         mTabBuilder.setTextSize(normalTextSize, selectedTextSize);
     }
-
+    public void setTypeFace(Typeface typeFace){
+        mTabBuilder.setTypeface(typeFace, typeFace);
+    }
     public void setDefaultTabIconPosition(@QMUITab.IconPosition int iconPosition){
         mTabBuilder.setIconPosition(iconPosition);
     }
