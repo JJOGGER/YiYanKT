@@ -5,6 +5,9 @@
 
     <data>
 
+        <variable
+                name="textCard"
+                type="com.jogger.entity.TextCard"/>
     </data>
 
     <LinearLayout
@@ -89,10 +92,11 @@
                                 android:layout_width="wrap_content"
                                 android:paddingStart="@dimen/dp_2"
                                 android:layout_height="wrap_content"/>
-                        <include
-                                layout="@layout/home_card_common_bottom_layout"
-                                android:id="@+id/common_bottom"/>
+                        <!--<include-->
+                        <!--layout="@layout/home_card_common_bottom_layout"-->
+                        <!--android:id="@+id/common_bottom"/>-->
                     </LinearLayout>
+
                     <include
                             layout="@layout/home_card_topic_bottom_layout"
                             android:id="@+id/topic_bottom"/>

@@ -2,18 +2,30 @@ package com.jogger.module_star.fragment
 
 import android.os.Bundle
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.jogger.base.BaseFragment
-import com.jogger.base.BaseViewModel
+import com.jogger.constant.CARD_CATEGORY
+import com.jogger.entity.TextCard
 import com.jogger.module_star.R
+import com.jogger.module_star.adapter.StarAdapter
+import com.jogger.module_star.viewmodel.StarViewModel
 import com.jogger.widget.YiYanHeader
+import com.scwang.smartrefresh.layout.api.RefreshLayout
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener
 import ex.INDEX
 import kotlinx.android.synthetic.main.star_fragment_item.*
+import kotlinx.android.synthetic.main.star_fragment_main.*
 
 /**
  * Created by jogger on 2020/3/4
  * 描述：
  */
-class StarItemFragment : BaseFragment<BaseViewModel, ViewDataBinding>() {
+class StarItemFragment : BaseFragment<StarViewModel, ViewDataBinding>(), OnRefreshLoadMoreListener {
+
+    private var mFeedId: String? = ""
+    private var mType = CARD_CATEGORY.TYPE_ALL._value
+    private lateinit var mAdapter: StarAdapter
     override fun layoutId(): Int = R.layout.star_fragment_item
 
     companion object {
@@ -28,7 +40,47 @@ class StarItemFragment : BaseFragment<BaseViewModel, ViewDataBinding>() {
 
     override fun initView(savedInstanceState: Bundle?) {
         srl_refresh.setRefreshHeader(YiYanHeader(mContext!!))
-        val type = arguments!!.getInt(INDEX)
-        tv_content.text = "--------$type"
+        mType = arguments!!.getInt(INDEX)
+        mAdapter=StarAdapter(null)
+        rv_content.layoutManager=LinearLayoutManager(mContext)
+        rv_content.adapter=mAdapter
+        srl_refresh.setOnRefreshLoadMoreListener(this)
+        mViewModel.mSubcribeTextCardsLiveData.observe(this, Observer { handleTextCards(it) })
+        mViewModel.mSubcribeTextCardsMoreLiveData.observe(this, Observer { handleMoreTextCards(it) })
+        mViewModel.mSubcribeTextCardsFailureLiveData.observe(this, Observer { handleTextCardsFailure(it) })
+        lazyLoadData()
+    }
+    private fun handleTextCardsFailure(it: Any?) {
+        srl_refresh.closeHeaderOrFooter()
+    }
+
+    private fun handleMoreTextCards(cards: List<TextCard>) {
+        srl_refresh.closeHeaderOrFooter()
+        if (cards.isEmpty()) {
+            srl_refresh.finishLoadMoreWithNoMoreData()
+        } else {
+            mAdapter.addData(cards)
+            mFeedId = cards[cards.size - 1].feedid!!
+        }
+    }
+
+    private fun handleTextCards(cards: MutableList<TextCard>) {
+        srl_refresh.closeHeaderOrFooter()
+        mAdapter.setNewData(cards)
+    }
+
+    override fun lazyLoadData() {
+        super.lazyLoadData()
+        mViewModel.getTextCardsByType(mType, mFeedId)
+    }
+
+    override fun onRefresh(refreshLayout: RefreshLayout) {
+        lazyLoadData()
+    }
+
+    override fun onLoadMore(refreshLayout: RefreshLayout) {
+        vp_content.postDelayed({
+            lazyLoadData()
+        }, 300)
     }
 }

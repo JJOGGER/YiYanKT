@@ -8,8 +8,8 @@ import com.jogger.http.datasource.HomeDataSource
 import com.jogger.utils.LogUtils
 
 class HomeViewModel : BaseViewModel() {
-    val mSubcribeArticlesLiveData = MutableLiveData<List<TextCard>>()
-    val mSubcribeArticlesMoreLiveData = MutableLiveData<List<TextCard>>()
+    val mSubcribeArticlesLiveData = MutableLiveData<MutableList<TextCard>>()
+    val mSubcribeArticlesMoreLiveData = MutableLiveData<MutableList<TextCard>>()
     val mSubcribeArticlesFailureLiveData = MutableLiveData<Any>()
     fun getSubcribeArticles(feedid: String?) {
         launchOnlyresult({ HomeDataSource.getSubcribeArticles(feedid) }, {

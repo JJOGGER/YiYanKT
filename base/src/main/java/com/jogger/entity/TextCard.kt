@@ -1,5 +1,7 @@
 package com.jogger.entity
 
+import com.chad.library.adapter.base.entity.MultiItemEntity
+
 
 data class TextCard(
     val picpath: String? = null,
@@ -14,7 +16,7 @@ data class TextCard(
     val creator: UserData? = null,
     val content: String? = null,
     val feedid: String? = null,
-    val category: Int? = null,
+    val category: Int = 0,
     val title: String? = null,
     val rec: String? = null,
     val original: String? = null,
@@ -22,4 +24,6 @@ data class TextCard(
     val priv: String? = null,
     val replycnt: Int = 0,
     val datetime: String? = null
-)
+) : MultiItemEntity {
+    override val itemType: Int = category
+}

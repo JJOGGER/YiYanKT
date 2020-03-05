@@ -1,16 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_marginBottom="@dimen/dp_8"
+              android:layout_height="wrap_content">
 
     <include layout="@layout/star_common_top_layout"/>
 
-    <com.qmuiteam.qmui.layout.QMUIFrameLayout
+    <com.qmuiteam.qmui.layout.QMUILinearLayout
+            android:orientation="vertical"
             android:layout_marginStart="@dimen/dp_54"
-            android:layout_width="@dimen/dp_600"
-            android:layout_height="600dp">
+            android:layout_width="match_parent"
+            android:layout_marginEnd="@dimen/dp_54"
+            android:layout_height="wrap_content">
+
+        <ImageView
+                android:id="@+id/iv_header"
+                android:layout_width="match_parent"
+                android:scaleType="fitXY"
+                android:layout_height="@dimen/dp_140"/>
+
         <include layout="@layout/home_card_text_layout"/>
 
-    </com.qmuiteam.qmui.layout.QMUIFrameLayout>
+        <TextView
+                android:id="@+id/tv_category"
+                android:textSize="@dimen/text_size_12"
+                app:qmui_skin_text_color="?attr/app_skin_card_tag_color"
+                android:layout_width="wrap_content"
+                android:paddingStart="@dimen/dp_2"
+                android:layout_height="wrap_content"/>
+
+        <include layout="@layout/home_card_common_bottom_layout"/>
+    </com.qmuiteam.qmui.layout.QMUILinearLayout>
 </LinearLayout>

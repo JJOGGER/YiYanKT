@@ -1,7 +1,6 @@
 package com.jogger.module_star.fragment
 
 import android.os.Bundle
-import android.view.ViewGroup
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
@@ -11,10 +10,8 @@ import com.jogger.constant.CARD_CATEGORY
 import com.jogger.manager.AssetsManager
 import com.jogger.module_star.R
 import com.jogger.module_star.viewmodel.StarViewModel
-import com.jogger.utils.LogUtils
 import ex.INDEX
 import kotlinx.android.synthetic.main.star_fragment.*
-import kotlinx.android.synthetic.main.star_fragment_main.*
 
 /**
  * Created by jogger on 2020/3/4
@@ -33,7 +30,7 @@ class StarFragment : BaseFragment<StarViewModel, ViewDataBinding>() {
         CARD_CATEGORY.TYPE_MUSIC
     )
     val mFinderTitles = arrayListOf(
-        "全部",
+        "所有",
         "原创",
         "文字",
         "诗",

@@ -1,7 +1,6 @@
 package com.jogger.module_home.view.fragment
 
 import android.os.Bundle
-import androidx.core.view.setPadding
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import androidx.viewpager.widget.ViewPager
@@ -12,7 +11,6 @@ import com.jogger.manager.QDSkinManager
 import com.jogger.module_home.R
 import com.jogger.module_home.adapter.HomePagerAdapter
 import com.jogger.module_home.view.viewmodel.HomeViewModel
-import com.jogger.utils.LogUtils
 import com.jogger.widget.YiYanHeader
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener
@@ -47,7 +45,6 @@ class HomeFragment : BaseFragment<HomeViewModel, ViewDataBinding>(), OnRefreshLo
 
     private lateinit var mHomeAdapter: HomePagerAdapter
     private var mFeedId: String? = ""
-    private var mPadding:Int=0
     override fun initView(savedInstanceState: Bundle?) {
         topbar.setTitle("订阅")
         topbar.addRightImageButton(R.drawable.icons8_time_machine_66_3x, R.id.clock_funciton)
@@ -67,7 +64,7 @@ class HomeFragment : BaseFragment<HomeViewModel, ViewDataBinding>(), OnRefreshLo
         srl_refresh.closeHeaderOrFooter()
     }
 
-    private fun handleMoreArticles(cards: List<TextCard>) {
+    private fun handleMoreArticles(cards: MutableList<TextCard>) {
         srl_refresh.closeHeaderOrFooter()
         if (cards.isEmpty()) {
             srl_refresh.finishLoadMoreWithNoMoreData()
@@ -77,7 +74,7 @@ class HomeFragment : BaseFragment<HomeViewModel, ViewDataBinding>(), OnRefreshLo
         }
     }
 
-    private fun handleArticles(cards: List<TextCard>) {
+    private fun handleArticles(cards: MutableList<TextCard>) {
         srl_refresh.closeHeaderOrFooter()
         mHomeAdapter.setDatas(cards)
         vp_content.adapter = mHomeAdapter

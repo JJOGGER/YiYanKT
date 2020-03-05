@@ -1,8 +1,11 @@
 package com.jogger.module_star.viewmodel
 
+import android.text.TextUtils
+import androidx.lifecycle.MutableLiveData
 import com.jogger.base.BaseViewModel
 import com.jogger.constant.CARD_CATEGORY
 import com.jogger.entity.ArticleData
+import com.jogger.entity.TextCard
 import com.jogger.http.datasource.HomeDataSource
 import kotlinx.coroutines.CoroutineScope
 
@@ -11,7 +14,10 @@ import kotlinx.coroutines.CoroutineScope
  * 描述：
  */
 class StarViewModel : BaseViewModel() {
-    fun getTextCardsByType(type: Int) {
+    val mSubcribeTextCardsLiveData = MutableLiveData<MutableList<TextCard>>()
+    val mSubcribeTextCardsMoreLiveData = MutableLiveData<MutableList<TextCard>>()
+    val mSubcribeTextCardsFailureLiveData = MutableLiveData<Any>()
+    fun getTextCardsByType(type: Int,feedid: String?) {
         var block: suspend CoroutineScope.() -> ArticleData
         when (type) {
 
@@ -25,9 +31,14 @@ class StarViewModel : BaseViewModel() {
                 block = { HomeDataSource.getTextCardsByType(type) }
         }
         launchOnlyresult(block, {
-
+            if (TextUtils.isEmpty(feedid)) {
+                mSubcribeTextCardsLiveData.value = it.textcardlist
+            } else {
+                mSubcribeTextCardsMoreLiveData.value = it.textcardlist
+            }
         }, {
-
+            defUI.toastEvent.postValue("${it.code}:${it.errMsg}")
+            mSubcribeTextCardsFailureLiveData.value = it.code
         })
     }
 }
