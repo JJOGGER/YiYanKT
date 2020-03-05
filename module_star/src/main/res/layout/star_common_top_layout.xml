@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <com.qmuiteam.qmui.widget.QMUIRadiusImageView
+            app:qmui_is_circle="true"
+            android:id="@+id/iv_avatar"
+            app:qmui_border_color="@color/transparent"
+            android:layout_width="@dimen/dp_30"
+            android:layout_height="@dimen/dp_30"
+            android:layout_marginBottom="@dimen/dp_8"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="@dimen/dp_8"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="@dimen/dp_16"
+            app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+            android:id="@+id/tv_nickname"
+            tools:text="nickname"
+            android:textSize="@dimen/text_size_15"
+            app:qmui_skin_text_color="?attr/app_skin_card_text_color"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@+id/iv_avatar"
+            app:layout_constraintStart_toEndOf="@+id/iv_avatar"
+            android:layout_marginStart="@dimen/dp_8"/>
+    <TextView
+            android:id="@+id/tv_date"
+            tools:text="00:00"
+            android:textSize="@dimen/text_size_12"
+            app:qmui_skin_text_color="?attr/app_skin_home_text_color"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/tv_nickname"
+            app:layout_constraintStart_toStartOf="@+id/tv_nickname"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_avatar"/>
+
+    <TextView
+            tools:text="[给自己的话]"
+            android:textSize="@dimen/text_size_15"
+            android:textColor="@color/btn_filled_blue_bg_normal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/sub_title"
+            app:layout_constraintTop_toTopOf="@+id/tv_nickname"
+            app:layout_constraintBottom_toBottomOf="@+id/tv_nickname"
+            app:layout_constraintStart_toEndOf="@+id/tv_nickname"
+            android:layout_marginStart="@dimen/dp_8"/>
+<ImageView
+        android:layout_width="wrap_content"
+        app:qmui_skin_tint_color="?attr/app_skin_common_img_tint_color"
+        android:src="@drawable/down_arrow_80_gray"
+        android:layout_height="wrap_content"/>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,8 +14,6 @@ import com.jogger.entity.TextCard
 import com.jogger.manager.AssetsManager
 import com.jogger.module_home.R
 import com.jogger.module_home.databinding.HomeTextCardContainerLayoutBinding
-import java.text.SimpleDateFormat
-import java.util.*
 
 
 /**
@@ -54,14 +52,14 @@ class TextCardContainer : FrameLayout {
             mBinding.tvDate.text = "${date[0]}\n/\n${date[1]}\n/\n${date[2]}"
         }
         if (card.creator != null && card.originbook != null)
-            mBinding.commonBottom.tvCreated.text = "${card.creator!!.username} 创建于 [${card.originbook!!.bookname}]"
+            mBinding.tvCreated.text = "${card.creator!!.username} 创建于 [${card.originbook!!.bookname}]"
         mBinding.commonBottom.tvCollection.text = "${card.collectcnt}"
         mBinding.commonBottom.tvComment.text = "${card.replycnt}"
         mBinding.commonBottom.tvLike.text = "${(card.commentcnt - card.replycnt)}"
-        mBinding.commonBottom.tvCreated.typeface = AssetsManager.getFontTypeFace(AssetsManager.ASSETS_FONT4)
-        mBinding.commonBottom.tvCategory.typeface = mBinding.commonBottom.tvCreated.typeface
-        mBinding.topicBottom.tvTopicReply.typeface = mBinding.commonBottom.tvCreated.typeface
-        mBinding.topicBottom.tvTopicCreated.typeface = mBinding.commonBottom.tvCreated.typeface
+        mBinding.tvCreated.typeface = AssetsManager.getFontTypeFace(AssetsManager.ASSETS_FONT4)
+        mBinding.tvCategory.typeface = mBinding.tvCreated.typeface
+        mBinding.topicBottom.tvTopicReply.typeface = mBinding.tvCreated.typeface
+        mBinding.topicBottom.tvTopicCreated.typeface = mBinding.tvCreated.typeface
         mBinding.textLayout.tvTextTitle.typeface =
             AssetsManager.getTypeFaceByType(
                 card.type?.split("_")?.get(3)?.toInt() ?: 0
@@ -80,9 +78,9 @@ class TextCardContainer : FrameLayout {
                 if (!TextUtils.isEmpty(card.from))
                     mBinding.textLayout.tvTextFrom.text = "- ${card.from} -"
                 if (card.category == CARD_CATEGORY.TYPE_TEXT._value) {
-                    mBinding.commonBottom.commonBottomContainer.visibility = View.VISIBLE
+                    mBinding.commonBottomContainer.visibility = View.VISIBLE
                     mBinding.textLayout.tvContent.text = card.content
-                    mBinding.commonBottom.tvCategory.text = "#文字"
+                    mBinding.tvCategory.text = "#文字"
                 } else {
                     val drawable = resources.getDrawable(R.drawable.icon_topicmark_3x)
                     drawable.setBounds(0, 0, drawable.minimumWidth, drawable.minimumHeight)
@@ -95,11 +93,11 @@ class TextCardContainer : FrameLayout {
 
             }
             CARD_CATEGORY.TYPE_POETRY._value -> {
-                mBinding.commonBottom.tvCategory.text = "#诗"
+                mBinding.tvCategory.text = "#诗"
             }
             CARD_CATEGORY.TYPE_MUSIC._value -> {
                 mBinding.musicLayout.musicContainer.visibility = View.VISIBLE
-                mBinding.commonBottom.commonBottomContainer.visibility = View.VISIBLE
+                mBinding.commonBottomContainer.visibility = View.VISIBLE
                 if (!TextUtils.isEmpty(card.title))
                     mBinding.musicLayout.tvMusicTitle.text = card.title
                 if (!TextUtils.isEmpty(card.from))

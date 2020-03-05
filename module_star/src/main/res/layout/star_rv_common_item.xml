@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <include layout="@layout/star_common_top_layout"/>
+
+    <com.qmuiteam.qmui.layout.QMUIFrameLayout
+            android:layout_marginStart="@dimen/dp_54"
+            android:layout_width="@dimen/dp_600"
+            android:layout_height="600dp">
+        <include layout="@layout/home_card_text_layout"/>
+
+    </com.qmuiteam.qmui.layout.QMUIFrameLayout>
+</LinearLayout>

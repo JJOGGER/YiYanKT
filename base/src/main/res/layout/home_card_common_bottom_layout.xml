@@ -7,30 +7,9 @@
 
     </data>
 
-    <LinearLayout
-            android:orientation="vertical"
-            android:visibility="gone"
-            tools:visibility="visible"
-            android:id="@+id/common_bottom_container"
+    <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-
-        <TextView
-                android:id="@+id/tv_category"
-                android:textSize="@dimen/text_size_12"
-                app:qmui_skin_text_color="?attr/app_skin_card_tag_color"
-                android:layout_width="wrap_content"
-                android:paddingStart="@dimen/dp_2"
-                android:layout_height="wrap_content"/>
-
-        <TextView
-                android:id="@+id/tv_created"
-                android:paddingBottom="@dimen/dp_6"
-                android:textSize="@dimen/text_size_12"
-                app:qmui_skin_text_color="?attr/app_skin_card_tag_color"
-                android:layout_width="wrap_content"
-                android:paddingStart="@dimen/dp_2"
-                android:layout_height="wrap_content"/>
 
         <View
                 android:layout_width="match_parent"
@@ -102,5 +81,5 @@
                         android:layout_height="wrap_content"/>
             </FrameLayout>
         </LinearLayout>
-    </LinearLayout>
+    </FrameLayout>
 </layout>
