@@ -6,6 +6,7 @@ import android.util.AttributeSet
 import android.widget.LinearLayout
 import android.widget.TextView
 import com.google.android.material.tabs.TabLayout
+import com.jogger.manager.AssetsManager
 import com.qmuiteam.qmui.util.QMUIDisplayHelper
 
 
@@ -37,6 +38,7 @@ class CustomTabLayout : TabLayout {
                     .getDeclaredField("mTextView")
                 mTextView.isAccessible = true
                 val textView = mTextView.get(tabView) as TextView
+                textView.setTypeface(AssetsManager.getFontTypeFace(AssetsManager.ASSETS_FONT2))
                 val textWidth = textView.paint.measureText(textView.text.toString())
                 val child = mTabStrip.getChildAt(i)
                 child.setPadding(0, 0, 0, 0)

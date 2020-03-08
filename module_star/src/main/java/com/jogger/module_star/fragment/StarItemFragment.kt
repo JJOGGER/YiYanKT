@@ -41,15 +41,16 @@ class StarItemFragment : BaseFragment<StarViewModel, ViewDataBinding>(), OnRefre
     override fun initView(savedInstanceState: Bundle?) {
         srl_refresh.setRefreshHeader(YiYanHeader(mContext!!))
         mType = arguments!!.getInt(INDEX)
-        mAdapter=StarAdapter(null)
-        rv_content.layoutManager=LinearLayoutManager(mContext)
-        rv_content.adapter=mAdapter
+        mAdapter = StarAdapter(null)
+        rv_content.layoutManager = LinearLayoutManager(mContext)
+        rv_content.adapter = mAdapter
         srl_refresh.setOnRefreshLoadMoreListener(this)
         mViewModel.mSubcribeTextCardsLiveData.observe(this, Observer { handleTextCards(it) })
         mViewModel.mSubcribeTextCardsMoreLiveData.observe(this, Observer { handleMoreTextCards(it) })
         mViewModel.mSubcribeTextCardsFailureLiveData.observe(this, Observer { handleTextCardsFailure(it) })
         lazyLoadData()
     }
+
     private fun handleTextCardsFailure(it: Any?) {
         srl_refresh.closeHeaderOrFooter()
     }
@@ -71,16 +72,16 @@ class StarItemFragment : BaseFragment<StarViewModel, ViewDataBinding>(), OnRefre
 
     override fun lazyLoadData() {
         super.lazyLoadData()
-        mViewModel.getTextCardsByType(mType, mFeedId)
+        srl_refresh.autoRefresh()
     }
 
     override fun onRefresh(refreshLayout: RefreshLayout) {
-        lazyLoadData()
+        mViewModel.getTextCardsByType(mType, mFeedId)
     }
 
     override fun onLoadMore(refreshLayout: RefreshLayout) {
         vp_content.postDelayed({
-            lazyLoadData()
+            mViewModel.getTextCardsByType(mType, mFeedId)
         }, 300)
     }
 }

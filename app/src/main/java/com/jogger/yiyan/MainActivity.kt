@@ -11,6 +11,7 @@ import com.jogger.yiyan.databinding.ActivityMainBinding
 import com.qmuiteam.qmui.skin.QMUISkinManager
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper
 import ex.MODULE_HOME_MAIN
+import ex.MODULE_MESSAGE_MAIN
 import ex.MODULE_STAR_MAIN
 import ex.getFragment
 import kotlinx.android.synthetic.main.activity_main.*
@@ -84,7 +85,7 @@ class MainActivity : BaseActivity<BaseViewModel, ActivityMainBinding>() {
 
         mBottomPath.add(MODULE_HOME_MAIN)
         mBottomPath.add(MODULE_STAR_MAIN)
-        mBottomPath.add(MODULE_HOME_MAIN)
+        mBottomPath.add(MODULE_MESSAGE_MAIN)
         mBottomPath.add(MODULE_HOME_MAIN)
     }
 

@@ -32,6 +32,7 @@
     <color name="qmui_config_color_75_pure_black">#C0000000</color>
     <color name="qmui_config_color_60_pure_black">#99000000</color>
     <color name="qmui_config_color_50_pure_black">#80000000</color>
+    <color name="qmui_config_color_35_pure_black">#60000000</color>
     <color name="qmui_config_color_25_pure_black">#40000000</color>
     <color name="qmui_config_color_15_pure_black">#26000000</color>
     <color name="qmui_config_color_10_pure_black">#19000000</color>

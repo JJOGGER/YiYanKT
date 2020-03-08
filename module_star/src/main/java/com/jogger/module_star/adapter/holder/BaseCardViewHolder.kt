@@ -11,7 +11,7 @@ import com.qmuiteam.qmui.widget.QMUIVerticalTextView
 
 abstract class BaseCardViewHolder(view: View, context: Context) : BaseViewHolder(view) {
     val mContext = context
-    open abstract fun convert(item: TextCard)
+    abstract fun convert(card: TextCard)
 
     open fun setTypeFace(vararg @IdRes viewIds: Int, typeface: Typeface): BaseCardViewHolder {
         for (it in viewIds) {
@@ -21,10 +21,12 @@ abstract class BaseCardViewHolder(view: View, context: Context) : BaseViewHolder
     }
 
     open fun isVerticalMode(@IdRes viewId: Int, isVerticalMode: Boolean) {
-        getView<QMUIVerticalTextView>(viewId).isVerticalMode = isVerticalMode
+        if (getView<TextView>(viewId) is QMUIVerticalTextView)
+            getView<QMUIVerticalTextView>(viewId).isVerticalMode = isVerticalMode
     }
-    open fun setGravity(@IdRes viewId: Int, gravity: Int){
-        getView<TextView>(viewId).gravity=gravity
+
+    open fun setGravity(@IdRes viewId: Int, gravity: Int) {
+        getView<TextView>(viewId).gravity = gravity
     }
 
 }

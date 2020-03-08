@@ -2,4 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.jogger.module_star">
 
+    <application>
+        <activity
+                android:name=".activity.SearchActivity"
+                android:windowSoftInputMode="stateAlwaysVisible|adjustPan">
+        </activity>
+    </application>
+
 </manifest>

@@ -15,23 +15,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        <FrameLayout
-                android:clipChildren="false"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-            <com.jogger.widget.HomeViewPager
-                    android:id="@+id/vp_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="@dimen/dp_70"
-                    android:layout_marginBottom="@dimen/dp_70"
-                    android:layout_gravity="center"
-                    android:clipChildren="false"
-                    android:clipToPadding="false"
-                    android:paddingLeft="@dimen/dp_70"
-                    android:paddingRight="@dimen/dp_70"
-                    android:layout_width="wrap_content"/>
-        </FrameLayout>
+        <include
+                layout="@layout/card_viewpager_layout"
+                android:id="@+id/viewpager_layout"/>
     </com.scwang.smartrefresh.horizontal.SmartRefreshHorizontal>
 
     <com.qmuiteam.qmui.widget.QMUITopBarLayout

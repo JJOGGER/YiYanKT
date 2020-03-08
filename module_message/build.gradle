@@ -33,7 +33,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
-
+    resourcePrefix "message_"
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {

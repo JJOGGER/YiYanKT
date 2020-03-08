@@ -27,6 +27,7 @@
         <com.jogger.module_star.widget.CustomTabLayout
                 android:id="@+id/tl_tab"
                 android:layout_width="match_parent"
+                app:tabMinWidth="@dimen/dp_60"
                 android:layout_marginStart="@dimen/dp_100"
                 android:layout_marginEnd="@dimen/dp_100"
                 android:layout_gravity="center"

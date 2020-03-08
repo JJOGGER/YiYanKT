@@ -1,4 +1,4 @@
-package com.jogger.module_message;
+package com.jogger.module_star;
 
 import org.junit.Test;
 

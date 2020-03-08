@@ -15,6 +15,7 @@ import com.jogger.widget.YiYanHeader
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener
 import ex.MODULE_HOME_MAIN
+import kotlinx.android.synthetic.main.card_viewpager_layout.*
 import kotlinx.android.synthetic.main.home_fragment_home.*
 
 
@@ -49,7 +50,7 @@ class HomeFragment : BaseFragment<HomeViewModel, ViewDataBinding>(), OnRefreshLo
         topbar.setTitle("订阅")
         topbar.addRightImageButton(R.drawable.icons8_time_machine_66_3x, R.id.clock_funciton)
         QDSkinManager.changeSkin(QDSkinManager.SKIN_WHITE)
-        mHomeAdapter = HomePagerAdapter(vp_content)
+        mHomeAdapter = HomePagerAdapter()
         srl_refresh.setRefreshHeader(YiYanHeader(mContext!!))
         srl_refresh.setOnRefreshLoadMoreListener(this)
         mViewModel.mSubcribeArticlesLiveData.observe(this, Observer { handleArticles(it) })
@@ -77,7 +78,7 @@ class HomeFragment : BaseFragment<HomeViewModel, ViewDataBinding>(), OnRefreshLo
     private fun handleArticles(cards: MutableList<TextCard>) {
         srl_refresh.closeHeaderOrFooter()
         mHomeAdapter.setDatas(cards)
-        vp_content.adapter = mHomeAdapter
+        viewpager_layout.findViewById<ViewPager>(R.id.vp_content).adapter = mHomeAdapter
     }
 
     override fun lazyLoadData() {

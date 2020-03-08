@@ -10,7 +10,6 @@ import com.jogger.base.BaseFragment
 import com.jogger.base.BaseViewModel
 import com.jogger.constant.CARD_CATEGORY
 import com.jogger.module_star.R
-import ex.INDEX
 import ex.MODULE_STAR_MAIN
 import kotlinx.android.synthetic.main.star_fragment_main.*
 
@@ -28,7 +27,7 @@ class StarMainFragment : BaseFragment<BaseViewModel, ViewDataBinding>() {
         topbar.addRightImageButton(R.drawable.icon_serach_right_22, R.id.search_funciton)
         vp_content.adapter = StarPageAdapter(childFragmentManager)
         tl_tab.setupWithViewPager(vp_content)
-        vp_content.setCurrentItem(2)
+        vp_content.setCurrentItem(1)
     }
 
 

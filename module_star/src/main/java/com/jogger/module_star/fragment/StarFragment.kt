@@ -7,11 +7,11 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.jogger.base.BaseFragment
 import com.jogger.constant.CARD_CATEGORY
-import com.jogger.manager.AssetsManager
-import com.jogger.module_star.R
 import com.jogger.module_star.viewmodel.StarViewModel
+import com.qmuiteam.qmui.widget.tab.QMUITabSegment
 import ex.INDEX
 import kotlinx.android.synthetic.main.star_fragment.*
+
 
 /**
  * Created by jogger on 2020/3/4
@@ -43,7 +43,7 @@ class StarFragment : BaseFragment<StarViewModel, ViewDataBinding>() {
         "发现",
         "我参与的"
     )
-    private val mFragments = arrayListOf<Fragment>()
+    private val mFragments = arrayListOf<BaseFragment<*, *>>()
 
     companion object {
         const val TYPE_FIND = 1
@@ -70,24 +70,42 @@ class StarFragment : BaseFragment<StarViewModel, ViewDataBinding>() {
             fragment.arguments = bundle
             mFragments.add(fragment)
             mFragments.add(StarItemFragment.getInstance(CARD_CATEGORY.TYPE_TOPIC._value))
+            tab.mode = QMUITabSegment.MODE_FIXED
         }
-        vp_item.adapter = StarPageAdapter(childFragmentManager)
-        tab.setTypeFace(
-            AssetsManager.getFontTypeFace(AssetsManager.ASSETS_FONT3)
-        )
+        val starPageAdapter = StarPageAdapter(childFragmentManager)
+        vp_item.adapter = starPageAdapter
+        vp_item.canScrollHorizontally(0)
+//        tab.setTypeFace(
+//            AssetsManager.getFontTypeFace(AssetsManager.ASSETS_FONT1)
+//        )
         tab.setupWithViewPager(vp_item, true)
+        tab.setOnTabClickListener(object : QMUITabSegment.OnTabClickListener {
+            override fun onTabClick(index: Int) {
+                if (tab.selectedIndex == index) {
+                    starPageAdapter.getFragment(index).lazyLoadData()
+                }
+            }
+        })
     }
 
-    override fun layoutId(): Int = R.layout.star_fragment
+    override fun layoutId(): Int = com.jogger.module_star.R.layout.star_fragment
 
     inner class StarPageAdapter(f: FragmentManager) : FragmentStatePagerAdapter(f) {
-        override fun getItem(position: Int): Fragment =
-            mFragments[position]
+        private val mPageReferenceMap = hashMapOf<Int, BaseFragment<*, *>>()
+        override fun getItem(position: Int): Fragment {
+            mPageReferenceMap.put(position, mFragments[position])
+            return mFragments[position]
+        }
+
 
         override fun getCount(): Int =
             if (mType == TYPE_FIND) mFinderTitles.size else mTopicTitles.size
 
         override fun getPageTitle(position: Int): CharSequence? =
             if (mType == TYPE_FIND) mFinderTitles[position] else mTopicTitles[position]
+
+        fun getFragment(key: Int): BaseFragment<*, *> {
+            return mPageReferenceMap.get(key)!!
+        }
     }
 }

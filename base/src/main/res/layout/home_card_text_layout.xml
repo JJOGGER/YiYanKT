@@ -20,14 +20,15 @@
                 android:paddingTop="@dimen/dp_16"
                 android:paddingStart="@dimen/dp_16"
                 android:paddingEnd="@dimen/dp_16"
-                tools:text="标题"
                 android:textSize="22sp"
                 app:qmui_skin_text_color="?attr/app_skin_card_text_color"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
-        <com.qmuiteam.qmui.widget.QMUIVerticalTextView
+        <TextView
                 android:id="@+id/tv_content"
+                android:maxLines="7"
+                android:layout_gravity="center"
                 android:paddingTop="@dimen/dp_16"
                 android:paddingStart="@dimen/dp_16"
                 android:paddingEnd="@dimen/dp_16"
@@ -35,6 +36,7 @@
                 android:lineSpacingExtra="@dimen/dp_3"
                 android:textColor="@color/qmui_config_color_black"
                 android:textSize="18sp"
+                android:gravity="center"
                 app:qmui_skin_text_color="?attr/app_skin_card_text_color"
                 android:layout_width="match_parent"
                 android:layout_weight="1"

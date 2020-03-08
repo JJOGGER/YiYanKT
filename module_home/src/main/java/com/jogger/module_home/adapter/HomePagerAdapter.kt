@@ -5,16 +5,13 @@ import android.view.ViewGroup
 import androidx.viewpager.widget.PagerAdapter
 import com.jogger.entity.TextCard
 import com.jogger.module_home.view.widget.TextCardContainer
-import com.jogger.utils.LogUtils
-import com.jogger.widget.HomeViewPager
 
 /**
  * Created by jogger on 2020/3/3
  * 描述：
  */
-class HomePagerAdapter(vpContent: HomeViewPager) : PagerAdapter() {
+class HomePagerAdapter : PagerAdapter() {
     private val mDatas = arrayListOf<TextCard>()
-    private val vpContent: HomeViewPager = vpContent
     override fun getCount(): Int {
         return mDatas.size
     }

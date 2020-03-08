@@ -25,7 +25,6 @@ import android.os.Build;
 import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.widget.TextView;
-
 import androidx.appcompat.widget.AppCompatTextView;
 
 /**

@@ -34,7 +34,9 @@ android {
             buildConfigField "boolean", "LOG_DEBUG", "false"
         }
     }
-
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {

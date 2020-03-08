@@ -9,6 +9,7 @@ enum class CARD_CATEGORY(value: Int) {
     TYPE_MUSIC(2000),//音乐
     TYPE_POETRY(1000),//诗
     TYPE_FILM(3),//电影
+    TYPE_HOT_CARD(110000),
     TYPE_HOT(100000),//热门
     TYPE_TOPIC(100002),//话题
     TYPE_TOPIC_FIND(100003),//话题-发现

@@ -4,10 +4,6 @@
         xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
-        <variable
-                name="textCard"
-                type="com.jogger.entity.TextCard"/>
     </data>
 
     <LinearLayout
@@ -43,11 +39,10 @@
                     android:orientation="vertical"
                     android:layout_height="match_parent">
 
-                <ImageView
-                        android:id="@+id/iv_header"
-                        android:layout_width="match_parent"
-                        android:scaleType="fitXY"
-                        android:layout_height="@dimen/dp_140"/>
+                <include
+                        layout="@layout/card_header_img_layout"
+                        android:id="@+id/header_layout"/>
+
 
                 <FrameLayout
                         android:layout_width="match_parent"
@@ -92,9 +87,10 @@
                                 android:layout_width="wrap_content"
                                 android:paddingStart="@dimen/dp_2"
                                 android:layout_height="wrap_content"/>
-                        <!--<include-->
-                        <!--layout="@layout/home_card_common_bottom_layout"-->
-                        <!--android:id="@+id/common_bottom"/>-->
+
+                        <include
+                                layout="@layout/home_card_common_bottom_layout"
+                                android:id="@+id/common_bottom"/>
                     </LinearLayout>
 
                     <include

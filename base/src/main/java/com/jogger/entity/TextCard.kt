@@ -5,6 +5,8 @@ import com.chad.library.adapter.base.entity.MultiItemEntity
 
 data class TextCard(
     val picpath: String? = null,
+    val MoreTagsData: MoreTagsData? = null,
+    val subcardlist: MutableList<TextCard>? = null,
     val ava: String? = null,
     val commentcnt: Int = 0,
     val commercialtag: String? = null,
@@ -25,5 +27,9 @@ data class TextCard(
     val replycnt: Int = 0,
     val datetime: String? = null
 ) : MultiItemEntity {
-    override val itemType: Int = category
+    override var itemType: Int = category
+        set(category) {
+            field =category
+        }
+        get() = category
 }
