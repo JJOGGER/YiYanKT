@@ -1,10 +1,7 @@
 package com.jogger.module_star.adapter.holder
 
 import android.content.Context
-import android.text.SpannableStringBuilder
-import android.text.Spanned
 import android.text.TextUtils
-import android.text.style.ImageSpan
 import android.view.Gravity
 import android.view.View
 import android.widget.ImageView
@@ -17,24 +14,9 @@ import com.jogger.utils.LogUtils
 import com.qmuiteam.qmui.widget.QMUIRadiusImageView
 
 class CommonItemViewHolder(view: View, context: Context) : BaseCardViewHolder(view, context) {
-    var spannable = SpannableStringBuilder("[icon] ")
-
-    init {
-        val drawable = context.resources.getDrawable(R.drawable.icon_topicmark_3x)
-        drawable.setBounds(0, 0, drawable.intrinsicWidth, drawable.intrinsicHeight)
-        val imageSpan1 = ImageSpan(drawable, ImageSpan.ALIGN_BASELINE)
-        spannable.setSpan(imageSpan1, 0, 6, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
-    }
 
     override fun convert(card: TextCard) {
         setGone(R.id.text_container, false)
-            .setGone(
-                R.id.tv_topic_title,
-                if (card.category == CARD_CATEGORY.TYPE_TOPIC._value) {
-                    setText(R.id.tv_topic_title, spannable.append(card.title))
-                    true
-                } else false
-            )
         val imgShow = card.type?.split("_")?.get(1)?.toInt()
         val image: ImageView?
         if (imgShow == 1) {
@@ -46,20 +28,23 @@ class CommonItemViewHolder(view: View, context: Context) : BaseCardViewHolder(vi
             }
         }
         if (!TextUtils.isEmpty(card.picpath)) {
-            getView<View>(R.id.fl_header).visibility=View.VISIBLE
+            getView<View>(R.id.fl_header).visibility = View.VISIBLE
             image.visibility = View.VISIBLE
             Glide.with(mContext)
                 .load(card.picpath)
+                .centerCrop()
                 .into(image)
         } else {
-            getView<View>(R.id.fl_header).visibility=View.GONE
+            getView<View>(R.id.fl_header).visibility = View.GONE
         }
         Glide.with(mContext)
             .load(card.creator?.smallavatar)
             .into(getView(R.id.iv_avatar))
-        setText(R.id.tv_nickname, card.creator?.username).setText(
+        setText(
+            R.id.tv_nickname, card.creator?.username
+        ).setText(
             R.id.tv_book,
-            if (card.creator != null && card.originbook != null) "[${card.originbook!!.bookname}]" else ""
+            if (card.creator != null && card.originbook != null && card.originbook!!.bookname != null) "[${card.originbook!!.bookname}]" else ""
         ).setText(
             R.id.tv_date,
             if (!TextUtils.isEmpty(card.datetime)) {
@@ -74,7 +59,6 @@ class CommonItemViewHolder(view: View, context: Context) : BaseCardViewHolder(vi
             .setText(R.id.tv_collection, card.collectcnt.toString())
             .setText(R.id.tv_comment, card.replycnt.toString())
             .setText(R.id.tv_like, (card.commentcnt - card.replycnt).toString())
-            .setText(R.id.tv_text_from, if (!TextUtils.isEmpty(card.from)) card.from else "")
             .setText(
                 R.id.tv_category, when (card.category) {
                     CARD_CATEGORY.TYPE_TEXT._value -> "#文字"

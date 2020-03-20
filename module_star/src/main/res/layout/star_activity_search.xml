@@ -63,65 +63,78 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                <ViewStub
-                        android:id="@+id/stub_text_list"
+                <com.scwang.smartrefresh.horizontal.SmartRefreshHorizontal
                         android:layout_width="match_parent"
-                        android:layout="@layout/card_viewpager_layout"
-                        android:layout_height="match_parent"/>
+                        android:id="@+id/srl_text_refresh"
+                        android:layout_height="match_parent">
 
-                <ViewStub
-                        android:id="@+id/stub_user_list"
+                    <include
+                            android:id="@+id/stub_text_list"
+                            layout="@layout/card_viewpager_layout"/>
+                </com.scwang.smartrefresh.horizontal.SmartRefreshHorizontal>
+
+                <com.scwang.smartrefresh.layout.SmartRefreshLayout
                         android:layout_width="match_parent"
-                        android:layout="@layout/star_user_list_layout"
-                        android:layout_height="match_parent"/>
+                        android:id="@+id/srl_user_refresh"
+                        android:layout_height="match_parent">
+
+                    <include
+                            android:id="@+id/stub_user_list"
+                            layout="@layout/star_user_list_layout"/>
+                </com.scwang.smartrefresh.layout.SmartRefreshLayout>
             </FrameLayout>
         </LinearLayout>
 
-        <LinearLayout
-                android:fitsSystemWindows="true"
-                android:orientation="horizontal"
-                app:qmui_skin_background="?attr/app_skin_common_background"
+        <com.qmuiteam.qmui.widget.QMUITopBarLayout
                 android:layout_width="match_parent"
-                android:layout_height="?attr/qmui_topbar_height"
-                tools:layout_height="@dimen/dp_48"
-                tools:ignore="MissingPrefix">
+                android:fitsSystemWindows="true"
+                app:qmui_skin_background="?attr/app_skin_common_background"
+                android:id="@+id/topbar"
+                android:layout_height="wrap_content">
 
-
-            <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundFrameLayout
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    app:qmui_borderColor="@color/transparent"
-                    app:qmui_radius="@dimen/dp_2"
-                    android:layout_marginStart="@dimen/dp_8"
-                    android:layout_marginBottom="@dimen/dp_6"
-                    android:layout_marginTop="@dimen/dp_6"
-                    app:qmui_skin_background="?attr/app_skin_common_background"
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
                     android:layout_height="match_parent">
 
-                <EditText
-                        android:background="@null"
-                        android:textColorHint="@color/qmui_config_color_25_pure_black"
-                        android:layout_width="match_parent"
-                        android:id="@+id/et_search"
-                        android:textSize="@dimen/text_size_15"
-                        android:hint="搜索文字或用户名"
-                        android:imeOptions="actionSearch"
-                        android:maxLines="1"
-                        android:drawableStart="@drawable/search_line_64_gray"
-                        android:paddingStart="@dimen/dp_12"
-                        android:textColor="@color/qmui_config_color_gray_1"
-                        android:drawablePadding="@dimen/dp_10"
-                        android:layout_height="match_parent"/>
-            </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundFrameLayout>
+                <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundFrameLayout
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        app:qmui_borderColor="@color/transparent"
+                        app:qmui_radius="@dimen/dp_2"
+                        android:layout_marginStart="@dimen/dp_8"
+                        android:layout_marginBottom="@dimen/dp_6"
+                        android:layout_marginTop="@dimen/dp_6"
+                        app:qmui_skin_background="?attr/app_skin_common_background"
+                        android:layout_height="match_parent">
 
-            <TextView
-                    android:layout_width="wrap_content"
-                    android:text="取消"
-                    app:qmui_skin_text_color="?attr/app_skin_search_txt_color"
-                    android:gravity="center_vertical"
-                    android:paddingStart="@dimen/dp_8"
-                    android:paddingEnd="@dimen/dp_16"
-                    android:layout_height="match_parent"/>
-        </LinearLayout>
+                    <EditText
+                            android:background="@null"
+                            android:textColorHint="@color/qmui_config_color_25_pure_black"
+                            android:layout_width="match_parent"
+                            android:id="@+id/et_search"
+                            android:textSize="@dimen/text_size_15"
+                            android:hint="搜索文字或用户名"
+                            android:imeOptions="actionSearch"
+                            android:maxLines="1"
+                            android:inputType="text"
+                            android:drawableStart="@drawable/search_line_64_gray"
+                            android:paddingStart="@dimen/dp_12"
+                            android:textColor="@color/qmui_config_color_gray_1"
+                            android:drawablePadding="@dimen/dp_10"
+                            android:layout_height="match_parent"/>
+                </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundFrameLayout>
+
+                <TextView
+                        android:id="@+id/tv_cancel"
+                        android:layout_width="wrap_content"
+                        android:text="取消"
+                        app:qmui_skin_text_color="?attr/app_skin_search_txt_color"
+                        android:gravity="center_vertical"
+                        android:paddingStart="@dimen/dp_8"
+                        android:paddingEnd="@dimen/dp_16"
+                        android:layout_height="match_parent"/>
+            </LinearLayout>
+        </com.qmuiteam.qmui.widget.QMUITopBarLayout>
     </com.qmuiteam.qmui.widget.QMUIWindowInsetLayout>
 </layout>

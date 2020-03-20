@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:background="@drawable/lonely_2208h"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            tools:context=".view.splash.LoginActivity">
+
+        <ImageView
+                android:src="@drawable/launch_icon_yy"
+                android:layout_marginTop="@dimen/dp_70"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                android:text="「 记录字句，发现共鸣 」"
+                android:paddingTop="@dimen/dp_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                android:id="@+id/tv_sina"
+                android:text="微博账号登录"
+                android:paddingTop="@dimen/dp_50"
+                android:textColor="@color/color_393939"
+                android:drawableStart="@drawable/sina_weibo_c_2x"
+                android:textSize="@dimen/text_size_14"
+                android:gravity="center"
+                android:drawablePadding="@dimen/dp_8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                android:id="@+id/tv_wechat"
+                android:textColor="@color/color_393939"
+                android:drawableStart="@drawable/sina_weibo_c_2x"
+                android:text="微信账号登录"
+                android:textSize="@dimen/text_size_14"
+                android:paddingTop="@dimen/dp_24"
+                android:gravity="center"
+                android:drawablePadding="@dimen/dp_8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                android:textSize="@dimen/text_size_14"
+                android:paddingTop="@dimen/dp_16"
+                android:id="@+id/tv_mail"
+                android:textColor="@color/qmui_config_color_75_white"
+                android:text="邮箱账号登录"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                android:textSize="@dimen/text_size_14"
+                android:paddingTop="@dimen/dp_16"
+                android:id="@+id/tv_question"
+                android:textColor="@color/qmui_config_color_75_white"
+                android:text="遇到问题？"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+    </LinearLayout>
+</layout>

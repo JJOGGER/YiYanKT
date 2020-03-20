@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import com.jogger.base.BuildConfig
 import com.jogger.http.basic.config.getBaseUrl
 import com.jogger.http.interceptor.HeaderInterceptor
+import com.jogger.http.interceptor.HttpInterceptor
 import com.jogger.http.interceptor.RetryIntercepter
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -57,6 +58,7 @@ object RetrofitManager {
             .connectTimeout(CONNECT_TIMEOUT, TimeUnit.MILLISECONDS)
             .addInterceptor(RetryIntercepter(3))
             .addInterceptor(HeaderInterceptor())
+            .addInterceptor(HttpInterceptor())
             .retryOnConnectionFailure(true)
         if (BuildConfig.DEBUG) {
             val httpLoggingInterceptor = HttpLoggingInterceptor()

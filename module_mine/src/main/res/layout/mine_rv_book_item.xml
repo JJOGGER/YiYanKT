@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.qmuiteam.qmui.widget.roundwidget.QMUIRoundFrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        app:qmui_radius="@dimen/dp_2"
+        app:qmui_skin_background="?attr/app_skin_common_background_1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <com.qmuiteam.qmui.widget.QMUIRadiusImageView
+            android:id="@+id/iv_item"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            app:qmui_corner_radius="@dimen/dp_2"
+            app:qmui_border_color="@color/transparent"/>
+
+    <View
+            android:layout_width="match_parent"
+            android:visibility="invisible"
+            android:id="@+id/v_shadow"
+            android:background="@color/color_C31D1D1D"
+            android:layout_height="match_parent"/>
+
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:text="默认文集"
+            android:textSize="@dimen/text_size_18"
+            android:id="@+id/tv_book_name"
+            app:qmui_skin_text_color="?attr/app_skin_common_title_text_color"
+            android:layout_height="wrap_content"/>
+
+    <com.jogger.widget.CommonTextView
+            android:text="0字句"
+            android:id="@+id/tv_book_size"
+            android:layout_gravity="bottom"
+            android:paddingStart="@dimen/dp_8"
+            android:paddingBottom="@dimen/dp_8"
+            android:textSize="@dimen/text_size_14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+</com.qmuiteam.qmui.widget.roundwidget.QMUIRoundFrameLayout>

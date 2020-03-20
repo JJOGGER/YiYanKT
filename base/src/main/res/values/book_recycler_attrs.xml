@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="BookRecyclerView">
+        <attr name="book_plus_enable" format="boolean"/><!--加号-->
+        <attr name="book_sortable" format="boolean"/><!--排序-->
+        <attr name="book_plus_drawable" format="reference"/>
+        <attr name="book_item_span_count" format="integer"/><!--列数-->
+        <attr name="book_item_radius" format="dimension|reference"/><!--圆角-->
+        <attr name="book_item_spacing" format="dimension|reference"/><!--间距-->
+        <attr name="book_other_item_spacing" format="dimension|reference"/><!--间距-->
+        <attr name="book_item_width" format="dimension|reference"/><!--宽度-->
+
+    </declare-styleable>
+</resources>

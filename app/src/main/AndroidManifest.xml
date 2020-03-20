@@ -24,33 +24,36 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             tools:ignore="GoogleAppIndexingWarning">
+        <activity
+                android:name=".view.splash.LoginActivity"
+                android:launchMode="singleTop">
+        </activity>
+
         <meta-data
                 android:name="android.notch_support"
                 android:value="true"/>
-
         <meta-data
                 android:name="android.max_aspect"
                 android:value="2.34"/>
-
         <meta-data
                 android:name="notch.config"
                 android:value="portrait|landscape"/>
+
         <activity
-                android:name="com.jogger.yiyan.view.splash.SplashActivity"
+                android:name=".view.splash.SplashActivity"
                 android:configChanges="orientation|keyboardHidden"
                 android:launchMode="singleTop"
                 android:screenOrientation="portrait"
                 android:windowSoftInputMode="adjustPan">
 
-            <!--android:theme="@style/login_logoTheme"-->
-
-        </activity>
-        <activity android:name="com.jogger.yiyan.MainActivity">
+            <!-- android:theme="@style/login_logoTheme" -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
+        </activity>
+        <activity android:name=".MainActivity">
         </activity>
 
         <provider

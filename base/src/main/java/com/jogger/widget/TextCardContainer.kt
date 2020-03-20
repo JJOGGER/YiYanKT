@@ -1,4 +1,4 @@
-package com.jogger.module_home.view.widget
+package com.jogger.widget
 
 import android.content.Context
 import android.text.SpannableStringBuilder
@@ -13,10 +13,11 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import androidx.databinding.DataBindingUtil
 import com.bumptech.glide.Glide
+import com.jogger.base.R
+import com.jogger.base.databinding.HomeTextCardContainerLayoutBinding
 import com.jogger.constant.CARD_CATEGORY
 import com.jogger.entity.TextCard
 import com.jogger.manager.AssetsManager
-import com.jogger.module_home.databinding.HomeTextCardContainerLayoutBinding
 import com.jogger.utils.LogUtils
 
 
@@ -37,11 +38,11 @@ class TextCardContainer : FrameLayout {
     fun init(context: Context?) {
         mBinding = DataBindingUtil.inflate(
             LayoutInflater.from(context),
-            com.jogger.module_home.R.layout.home_text_card_container_layout,
+            R.layout.home_text_card_container_layout,
             this,
             true
         )
-        val drawable = this.resources.getDrawable(com.jogger.module_home.R.drawable.icon_topicmark_3x)
+        val drawable = this.resources.getDrawable(R.drawable.icon_topicmark_3x)
         drawable.setBounds(0, 0, drawable.intrinsicWidth, drawable.intrinsicHeight)
         val imageSpan1 = ImageSpan(drawable, ImageSpan.ALIGN_BASELINE)
         spannable.setSpan(imageSpan1, 0, 6, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)

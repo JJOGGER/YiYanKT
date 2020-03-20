@@ -5,4 +5,8 @@ package ex
  * 描述：
  */
 
-const val INDEX="index"
+const val INDEX = "index"
+const val TEXT_CARD = "text_card"
+const val POSITION = "position"
+const val TEXT_CARDS = "text_cards"
+const val FROM_PAGE="from_page"

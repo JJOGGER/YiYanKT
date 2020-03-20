@@ -11,6 +11,6 @@ class CommonTextView:TextView {
     constructor(context: Context, attrs: AttributeSet?):this(context, attrs, 0)
 
     constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int):super(context, attrs, defStyleAttr) {
-        setTypeface(AssetsManager.getFontTypeFace(AssetsManager.ASSETS_FONT1))
+        setTypeface(AssetsManager.getFontTypeFace(AssetsManager.ASSETS_FONT4))
     }
 }

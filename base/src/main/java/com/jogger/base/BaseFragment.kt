@@ -2,6 +2,7 @@ package com.jogger.base
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +13,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.jogger.event.Message
+import com.jogger.http.basic.config.HttpCode
+import com.jogger.utils.MConfig
+import ex.MODULE_LOGIN
 import ex.showToast
+import ex.toActivity
 import java.lang.reflect.ParameterizedType
 
 /**
@@ -54,6 +60,16 @@ abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding> : Fragment
         initView(savedInstanceState)
     }
 
+    fun navTo(clz: Class<*>) {
+        val intent = Intent(mContext, clz)
+        startActivity(intent)
+    }
+
+    fun navTo(context: Context, clz: Class<*>) {
+        val intent = Intent(context, clz)
+        context.startActivity(intent)
+    }
+
     abstract fun initView(savedInstanceState: Bundle?)
 
     override fun onResume() {
@@ -92,8 +108,16 @@ abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding> : Fragment
             showToast(it)
         })
         mViewModel.defUI.msgEvent.observe(viewLifecycleOwner, Observer {
-            //            handleEvent(it)
+            handleEvent(it)
         })
+    }
+
+    private fun handleEvent(it: Message) {
+        if (it.code == HttpCode.CODE_ACCOUNT_INVALID) {
+            MConfig.setCookie("")
+            mContext?.let { it1 -> toActivity(it1, MODULE_LOGIN) }
+            mContext?.finish()
+        }
     }
 
     override fun onDetach() {

@@ -23,7 +23,6 @@ import kotlinx.android.synthetic.main.star_fragment_main.*
  */
 class StarItemFragment : BaseFragment<StarViewModel, ViewDataBinding>(), OnRefreshLoadMoreListener {
 
-    private var mFeedId: String? = ""
     private var mType = CARD_CATEGORY.TYPE_ALL._value
     private lateinit var mAdapter: StarAdapter
     override fun layoutId(): Int = R.layout.star_fragment_item
@@ -61,7 +60,6 @@ class StarItemFragment : BaseFragment<StarViewModel, ViewDataBinding>(), OnRefre
             srl_refresh.finishLoadMoreWithNoMoreData()
         } else {
             mAdapter.addData(cards)
-            mFeedId = cards[cards.size - 1].feedid!!
         }
     }
 
@@ -76,12 +74,12 @@ class StarItemFragment : BaseFragment<StarViewModel, ViewDataBinding>(), OnRefre
     }
 
     override fun onRefresh(refreshLayout: RefreshLayout) {
-        mViewModel.getTextCardsByType(mType, mFeedId)
+        mViewModel.getTextCardsByType(mType)
     }
 
     override fun onLoadMore(refreshLayout: RefreshLayout) {
         vp_content.postDelayed({
-            mViewModel.getTextCardsByType(mType, mFeedId)
+            mViewModel.getTextCardsByType(mType)
         }, 300)
     }
 }

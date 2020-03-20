@@ -6,9 +6,20 @@ import com.jogger.http.service.ApiService
 object HomeDataSource {
     private const val APP_VERSION = "3.35"
     private val mService: ApiService = RetrofitManager.getService(ApiService::class.java)
-    suspend fun getSubcribeArticles(feedid: String?) = mService.getSubcribeArticles(APP_VERSION, feedid)
 
-    suspend fun getTextCardsByType(type: Int) = mService.getStarTextCardsByType(APP_VERSION, type)
-    suspend fun getAllStarTextCards() = mService.getAllStarTextCards(APP_VERSION)
-    suspend fun getOriginStarTextCards() = mService.getOriginStarTextCards(APP_VERSION)
+
+    suspend fun getSubcribeArticles(moreextra: String?) = mService.getSubcribeArticles(APP_VERSION, moreextra)
+
+    suspend fun getTextCardsByType(type: Int, lastCardId: String?, moreextra: String?) =
+        mService.getStarTextCardsByType(APP_VERSION, lastCardId, moreextra, type)
+
+    suspend fun getAllStarTextCards(lastCardId: String?, moreextra: String?) =
+        mService.getAllStarTextCards(APP_VERSION, lastCardId, moreextra)
+
+    suspend fun getOriginStarTextCards(lastCardId: String?) = mService.getOriginStarTextCards(APP_VERSION, lastCardId)
+    suspend fun searchTextCards(content: String, index: Int?, moreextra: String?) =
+        mService.searchTextCards(APP_VERSION, content, index, moreextra)
+
+    suspend fun searchUsers(content: String) = mService.searchUsers(APP_VERSION, content)
+    suspend fun searchUsers(content: String, index: Int?) = mService.searchUsers(APP_VERSION, content, index)
 }

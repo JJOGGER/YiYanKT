@@ -3,15 +3,14 @@ package com.jogger.base
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.gson.Gson
 import com.jogger.event.Message
 import com.jogger.event.SingleLiveEvent
+import com.jogger.http.basic.config.HttpCode
 import com.jogger.http.basic.exception.ExceptionHandle
 import com.jogger.http.basic.exception.ResponseThrowable
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import java.lang.reflect.ParameterizedType
 
 /**
  * Created by jogger on 2020/2/27
@@ -59,50 +58,15 @@ open class BaseViewModel : ViewModel(), LifecycleObserver {
         }
     }
 
-    private suspend fun <T> executeResponse2(res: Any, success: suspend CoroutineScope.(T) -> Unit) {
-        coroutineScope {
-            //            res.toString()
-            val clz = (javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[0] as Class<T>
-            val obj = Gson().fromJson(res.toString(), clz)
-            success(obj)
-        }
-    }
-
-    fun <T> launchTest(
-        block: suspend CoroutineScope.() -> T,
-        success: (T) -> Unit,
-        error: (ResponseThrowable) -> Unit = {
-            defUI.toastEvent.postValue("${it.code}:${it.errMsg}")
-        },
-        complete: () -> Unit = {},
-        isShowDialog: Boolean = true
-    ) {
-        if (isShowDialog) defUI.showDialog.call()
-        launchUI {
-            handleException(
-                { withContext(Dispatchers.IO) { block() } },
-                { res ->
-                    executeResponse(res) { success(it) }
-                },
-                {
-                    error(it)
-                },
-                {
-                    defUI.dismissDialog.call()
-                    complete()
-                }
-            )
-        }
-    }
 
     fun <T> launchOnlyresult(
         block: suspend CoroutineScope.() -> T,
         success: (T) -> Unit,
         error: (ResponseThrowable) -> Unit = {
-            defUI.toastEvent.postValue("${it.code}:${it.errMsg}")
+            defUI.toastEvent.postValue("${it.errorcode}:${it.errormsg}")
         },
         complete: () -> Unit = {},
-        isShowDialog: Boolean = true
+        isShowDialog: Boolean = false
     ) {
         if (isShowDialog) defUI.showDialog.call()
         launchUI {
@@ -136,7 +100,16 @@ open class BaseViewModel : ViewModel(), LifecycleObserver {
             try {
                 success(block())
             } catch (e: Throwable) {
-                error(ExceptionHandle.handleException(e))
+                val ex = ExceptionHandle.handleException(e)
+                if (ex.errorcode == HttpCode.CODE_ACCOUNT_INVALID) {
+                    val message = Message()
+                    message.code = ex.errorcode
+                    message.msg = ex.errormsg
+                    defUI.toastEvent.postValue("${ex.errorcode}:${ex.errormsg}")
+                    defUI.msgEvent.postValue(message)
+                } else {
+                    error(ex)
+                }
             } finally {
                 complete()
             }

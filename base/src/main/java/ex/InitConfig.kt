@@ -2,20 +2,14 @@ package ex
 
 import android.app.Application
 import android.content.Context
+import android.os.Parcel
 import com.alibaba.android.arouter.launcher.ARouter
 import com.jogger.manager.QDSkinManager
-import com.tencent.mmkv.MMKV
-import com.scwang.smartrefresh.layout.footer.ClassicsFooter
-import com.scwang.smartrefresh.layout.api.RefreshLayout
-import com.scwang.smartrefresh.layout.api.RefreshFooter
-import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreator
-import com.scwang.smartrefresh.layout.SmartRefreshLayout
-import com.scwang.smartrefresh.layout.header.ClassicsHeader
-import android.R
-import android.R.attr.colorPrimary
 import com.jogger.widget.YiYanHeader
-import com.scwang.smartrefresh.layout.api.RefreshHeader
+import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreator
+import com.scwang.smartrefresh.layout.api.RefreshLayout
+import com.tencent.mmkv.MMKV
 
 
 /**
@@ -39,5 +33,14 @@ fun initApp(app: Application) {
     SmartRefreshLayout.setDefaultRefreshHeaderCreator(object : DefaultRefreshHeaderCreator {
         override fun createRefreshHeader(context: Context, layout: RefreshLayout) = YiYanHeader(app)
     })
+
 }
 
+inline fun <reified t> Parcel.readMutableList(): MutableList<t> {
+    @Suppress("unchecked_cast")
+    return readArrayList(t::class.java.classLoader) as MutableList<t>
+}
+
+const val SINA_APP_KEY = "1274666040"
+//const val SINA_REDIRECT_URL = "http://open.weibo.com/apps/1274666040/privilege/oauth"
+const val SINA_REDIRECT_URL = "https://api.weibo.com/oauth2/default.html"

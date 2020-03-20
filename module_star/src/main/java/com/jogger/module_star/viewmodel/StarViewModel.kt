@@ -17,28 +17,31 @@ class StarViewModel : BaseViewModel() {
     val mSubcribeTextCardsLiveData = MutableLiveData<MutableList<TextCard>>()
     val mSubcribeTextCardsMoreLiveData = MutableLiveData<MutableList<TextCard>>()
     val mSubcribeTextCardsFailureLiveData = MutableLiveData<Any>()
-    fun getTextCardsByType(type: Int,feedid: String?) {
+    var mMoreExtra: String? = null
+    var mLastCardId: String? = null
+    fun getTextCardsByType(type: Int) {
         var block: suspend CoroutineScope.() -> ArticleData
         when (type) {
 
             CARD_CATEGORY.TYPE_ALL._value -> {
-                block = { HomeDataSource.getAllStarTextCards() }
+                block = { HomeDataSource.getAllStarTextCards(mLastCardId, mMoreExtra) }
             }
             CARD_CATEGORY.TYPE_ORIGIN._value -> {
-                block = { HomeDataSource.getOriginStarTextCards() }
+                block = { HomeDataSource.getOriginStarTextCards(mLastCardId) }
             }
             else ->
-                block = { HomeDataSource.getTextCardsByType(type) }
+                block = { HomeDataSource.getTextCardsByType(type, mLastCardId, mMoreExtra) }
         }
         launchOnlyresult(block, {
-            if (TextUtils.isEmpty(feedid)) {
+            if (TextUtils.isEmpty(mMoreExtra)) {
                 mSubcribeTextCardsLiveData.value = it.textcardlist
             } else {
                 mSubcribeTextCardsMoreLiveData.value = it.textcardlist
+                mMoreExtra = it.moreextra
             }
         }, {
-            defUI.toastEvent.postValue("${it.code}:${it.errMsg}")
-            mSubcribeTextCardsFailureLiveData.value = it.code
+            defUI.toastEvent.postValue("${it.errorcode}:${it.errormsg}")
+            mSubcribeTextCardsFailureLiveData.value = it.errorcode
         })
     }
 }

@@ -8,28 +8,10 @@
     </data>
 
     <FrameLayout
+            android:background="@drawable/blur_lonely_2208h2"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        <com.scwang.smartrefresh.layout.SmartRefreshLayout
-                android:id="@+id/srl_refresh"
-                android:background="@color/main_gray"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-            <!--<com.jogger.widget.YiYanHeader-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"/>-->
-
-            <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/fl_view"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    tools:context=".view.splash.SplashActivity">
-
-
-            </androidx.recyclerview.widget.RecyclerView>
-        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
     </FrameLayout>
 
 

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -9,6 +10,7 @@
     <FrameLayout
             android:id="@+id/fl_header"
             android:visibility="gone"
+            tools:visibility="visible"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_156">
 
@@ -16,14 +18,17 @@
                 android:id="@+id/iv_header"
                 android:visibility="gone"
                 android:layout_width="match_parent"
+                tools:visibility="visible"
+                android:layout_gravity="center_horizontal"
                 android:scaleType="centerCrop"
-                android:layout_height="@dimen/dp_156"/>
+                android:layout_height="match_parent"/>
 
         <com.qmuiteam.qmui.widget.QMUIRadiusImageView
                 app:qmui_is_circle="true"
+                tools:visibility="visible"
                 android:visibility="gone"
                 app:qmui_border_color="@color/transparent"
-                android:layout_gravity="center"
+                android:layout_gravity="center_horizontal"
                 android:id="@+id/iv_header2"
                 android:layout_width="wrap_content"
                 android:scaleType="centerCrop"

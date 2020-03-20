@@ -40,7 +40,12 @@
     <attr name="app_skin_search_tab_color" format="color|reference"/>
     <attr name="app_skin_search_txt_color" format="color|reference"/>
 
-
+    <style name="login_logoTheme" parent="QMUI.Compat.NoActionBar">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:windowBackground">@drawable/blur_lonely_2208h2</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
     <style name="AppTheme" parent="QMUI.Compat.NoActionBar">
         <!-- 配置Android提供的theme -->
         <item name="android:textAppearanceListItemSmall">@style/QDTextAppearanceListItemSmall</item>
@@ -71,7 +76,7 @@
         <item name="app_skin_common_background_1">@color/qmui_config_color_background</item>
         <item name="app_skin_home_text_color">@color/qmui_config_color_gray_8</item>
         <item name="app_skin_card_tag_color">@color/qmui_config_color_gray_1</item>
-        <item name="app_skin_common_title_text_color">?attr/qmui_config_color_gray_1</item>
+        <item name="app_skin_common_title_text_color">@color/color_333333</item>
         <item name="app_skin_progress_bar_text_color">@color/qmui_config_color_gray_1</item>
         <item name="app_skin_span_normal_text_color">@color/qmui_config_color_pure_black</item>
         <item name="app_skin_span_pressed_text_color">@color/app_color_blue_pressed</item>

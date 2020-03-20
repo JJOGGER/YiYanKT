@@ -22,8 +22,8 @@ class HomeViewModel : BaseViewModel() {
 
         },
             {
-                defUI.toastEvent.postValue("${it.code}:${it.errMsg}")
-                mSubcribeArticlesFailureLiveData.value = it.code
+                defUI.toastEvent.postValue("${it.errorcode}:${it.errormsg}")
+                mSubcribeArticlesFailureLiveData.value = it.errorcode
             })
     }
 }
