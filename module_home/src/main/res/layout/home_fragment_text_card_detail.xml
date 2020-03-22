@@ -15,44 +15,17 @@
             android:layout_height="match_parent"
             tools:context=".view.activity.TextCardDetailActivity">
 
-        <LinearLayout
+        <ViewStub
+                android:layout="@layout/home_detail_text_view"
+                android:id="@+id/view_text"
+                app:textCard="@{textCard}"
                 android:layout_width="match_parent"
-                android:orientation="vertical"
-                android:layout_marginTop="?attr/qmui_topbar_height"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"/>
 
-            <TextView
-                    android:textSize="@dimen/text_size_16"
-                    android:textColor="@color/color_333333"
-                    android:id="@+id/tv_name"
-                    android:layout_marginTop="@dimen/dp_90"
-                    android:layout_gravity="center"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-        </LinearLayout>
-
-        <com.qmuiteam.qmui.widget.QMUITopBarLayout
+        <ViewStub
+                android:layout="@layout/home_detail_text_img_view"
+                android:id="@+id/view_text_img"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/qmui_topbar_height">
-
-            <com.qmuiteam.qmui.widget.QMUIRadiusImageView
-                    android:layout_width="@dimen/dp_30"
-                    app:imageUrl="@{textCard.creator.smallavatar}"
-                    app:error="@{@drawable/yy_default_avatar}"
-                    app:placeHolder="@{@drawable/yy_default_avatar}"
-                    app:qmui_border_color="@color/transparent"
-                    app:qmui_is_circle="true"
-                    android:id="@+id/iv_avatar"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="@dimen/dp_10"
-                    android:layout_height="@dimen/dp_30"/>
-
-            <com.jogger.widget.CommonTextView
-                    android:textSize="@dimen/text_size_16"
-                    android:layout_marginStart="@dimen/dp_48"
-                    app:qmui_skin_text_color="?attr/app_skin_common_title_text_color"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-        </com.qmuiteam.qmui.widget.QMUITopBarLayout>
+                android:layout_height="match_parent"/>
     </com.qmuiteam.qmui.widget.QMUIWindowInsetLayout>
 </layout>

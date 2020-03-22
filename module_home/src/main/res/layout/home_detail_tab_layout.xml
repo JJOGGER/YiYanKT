@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+                name="textCard"
+                type="com.jogger.entity.TextCard"/>
+    </data>
+
+    <com.qmuiteam.qmui.widget.QMUITopBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="?attr/qmui_topbar_height">
+
+        <com.qmuiteam.qmui.widget.QMUIRadiusImageView
+                android:layout_width="@dimen/dp_30"
+                app:imageUrl="@{textCard.creator.smallavatar}"
+                app:error="@{@drawable/yy_default_avatar}"
+                app:placeHolder="@{@drawable/yy_default_avatar}"
+                app:qmui_border_color="@color/transparent"
+                app:qmui_is_circle="true"
+                android:id="@+id/iv_avatar"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/dp_10"
+                android:layout_height="@dimen/dp_30"/>
+
+        <com.jogger.widget.CommonTextView
+                android:textSize="@dimen/text_size_16"
+                android:layout_marginStart="@dimen/dp_48"
+                app:qmui_skin_text_color="?attr/app_skin_common_title_text_color"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+    </com.qmuiteam.qmui.widget.QMUITopBarLayout>
+</layout>

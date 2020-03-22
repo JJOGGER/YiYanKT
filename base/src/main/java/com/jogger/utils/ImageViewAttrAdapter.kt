@@ -25,7 +25,7 @@ object ImageViewAttrAdapter {
 
     @BindingAdapter("app:imageUrl")
     @JvmStatic
-    fun loadImage(view: ImageView, url: String) {
+    fun loadImage(view: ImageView, url: String?) {
         Glide.with(view)
             .load(url)
             .into(view)
@@ -33,7 +33,7 @@ object ImageViewAttrAdapter {
 
     @BindingAdapter("app:imageUrl", "app:placeHolder")
     @JvmStatic
-    fun loadImage(view: ImageView, url: String, drawable: Drawable) {
+    fun loadImage(view: ImageView, url: String?, drawable: Drawable) {
         Glide.with(view)
             .load(url)
             .placeholder(drawable)
@@ -43,7 +43,7 @@ object ImageViewAttrAdapter {
 
     @BindingAdapter("app:imageUrl", "app:placeHolder", "app:error")
     @JvmStatic
-    fun loadImage(view: ImageView, url: String, drawable: Drawable, error: Drawable) {
+    fun loadImage(view: ImageView, url: String?, drawable: Drawable, error: Drawable) {
         Glide.with(view)
             .load(url)
             .placeholder(drawable)
