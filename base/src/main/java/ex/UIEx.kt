@@ -50,6 +50,13 @@ fun toActivity(mContext: Context, url: String) {
     toActivity(mContext, url, null)
 }
 
+fun toActivity(mContext: Activity, url: String) {
+    toActivity(mContext, url, null)
+}
+
+fun toActivity(mContext: Activity, url: String, params: Map<String, *>?) {
+    toActivity(mContext.baseContext, url, params)
+}
 
 /**
  * ARouter跳转Activity

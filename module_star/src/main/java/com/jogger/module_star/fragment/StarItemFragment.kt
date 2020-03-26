@@ -1,9 +1,13 @@
 package com.jogger.module_star.fragment
 
 import android.os.Bundle
+import android.view.View
+import androidx.annotation.NonNull
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.listener.OnItemClickListener
 import com.jogger.base.BaseFragment
 import com.jogger.constant.CARD_CATEGORY
 import com.jogger.entity.TextCard
@@ -13,7 +17,7 @@ import com.jogger.module_star.viewmodel.StarViewModel
 import com.jogger.widget.YiYanHeader
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener
-import ex.INDEX
+import ex.*
 import kotlinx.android.synthetic.main.star_fragment_item.*
 import kotlinx.android.synthetic.main.star_fragment_main.*
 
@@ -21,7 +25,15 @@ import kotlinx.android.synthetic.main.star_fragment_main.*
  * Created by jogger on 2020/3/4
  * 描述：
  */
-class StarItemFragment : BaseFragment<StarViewModel, ViewDataBinding>(), OnRefreshLoadMoreListener {
+class StarItemFragment : BaseFragment<StarViewModel, ViewDataBinding>(), OnRefreshLoadMoreListener,
+    OnItemClickListener {
+    override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
+        val map = HashMap<String, Any>()
+        map.put(POSITION, position)
+        map.put(FROM_PAGE, PAGE_STAR)
+        map.put(TEXT_CARDS, mAdapter.data)
+        toActivity(mContext!!, TEXT_CARD_DETAIL, map)
+    }
 
     private var mType = CARD_CATEGORY.TYPE_ALL._value
     private lateinit var mAdapter: StarAdapter
@@ -41,13 +53,13 @@ class StarItemFragment : BaseFragment<StarViewModel, ViewDataBinding>(), OnRefre
         srl_refresh.setRefreshHeader(YiYanHeader(mContext!!))
         mType = arguments!!.getInt(INDEX)
         mAdapter = StarAdapter(null)
+        mAdapter.setOnItemClickListener(this@StarItemFragment)
         rv_content.layoutManager = LinearLayoutManager(mContext)
         rv_content.adapter = mAdapter
         srl_refresh.setOnRefreshLoadMoreListener(this)
         mViewModel.mSubcribeTextCardsLiveData.observe(this, Observer { handleTextCards(it) })
         mViewModel.mSubcribeTextCardsMoreLiveData.observe(this, Observer { handleMoreTextCards(it) })
         mViewModel.mSubcribeTextCardsFailureLiveData.observe(this, Observer { handleTextCardsFailure(it) })
-        lazyLoadData()
     }
 
     private fun handleTextCardsFailure(it: Any?) {

@@ -17,9 +17,9 @@ import com.jogger.module_home.view.viewmodel.TextCardDetailViewModel
 import com.jogger.utils.LogUtils
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener
+import ex.PAGE_HOME
 import kotlinx.android.synthetic.main.home_activity_text_card_detail.*
 
-const val PAGE_HOME = 0
 
 @Route(path = ex.TEXT_CARD_DETAIL)
 class TextCardDetailActivity : BaseActivity<TextCardDetailViewModel, ViewDataBinding>(), OnLoadMoreListener {
@@ -57,7 +57,7 @@ class TextCardDetailActivity : BaseActivity<TextCardDetailViewModel, ViewDataBin
         srl_refresh.setEnableRefresh(false)
         srl_refresh.setOnLoadMoreListener(this)
         vp_content.setCurrentItem(mPosition, false)
-        vp_content.offscreenPageLimit = 10
+        vp_content.offscreenPageLimit = 3
         vp_content.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)

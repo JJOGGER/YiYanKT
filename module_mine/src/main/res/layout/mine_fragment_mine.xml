@@ -13,7 +13,6 @@
                 android:layout_width="match_parent"
                 app:qmui_skin_background="?attr/app_skin_common_background"
                 android:layout_marginTop="?attr/qmui_topbar_height"
-                android:background="@color/main_white"
                 tools:layout_marginTop="@dimen/dp_46"
                 android:layout_height="match_parent">
 

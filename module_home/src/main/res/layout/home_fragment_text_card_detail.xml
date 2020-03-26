@@ -23,8 +23,9 @@
                 android:layout_height="match_parent"/>
 
         <ViewStub
-                android:layout="@layout/home_detail_text_img_view"
-                android:id="@+id/view_text_img"
+                android:layout="@layout/home_detail_topic_view"
+                android:id="@+id/view_topic"
+                app:textCard="@{textCard}"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
     </com.qmuiteam.qmui.widget.QMUIWindowInsetLayout>

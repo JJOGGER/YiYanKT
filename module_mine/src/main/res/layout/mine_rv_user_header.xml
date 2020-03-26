@@ -16,7 +16,6 @@
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:id="@+id/cl_header"
-            app:qmui_skin_background="?attr/app_skin_common_background"
             android:layout_height="wrap_content">
 
         <com.qmuiteam.qmui.widget.QMUIRadiusImageView
@@ -33,7 +32,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 android:layout_marginStart="@dimen/dp_16"/>
 
-        <com.jogger.widget.CommonTextView
+        <TextView
                 android:id="@+id/tv_nickname"
                 android:text="@{userData.username}"
                 android:textSize="@dimen/text_size_18"
@@ -45,7 +44,8 @@
                 app:layout_constraintBottom_toBottomOf="@+id/iv_avater"
                 app:layout_constraintStart_toEndOf="@+id/iv_avater"/>
 
-        <com.jogger.widget.CommonTextView
+        <TextView
+                app:typeface="@{1}"
                 app:qmui_skin_text_color="?attr/app_skin_card_tag_color"
                 android:textSize="@dimen/text_size_14"
                 android:text="暂无签名"
@@ -56,7 +56,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
-        <com.jogger.widget.CommonTextView
+        <TextView
+                app:typeface="@{1}"
                 app:layout_constraintLeft_toLeftOf="@+id/tv_sign"
                 app:layout_constraintTop_toBottomOf="@+id/tv_sign"
                 android:paddingTop="@dimen/dp_20"
@@ -67,7 +68,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
-        <com.jogger.widget.CommonTextView
+        <TextView
+                app:typeface="@{1}"
                 android:id="@+id/tv_fans_title"
                 android:text="读者"
                 android:textSize="@dimen/text_size_14"
@@ -78,7 +80,8 @@
                 android:paddingTop="@dimen/dp_2"
                 android:layout_height="wrap_content"/>
 
-        <com.jogger.widget.CommonTextView
+        <TextView
+                app:typeface="@{1}"
                 app:layout_constraintTop_toTopOf="@+id/tv_fans"
                 app:layout_constraintBottom_toBottomOf="@+id/tv_fans"
                 app:layout_constraintStart_toEndOf="@id/tv_fans"
@@ -91,7 +94,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
-        <com.jogger.widget.CommonTextView
+        <TextView
+                app:typeface="@{1}"
                 android:text="订阅"
                 android:textSize="@dimen/text_size_14"
                 app:qmui_skin_text_color="?attr/app_skin_card_tag_color"
@@ -111,7 +115,8 @@
                 android:id="@+id/v_line"
                 app:layout_constraintStart_toStartOf="parent"/>
 
-        <com.jogger.widget.CommonTextView
+        <TextView
+                app:typeface="@{1}"
                 android:paddingStart="@dimen/dp_60"
                 android:paddingEnd="@dimen/dp_60"
                 android:paddingTop="@dimen/dp_16"
@@ -126,7 +131,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
-        <com.jogger.widget.CommonTextView
+        <TextView
+                app:typeface="@{1}"
                 android:id="@+id/tv_books"
                 app:layout_constraintStart_toStartOf="parent"
                 android:paddingTop="@dimen/dp_16"
@@ -142,7 +148,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"/>
 
-        <com.jogger.widget.CommonTextView
+        <TextView
+                app:typeface="@{1}"
                 app:layout_constraintStart_toEndOf="@id/tv_cards"
                 android:paddingTop="@dimen/dp_16"
                 app:layout_constraintEnd_toEndOf="parent"

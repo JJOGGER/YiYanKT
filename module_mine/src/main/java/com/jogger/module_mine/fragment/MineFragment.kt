@@ -4,6 +4,7 @@ import android.os.Bundle
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.jogger.base.BaseFragment
 import com.jogger.base.BaseViewModel
+import com.jogger.manager.QDSkinManager
 import com.jogger.module_mine.R
 import com.jogger.module_mine.databinding.MineFragmentMineBinding
 import com.jogger.utils.MConfig
@@ -33,5 +34,13 @@ class MineFragment : BaseFragment<BaseViewModel, MineFragmentMineBinding>() {
             cardCount = cardCount + it.cardcnt
         }
         mBinding!!.userHeader.cardCount = cardCount.toString()
+        mBinding!!.ibtnLightMode.setOnClickListener({
+            if (QDSkinManager.getCurrentSkin() == QDSkinManager.SKIN_WHITE) {
+                QDSkinManager.changeSkin(QDSkinManager.SKIN_DARK)
+            } else {
+                QDSkinManager.changeSkin(QDSkinManager.SKIN_WHITE)
+            }
+
+        })
     }
 }

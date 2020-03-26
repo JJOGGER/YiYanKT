@@ -24,7 +24,7 @@ data class TextCard(
     val category: Int = 0,
     val title: String? = null,
     val rec: String? = null,
-    val original: String? = null,
+    val original: Int= 0,
     val showtime: String? = null,
     val priv: String? = null,
     val replycnt: Int = 0,
@@ -54,7 +54,7 @@ data class TextCard(
         parcel.readInt(),
         parcel.readString(),
         parcel.readString(),
-        parcel.readString(),
+        parcel.readInt(),
         parcel.readString(),
         parcel.readString(),
         parcel.readInt(),
@@ -80,7 +80,7 @@ data class TextCard(
         parcel.writeInt(category)
         parcel.writeString(title)
         parcel.writeString(rec)
-        parcel.writeString(original)
+        parcel.writeInt(original)
         parcel.writeString(showtime)
         parcel.writeString(priv)
         parcel.writeInt(replycnt)

@@ -8,6 +8,10 @@
         <variable
                 name="textCard"
                 type="com.jogger.entity.TextCard"/>
+
+        <import type="android.view.View"/>
+
+        <import type="android.text.TextUtils"/>
     </data>
 
     <LinearLayout
@@ -18,107 +22,213 @@
 
         <include
                 android:id="@+id/tab_view"
+                app:textCard="@{textCard}"
                 layout="@layout/home_detail_tab_layout"/>
 
-        <androidx.core.widget.NestedScrollView
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
                 android:layout_width="match_parent"
-                android:scrollbars="none"
-                android:layout_height="match_parent">
+                android:id="@+id/srl_refresh"
+                android:layout_weight="1"
+                android:layout_height="0dp">
 
-            <LinearLayout
-                    android:orientation="vertical"
+            <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                <FrameLayout
-                        android:id="@+id/fl_header"
+                <androidx.core.widget.NestedScrollView
+                        android:id="@+id/nsv_common_view"
+                        android:visibility="gone"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
+                        android:scrollbars="none"
+                        android:layout_height="match_parent">
 
-                    <ImageView
-                            android:id="@+id/iv_header"
-                            android:layout_marginStart="@dimen/dp_10"
-                            android:layout_marginEnd="@dimen/dp_10"
-                            android:layout_marginTop="@dimen/dp_10"
+                    <LinearLayout
+                            android:orientation="vertical"
                             android:layout_width="match_parent"
-                            android:visibility="gone"
-                            tools:visibility="visible"
-                            app:imageUrl="@{textCard.picpath}"
-                            tools:src="@drawable/s_list_item_bg_dark_2"
-                            android:layout_gravity="center_horizontal"
-                            android:adjustViewBounds="true"
-                            android:layout_height="wrap_content"/>
+                            android:layout_height="match_parent">
 
-                    <com.qmuiteam.qmui.widget.QMUIRadiusImageView
-                            app:qmui_is_circle="true"
-                            tools:visibility="visible"
-                            android:layout_marginTop="@dimen/dp_50"
-                            android:visibility="gone"
-                            app:qmui_border_color="@color/transparent"
-                            android:layout_gravity="center_horizontal"
-                            android:id="@+id/iv_header2"
-                            android:layout_width="wrap_content"
-                            android:scaleType="centerCrop"
-                            android:layout_height="@dimen/dp_160"/>
-                </FrameLayout>
+                        <FrameLayout
+                                android:id="@+id/fl_header"
+                                android:visibility="@{!TextUtils.isEmpty(textCard.picpath)?View.VISIBLE:View.GONE}"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+                            <ImageView
+                                    android:id="@+id/iv_header"
+                                    android:layout_marginStart="@dimen/dp_10"
+                                    android:layout_marginEnd="@dimen/dp_10"
+                                    android:layout_marginTop="@dimen/dp_10"
+                                    android:layout_width="match_parent"
+                                    android:visibility="gone"
+                                    tools:visibility="visible"
+                                    tools:src="@drawable/s_list_item_bg_dark_2"
+                                    android:layout_gravity="center_horizontal"
+                                    android:adjustViewBounds="true"
+                                    android:layout_height="wrap_content"/>
+
+                            <com.qmuiteam.qmui.widget.QMUIRadiusImageView
+                                    app:qmui_is_circle="true"
+                                    tools:visibility="visible"
+                                    android:layout_marginTop="@dimen/dp_50"
+                                    android:visibility="gone"
+                                    app:qmui_border_color="@color/transparent"
+                                    android:layout_gravity="center_horizontal"
+                                    android:id="@+id/iv_header2"
+                                    android:layout_width="wrap_content"
+                                    android:scaleType="centerCrop"
+                                    android:layout_height="@dimen/dp_160"/>
+                        </FrameLayout>
 
 
-                <LinearLayout
-                        android:orientation="vertical"
-                        android:id="@+id/text_container"
+                        <LinearLayout
+                                android:orientation="vertical"
+                                android:id="@+id/text_container"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                            <TextView
+                                    android:id="@+id/tv_text_title"
+                                    android:paddingTop="@dimen/dp_16"
+                                    android:paddingStart="@dimen/dp_16"
+                                    android:text="@{textCard.title}"
+                                    app:textCard="@{textCard}"
+                                    android:paddingEnd="@dimen/dp_16"
+                                    android:textSize="22sp"
+                                    app:qmui_skin_text_color="?attr/app_skin_card_text_color"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+
+                            <TextView
+                                    android:id="@+id/tv_content"
+                                    android:maxLines="7"
+                                    app:textCard="@{textCard}"
+                                    android:layout_gravity="center"
+                                    android:text="@{textCard.content}"
+                                    android:paddingTop="@dimen/dp_16"
+                                    android:paddingStart="@dimen/dp_16"
+                                    android:paddingEnd="@dimen/dp_16"
+                                    tools:text="xxxxxxxxxxxxxxxxxxxx"
+                                    android:lineSpacingExtra="@dimen/dp_3"
+                                    android:textColor="@color/qmui_config_color_black"
+                                    android:textSize="18sp"
+                                    android:gravity="center"
+                                    app:qmui_skin_text_color="?attr/app_skin_card_text_color"
+                                    android:layout_width="match_parent"
+                                    android:layout_weight="1"
+                                    android:layout_height="0dp"/>
+
+                            <TextView
+                                    android:id="@+id/tv_text_from"
+                                    android:paddingTop="@dimen/dp_20"
+                                    android:text='@{"- "+textCard.from+" -"}'
+                                    android:paddingStart="@dimen/dp_16"
+                                    android:paddingEnd="@dimen/dp_16"
+                                    app:textCard="@{textCard}"
+                                    tools:text="xxxxxxxxxxxxxxxxxxxx"
+                                    android:layout_gravity="center_horizontal|bottom"
+                                    android:textSize="14sp"
+                                    android:paddingBottom="@dimen/dp_10"
+                                    app:qmui_skin_text_color="?attr/app_skin_card_text_color"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </androidx.core.widget.NestedScrollView>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                        android:visibility="gone"
+                        tools:visibility="visible"
+                        android:id="@+id/cl_img_txt_view"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
-                    <TextView
-                            android:id="@+id/tv_text_title"
-                            android:paddingTop="@dimen/dp_16"
-                            android:paddingStart="@dimen/dp_16"
-                            android:text="@{textCard.title}"
-                            app:textCard="@{textCard}"
-                            android:paddingEnd="@dimen/dp_16"
-                            android:textSize="22sp"
-                            app:qmui_skin_text_color="?attr/app_skin_card_text_color"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"/>
+                    <FrameLayout
+                            android:layout_width="0dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintDimensionRatio="h,1:1"
+                            android:layout_height="0dp"
+                            app:layout_constraintTop_toTopOf="parent">
 
-                    <TextView
-                            android:id="@+id/tv_content"
-                            android:maxLines="7"
-                            app:textCard="@{textCard}"
-                            android:layout_gravity="center"
-                            android:text="@{textCard.content}"
-                            android:paddingTop="@dimen/dp_16"
-                            android:paddingStart="@dimen/dp_16"
-                            android:paddingEnd="@dimen/dp_16"
-                            tools:text="xxxxxxxxxxxxxxxxxxxx"
-                            android:lineSpacingExtra="@dimen/dp_3"
-                            android:textColor="@color/qmui_config_color_black"
-                            android:textSize="18sp"
-                            android:gravity="center"
-                            app:qmui_skin_text_color="?attr/app_skin_card_text_color"
-                            android:layout_width="match_parent"
-                            android:layout_weight="1"
-                            android:layout_height="0dp"/>
+                        <ImageView
+                                android:layout_width="match_parent"
+                                android:id="@+id/iv_header3"
+                                android:scaleType="centerCrop"
+                                android:layout_height="match_parent"/>
 
-                    <TextView
-                            android:id="@+id/tv_text_from"
-                            android:paddingTop="@dimen/dp_20"
-                            android:text='@{"- "+textCard.from+" -"}'
-                            android:paddingStart="@dimen/dp_16"
-                            android:paddingEnd="@dimen/dp_16"
-                            tools:text="xxxxxxxxxxxxxxxxxxxx"
-                            android:layout_gravity="center_horizontal|bottom"
-                            android:textSize="14sp"
-                            android:paddingBottom="@dimen/dp_10"
-                            app:qmui_skin_text_color="?attr/app_skin_card_text_color"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"/>
-                </LinearLayout>
-            </LinearLayout>
-        </androidx.core.widget.NestedScrollView>
+                        <View
+                                android:layout_width="match_parent"
+                                android:id="@+id/v_shadow"
+                                android:background="@color/color_C31D1D1D"
+                                android:layout_height="match_parent"/>
+
+                        <LinearLayout
+                                android:orientation="vertical"
+                                android:gravity="center_vertical"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                            <TextView
+                                    android:paddingTop="@dimen/dp_16"
+                                    android:paddingStart="@dimen/dp_16"
+                                    android:text="@{textCard.title}"
+                                    app:textCard="@{textCard}"
+                                    android:visibility="gone"
+                                    android:textColor="@color/main_white"
+                                    android:paddingEnd="@dimen/dp_16"
+                                    android:textSize="22sp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+
+                            <TextView
+                                    app:textCard="@{textCard}"
+                                    android:layout_gravity="center"
+                                    android:text="@{textCard.content}"
+                                    android:paddingStart="@dimen/dp_32"
+                                    android:paddingEnd="@dimen/dp_32"
+                                    tools:text="xxxxxxxxxxxxxxxxxxxx"
+                                    android:lineSpacingExtra="@dimen/dp_3"
+                                    android:textSize="18sp"
+                                    android:gravity="center"
+                                    android:textColor="@color/main_white"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"/>
+
+                            <TextView
+                                    android:paddingTop="@dimen/dp_25"
+                                    android:text='@{"- "+textCard.from+" -"}'
+                                    android:paddingStart="@dimen/dp_32"
+                                    android:paddingEnd="@dimen/dp_32"
+                                    app:textCard="@{textCard}"
+                                    tools:text="xxxxxxxxxxxxxxxxxxxx"
+                                    android:layout_gravity="center_horizontal|bottom"
+                                    android:textSize="14sp"
+                                    android:textColor="@color/main_white"
+                                    android:paddingBottom="@dimen/dp_10"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+                        </LinearLayout>
+                    </FrameLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                        app:typeface="@{1}"
+                        android:id="@+id/tv_category"
+                        android:layout_gravity="end|bottom"
+                        android:paddingEnd="@dimen/dp_10"
+                        android:paddingBottom="@dimen/dp_12"
+                        android:textSize="@dimen/text_size_16"
+                        app:qmui_skin_text_color="?attr/app_skin_card_tag_color"
+                        android:layout_width="wrap_content"
+                        android:paddingStart="@dimen/dp_2"
+                        android:layout_height="wrap_content"/>
+            </FrameLayout>
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
         <include
                 android:id="@+id/bottom_action"
+                app:textCard="@{textCard}"
                 layout="@layout/home_detail_bottom_action"/>
     </LinearLayout>
 </layout>

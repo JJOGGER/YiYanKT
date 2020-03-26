@@ -10,3 +10,5 @@ const val TEXT_CARD = "text_card"
 const val POSITION = "position"
 const val TEXT_CARDS = "text_cards"
 const val FROM_PAGE="from_page"
+const val PAGE_HOME = 0
+const val PAGE_STAR = 1

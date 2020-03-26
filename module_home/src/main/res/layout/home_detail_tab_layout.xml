@@ -3,6 +3,7 @@
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
                 name="textCard"
                 type="com.jogger.entity.TextCard"/>
@@ -24,11 +25,49 @@
                 android:layout_marginStart="@dimen/dp_10"
                 android:layout_height="@dimen/dp_30"/>
 
-        <com.jogger.widget.CommonTextView
-                android:textSize="@dimen/text_size_16"
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
                 android:layout_marginStart="@dimen/dp_48"
-                app:qmui_skin_text_color="?attr/app_skin_common_title_text_color"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content">
+
+            <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_height="match_parent">
+
+                <TextView
+                        app:typeface="@{1}"
+                        android:textSize="@dimen/text_size_16"
+                        android:id="@+id/tv_name"
+                        android:text="@{textCard.creator.username}"
+                        app:qmui_skin_text_color="?attr/app_skin_common_title_text_color"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                <TextView
+                        app:typeface="@{1}"
+                        android:textSize="@dimen/text_size_17"
+                        app:qmui_skin_text_color="?attr/app_skin_common_title_text_color"
+                        android:layout_width="wrap_content"
+                        android:text=" 创建于"
+                        android:layout_height="wrap_content"/>
+
+                <TextView
+                        app:typeface="@{1}"
+                        android:textSize="@dimen/text_size_17"
+                        android:text='@{@string/book_left+textCard.originbook.bookname+@string/book_right}'
+                        android:textColor="@color/btn_filled_blue_bg_normal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+            </LinearLayout>
+            <TextView
+                    app:typeface="@{1}"
+                    android:textSize="@dimen/text_size_12"
+                    app:qmui_skin_text_color="?attr/app_skin_common_title_text_color"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+        </LinearLayout>
     </com.qmuiteam.qmui.widget.QMUITopBarLayout>
 </layout>

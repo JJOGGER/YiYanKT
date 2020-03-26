@@ -49,13 +49,13 @@ class TextCardContainer : FrameLayout {
     }
 
     fun setData(card: TextCard) {
-        val imgShow = card.type?.split("_")?.get(1)?.toInt()
+        val imgShow = card.type?.split("_")?.get(1)?.toInt()//0圆图，1方形图
         val image: ImageView
         if (imgShow == 1) {
             image = mBinding.headerLayout.ivHeader
         } else {
             image = mBinding.headerLayout.ivHeader2
-            if (imgShow == 0) {
+            if (imgShow != 0) {
                 image.isCircle = false
             }
         }
@@ -106,7 +106,11 @@ class TextCardContainer : FrameLayout {
                 if (card.category == CARD_CATEGORY.TYPE_TEXT._value || card.category == CARD_CATEGORY.TYPE_POETRY._value) {
                     mBinding.commonBottomContainer.visibility = View.VISIBLE
                     mBinding.textLayout.tvContent.text = card.content
-                    mBinding.tvCategory.text = "#文字"
+                    if (card.category == CARD_CATEGORY.TYPE_TEXT._value)
+                        mBinding.tvCategory.text = "#文字"
+                    else {
+                        mBinding.tvCategory.text = "#诗"
+                    }
                 } else {
                     spannable.append(card.title)
                     mBinding.textLayout.tvTextTitle.setText(spannable)

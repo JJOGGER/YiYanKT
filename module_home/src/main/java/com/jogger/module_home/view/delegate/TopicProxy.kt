@@ -1,46 +1,43 @@
 package com.jogger.module_home.view.delegate
 
 import android.content.Context
+import android.text.SpannableStringBuilder
+import android.text.Spanned
 import android.text.TextUtils
+import android.text.style.ImageSpan
 import android.view.View
-import android.widget.ImageView
 import com.bumptech.glide.Glide
-import com.jogger.constant.CARD_CATEGORY
-import com.jogger.module_home.databinding.HomeDetailTextViewBinding
+import com.jogger.base.R
+import com.jogger.module_home.databinding.HomeDetailTopicViewBinding
 
 /**
  * Created by jogger on 2020/3/20
  * 描述：
  */
-class TextProxy(binding: HomeDetailTextViewBinding, context: Context) :
-    BaseProxy<HomeDetailTextViewBinding>(binding, context) {
-
+class TopicProxy(binding: HomeDetailTopicViewBinding, context: Context) :
+    BaseProxy<HomeDetailTopicViewBinding>(binding, context) {
+    var spannable = SpannableStringBuilder("[icon] ")
     override fun initView() {
+        mBinding.bottomAction.ibtnMore.visibility = View.GONE
+        mBinding.bottomAction.ibtnShare.visibility = View.GONE
+        mBinding.bottomAction.tvCollection.visibility = View.GONE
+        mBinding.bottomAction.tvComment.visibility = View.GONE
+        mBinding.bottomAction.tvLike.visibility = View.GONE
+
         val card = mBinding.textCard!!
         val imgShow = card.type?.split("_")?.get(1)?.toInt()
-        val image: ImageView
-        image =
-            if (imgShow == 1) {
-            mBinding.nsvCommonView.visibility = View.VISIBLE
-            mBinding.ivHeader
-        } else if (imgShow == 0) {
-            mBinding.nsvCommonView.visibility = View.VISIBLE
-            mBinding.ivHeader2
-        } else {
-            mBinding.clImgTxtView.visibility = View.VISIBLE
-            mBinding.ivHeader3
-        }
         if (!TextUtils.isEmpty(card.picpath)) {
-            image.visibility = View.VISIBLE
+            mBinding.ivHeader.visibility = View.VISIBLE
             Glide.with(mContext)
                 .load(card.picpath)
-                .into(image)
+                .into(mBinding.ivHeader)
         }
-        if (!TextUtils.isEmpty(card.showtime)) {
-//            mBinding.tabView.visibility = View.VISIBLE
-//            val date = card.showtime!!.split("-", " ")
-//            mBinding.tvDate.text = "${date[0]}\n/\n${date[1]}\n/\n${date[2]}"
-        }
+        val drawable = mContext.resources.getDrawable(R.drawable.icon_topicmark_3x)
+        drawable.setBounds(0, 0, drawable.intrinsicWidth, drawable.intrinsicHeight)
+        val imageSpan1 = ImageSpan(drawable, ImageSpan.ALIGN_BASELINE)
+        spannable.setSpan(imageSpan1, 0, 6, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
+        spannable.append(card.title)
+        mBinding.tvTextTitle.setText(spannable)
 //        if (card.creator != null && card.originbook != null)
 //            mBinding.tvCreated.text = "${card.creator!!.username} 创建于 [${card.originbook!!.bookname}]"
 //        mBinding.commonBottom.tvCollection.text = "${card.collectcnt}"
@@ -61,17 +58,6 @@ class TextProxy(binding: HomeDetailTextViewBinding, context: Context) :
 ////        mBinding.textLayout.tvContent.isVerticalMode = card.type?.split("_")?.get(2)?.toInt() == 0
 //        mBinding.textLayout.tvContent.gravity =
 //            if (card.type?.split("_")?.get(4)?.toInt() == 1) Gravity.START else Gravity.CENTER_HORIZONTAL
-        var category = ""
-        if (card.original == 1)
-            category += "#原创 "
-        when (card.category) {
-            CARD_CATEGORY.TYPE_TEXT._value ->
-                mBinding.tvCategory.text = category + "#文字"
-            CARD_CATEGORY.TYPE_POETRY._value -> mBinding.tvCategory.text = category + "#诗"
-            CARD_CATEGORY.TYPE_FILM._value -> mBinding.tvCategory.text = category + "#电影"
-            CARD_CATEGORY.TYPE_RECORD._value -> mBinding.tvCategory.text = category + "#语录"
-            CARD_CATEGORY.TYPE_WORD._value -> mBinding.tvCategory.text = category + "#歌词"
-        }
 //        setOnClickListener({
 //            LogUtils.e("--------card$card")
 //        })

@@ -19,4 +19,9 @@ object TextViewAttrAdapter {
             )
     }
 
+    @BindingAdapter("app:typeface")
+    @JvmStatic
+    fun setTypeface(view: TextView, type: Int) {
+        view.typeface = AssetsManager.getTypeFaceByType(type)
+    }
 }

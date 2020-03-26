@@ -1,92 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:app="http://schemas.android.com/apk/res-auto"
-             android:layout_width="match_parent"
-             android:layout_height="@dimen/dp_48">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
+    <data>
+
+        <variable
+                name="textCard"
+                type="com.jogger.entity.TextCard"/>
+    </data>
+
+    <FrameLayout
             android:layout_width="match_parent"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_height="match_parent">
+            android:layout_height="@dimen/dp_48">
 
-        <ImageButton
-                android:layout_width="wrap_content"
-                android:background="@null"
-                android:paddingStart="@dimen/dp_16"
-                android:paddingEnd="@dimen/dp_16"
-                android:src="@drawable/arrow_left_60_gray"
-                android:layout_height="match_parent"/>
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:layout_height="match_parent">
 
-        <TextView
-                android:id="@+id/tv_collection"
-                android:textSize="@dimen/text_size_12"
-                android:layout_gravity="center"
-                android:drawableStart="@drawable/bookmark_line_gray_50"
-                app:qmui_skin_tint_color="?attr/app_skin_card_function_tint_color"
-                android:layout_width="wrap_content"
-                android:drawablePadding="@dimen/dp_4"
-                android:paddingStart="@dimen/dp_2"
-                android:paddingEnd="@dimen/dp_8"
-                android:gravity="center"
-                android:text="0"
-                app:qmui_skin_text_color="?attr/app_skin_card_function_tint_color"
-                android:layout_height="match_parent"/>
+            <ImageButton
+                    android:layout_width="wrap_content"
+                    android:background="@null"
+                    android:paddingStart="@dimen/dp_16"
+                    android:paddingEnd="@dimen/dp_16"
+                    android:src="@drawable/arrow_left_60_gray"
+                    android:layout_height="match_parent"/>
 
-        <TextView
-                android:id="@+id/tv_comment"
-                android:layout_gravity="center"
-                android:drawableStart="@drawable/comment_line_gray_50"
-                app:qmui_skin_tint_color="?attr/app_skin_card_function_tint_color"
-                android:layout_width="wrap_content"
-                android:drawablePadding="@dimen/dp_4"
-                android:paddingStart="@dimen/dp_10"
-                android:paddingEnd="@dimen/dp_10"
-                android:gravity="center"
-                android:text="0"
-                android:textSize="@dimen/text_size_12"
-                app:qmui_skin_text_color="?attr/app_skin_card_function_tint_color"
-                android:layout_height="match_parent"/>
+            <TextView
+                    android:id="@+id/tv_collection"
+                    android:textSize="@dimen/text_size_12"
+                    android:layout_gravity="center"
+                    app:typeface="@{1}"
+                    android:drawableStart="@drawable/bookmark_line_gray_50"
+                    app:qmui_skin_tint_color="?attr/app_skin_card_function_tint_color"
+                    android:layout_width="wrap_content"
+                    android:drawablePadding="@dimen/dp_4"
+                    android:paddingStart="@dimen/dp_2"
+                    android:paddingEnd="@dimen/dp_8"
+                    android:gravity="center"
+                    android:text="@{String.valueOf(textCard.collectcnt)}"
+                    app:qmui_skin_text_color="?attr/app_skin_card_function_tint_color"
+                    android:layout_height="match_parent"/>
 
-        <TextView
-                android:id="@+id/tv_like"
-                android:paddingStart="@dimen/dp_10"
-                android:paddingEnd="@dimen/dp_10"
-                android:layout_gravity="center"
-                android:drawableStart="@drawable/heart_line_gray_50"
-                app:qmui_skin_tint_color="?attr/app_skin_card_function_tint_color"
-                android:layout_width="wrap_content"
-                android:drawablePadding="@dimen/dp_4"
-                android:gravity="center"
-                android:textSize="@dimen/text_size_12"
-                android:text="0"
-                app:qmui_skin_text_color="?attr/app_skin_card_function_tint_color"
-                android:layout_height="match_parent"/>
+            <TextView
+                    app:typeface="@{1}"
+                    android:id="@+id/tv_comment"
+                    android:layout_gravity="center"
+                    android:drawableStart="@drawable/comment_line_gray_50"
+                    app:qmui_skin_tint_color="?attr/app_skin_card_function_tint_color"
+                    android:layout_width="wrap_content"
+                    android:drawablePadding="@dimen/dp_4"
+                    android:paddingStart="@dimen/dp_10"
+                    android:paddingEnd="@dimen/dp_10"
+                    android:gravity="center"
+                    android:text="@{String.valueOf(textCard.commentcnt)}"
+                    android:textSize="@dimen/text_size_12"
+                    app:qmui_skin_text_color="?attr/app_skin_card_function_tint_color"
+                    android:layout_height="match_parent"/>
+
+            <TextView
+                    app:typeface="@{1}"
+                    android:text="@{String.valueOf(textCard.commentcnt - textCard.replycnt)}"
+                    android:id="@+id/tv_like"
+                    android:paddingStart="@dimen/dp_10"
+                    android:paddingEnd="@dimen/dp_10"
+                    android:layout_gravity="center"
+                    android:drawableStart="@drawable/heart_line_gray_50"
+                    app:qmui_skin_tint_color="?attr/app_skin_card_function_tint_color"
+                    android:layout_width="wrap_content"
+                    android:drawablePadding="@dimen/dp_4"
+                    android:gravity="center"
+                    android:textSize="@dimen/text_size_12"
+                    app:qmui_skin_text_color="?attr/app_skin_card_function_tint_color"
+                    android:layout_height="match_parent"/>
+
+            <View
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"/>
+
+            <ImageButton
+                    android:id="@+id/ibtn_share"
+                    android:src="@drawable/icon_share_fill_36_gray"
+                    android:background="@null"
+                    android:paddingEnd="@dimen/dp_8"
+                    android:paddingStart="@dimen/dp_16"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"/>
+
+            <ImageButton
+                    android:id="@+id/ibtn_more"
+                    android:src="@drawable/more_22_gray_3x"
+                    android:background="@null"
+                    android:paddingEnd="@dimen/dp_16"
+                    android:paddingStart="@dimen/dp_8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"/>
+        </LinearLayout>
 
         <View
-                android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent"/>
-        <ImageButton
-                android:id="@+id/ibtn_share"
-                android:src="@drawable/icon_share_fill_36_gray"
-                android:background="@null"
-                android:paddingEnd="@dimen/dp_8"
-                android:paddingStart="@dimen/dp_16"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"/>
-        <ImageButton
-                android:id="@+id/ibtn_more"
-                android:src="@drawable/more_22_gray_3x"
-                android:background="@null"
-                android:paddingEnd="@dimen/dp_16"
-                android:paddingStart="@dimen/dp_8"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"/>
-    </LinearLayout>
-
-    <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/color_cfd8dc"/>
-</FrameLayout>
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:background="@color/color_cfd8dc"/>
+    </FrameLayout>
+</layout>

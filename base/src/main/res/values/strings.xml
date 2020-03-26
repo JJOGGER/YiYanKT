@@ -161,5 +161,7 @@
     <string name="about_item_homepage">访问官网</string>
     <string name="about_item_github">GitHub</string>
     <string name="about_copyright">© %1$s QMUI Team All rights reserved.</string>
-
+    <string name="book_left">「</string>
+    <string name="book_right">」</string>
+    <string name="reply_end">条回复</string>
 </resources>

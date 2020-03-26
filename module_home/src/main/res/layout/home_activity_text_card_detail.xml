@@ -6,21 +6,22 @@
     <data>
 
     </data>
-<FrameLayout
-        android:layout_width="match_parent"
-        android:fitsSystemWindows="true"
-        app:qmui_skin_background="?attr/app_skin_common_background"
-        android:layout_height="match_parent">
-    <com.scwang.smartrefresh.horizontal.SmartRefreshHorizontal
+
+    <FrameLayout
             android:layout_width="match_parent"
-            android:id="@+id/srl_refresh"
+            android:fitsSystemWindows="true"
             app:qmui_skin_background="?attr/app_skin_common_background_1"
             android:layout_height="match_parent">
 
-        <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/vp_content"
+        <com.scwang.smartrefresh.horizontal.SmartRefreshHorizontal
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-    </com.scwang.smartrefresh.horizontal.SmartRefreshHorizontal>
-</FrameLayout>
+                android:id="@+id/srl_refresh"
+                android:layout_height="match_parent">
+
+            <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/vp_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
+        </com.scwang.smartrefresh.horizontal.SmartRefreshHorizontal>
+    </FrameLayout>
 </layout>
