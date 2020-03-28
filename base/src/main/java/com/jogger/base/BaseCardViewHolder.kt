@@ -1,4 +1,4 @@
-package com.jogger.module_star.adapter.holder
+package com.jogger.base
 
 import android.content.Context
 import android.graphics.Typeface

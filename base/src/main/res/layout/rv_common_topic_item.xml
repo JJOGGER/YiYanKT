@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:id="@+id/layout_item"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="@dimen/dp_8"
+            android:layout_height="wrap_content">
+
+        <include layout="@layout/star_common_top_layout"/>
+
+        <com.qmuiteam.qmui.layout.QMUILinearLayout
+                android:orientation="vertical"
+                android:layout_marginStart="@dimen/dp_58"
+                app:qmui_skin_background="?attr/app_skin_common_background"
+                android:layout_width="match_parent"
+                android:layout_marginEnd="@dimen/dp_54"
+                android:layout_height="wrap_content">
+
+            <TextView
+                    android:layout_width="match_parent"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:paddingTop="@dimen/dp_2"
+                    android:paddingBottom="@dimen/dp_2"
+                    tools:text="topic title"
+                    android:id="@+id/tv_topic_title"
+                    android:textSize="@dimen/text_size_16"
+                    app:qmui_skin_text_color="?attr/app_skin_card_text_color"
+                    android:layout_height="wrap_content"/>
+
+            <include layout="@layout/card_header_img_layout"/>
+
+            <LinearLayout
+                    android:orientation="vertical"
+                    android:id="@+id/text_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                <TextView
+                        android:id="@+id/tv_content"
+                        android:maxLines="7"
+                        android:paddingBottom="@dimen/dp_16"
+                        android:layout_gravity="center"
+                        android:paddingTop="@dimen/dp_32"
+                        android:paddingStart="@dimen/dp_16"
+                        android:paddingEnd="@dimen/dp_16"
+                        tools:text="xxxxxxxxxxxxxxxxxxxx"
+                        android:lineSpacingExtra="@dimen/dp_3"
+                        android:textSize="18sp"
+                        android:gravity="center"
+                        app:qmui_skin_text_color="?attr/app_skin_card_text_color"
+                        android:layout_width="match_parent"
+                        android:layout_weight="1"
+                        android:layout_height="0dp"/>
+
+                <TextView
+                        android:id="@+id/tv_from"
+                        android:paddingStart="@dimen/dp_16"
+                        android:paddingEnd="@dimen/dp_16"
+                        tools:text="xxxxxxxxxxxxxxxxxxxx"
+                        android:layout_gravity="center_horizontal|bottom"
+                        android:textSize="14sp"
+                        android:paddingBottom="@dimen/dp_10"
+                        app:qmui_skin_text_color="?attr/app_skin_card_text_color"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <include layout="@layout/home_card_common_bottom_layout"/>
+        </com.qmuiteam.qmui.layout.QMUILinearLayout>
+    </LinearLayout>
+</layout>

@@ -44,7 +44,8 @@ public class QMUITabIndicator {
     /**
      * use a drawable to present the indicator
      */
-    private @Nullable Drawable mIndicatorDrawable;
+    private @Nullable
+    Drawable mIndicatorDrawable;
     /**
      * the width of indicator changed when toggle to different tab
      */
@@ -63,22 +64,24 @@ public class QMUITabIndicator {
     private int mFixedColorAttr = 0;
     private boolean mShouldReGetFixedColor = true;
     private int mFixedColor = 0;
+    private int mIndicatorWith = 0;
 
-    public QMUITabIndicator(int indicatorHeight, boolean indicatorTop,
-                            boolean isIndicatorWidthFollowContent){
-        this(indicatorHeight, indicatorTop, isIndicatorWidthFollowContent, 0);
+    public QMUITabIndicator(int indicatorWith, int indicatorHeight, boolean indicatorTop,
+                            boolean isIndicatorWidthFollowContent) {
+        this(indicatorWith, indicatorHeight, indicatorTop, isIndicatorWidthFollowContent, 0);
     }
 
-    public QMUITabIndicator(int indicatorHeight, boolean indicatorTop,
-                            boolean isIndicatorWidthFollowContent,  int fixedColorAttr) {
+    public QMUITabIndicator(int indicatorWith, int indicatorHeight, boolean indicatorTop,
+                            boolean isIndicatorWidthFollowContent, int fixedColorAttr) {
         mIndicatorHeight = indicatorHeight;
         mIndicatorTop = indicatorTop;
+        mIndicatorWith = indicatorWith;
         mIsIndicatorWidthFollowContent = isIndicatorWidthFollowContent;
         mFixedColorAttr = fixedColorAttr;
     }
 
     public QMUITabIndicator(@NonNull Drawable drawable, boolean indicatorTop,
-                            boolean isIndicatorWidthFollowContent){
+                            boolean isIndicatorWidthFollowContent) {
         this(drawable, indicatorTop, isIndicatorWidthFollowContent, 0);
     }
 
@@ -101,18 +104,30 @@ public class QMUITabIndicator {
 
     protected void updateInfo(int left, int width, int color) {
         if (mIndicatorRect == null) {
-            mIndicatorRect = new Rect(left, 0,
-                    left + width, 0);
+            if (mIndicatorWith != 0) {//优先使用自定义宽度
+                int w = (mIndicatorWith - width) / 2;
+                mIndicatorRect = new Rect(left - w, 0,
+                        left + mIndicatorWith - w, 0);
+            } else {
+                mIndicatorRect = new Rect(left, 0,
+                        left + width, 0);
+            }
         } else {
-            mIndicatorRect.left = left;
-            mIndicatorRect.right = left + width;
+            if (mIndicatorWith != 0) {
+                int w = (mIndicatorWith - width) / 2;
+                mIndicatorRect.left = left - w;
+                mIndicatorRect.right = left + mIndicatorWith - w;
+            } else {
+                mIndicatorRect.left = left;
+                mIndicatorRect.right = left + width;
+            }
         }
-        if(mFixedColorAttr == 0){
+        if (mFixedColorAttr == 0) {
             updateColor(color);
         }
     }
 
-    private void updateColor(int color){
+    private void updateColor(int color) {
         if (mIndicatorDrawable != null) {
             QMUIDrawableHelper.setDrawableTintColor(mIndicatorDrawable, color);
         } else {
@@ -126,7 +141,7 @@ public class QMUITabIndicator {
 
     protected void draw(@NonNull View hostView, @NonNull Canvas canvas, int viewTop, int viewBottom) {
         if (mIndicatorRect != null) {
-            if(mFixedColorAttr != 0 && mShouldReGetFixedColor){
+            if (mFixedColorAttr != 0 && mShouldReGetFixedColor) {
                 mShouldReGetFixedColor = false;
                 mFixedColor = QMUISkinHelper.getSkinColor(hostView, mFixedColorAttr);
                 updateColor(mFixedColor);
@@ -149,11 +164,11 @@ public class QMUITabIndicator {
 
     protected void handleSkinChange(@NonNull QMUISkinManager manager, int skinIndex,
                                     @NonNull Resources.Theme theme,
-                                    @Nullable QMUITab selectedTab){
+                                    @Nullable QMUITab selectedTab) {
         mShouldReGetFixedColor = true;
-        if(selectedTab != null && mFixedColorAttr == 0){
+        if (selectedTab != null && mFixedColorAttr == 0) {
             updateColor(
-                    selectedTab.selectedColorAttr == 0 ? selectedTab.selectColor : QMUIResHelper.getAttrColor(theme,selectedTab.selectedColorAttr));
+                    selectedTab.defaultSelectedIndicatorColorAttr == 0 ? selectedTab.defaultSelectedIndicatorColor : QMUIResHelper.getAttrColor(theme, selectedTab.defaultSelectedIndicatorColorAttr));
         }
     }
 }

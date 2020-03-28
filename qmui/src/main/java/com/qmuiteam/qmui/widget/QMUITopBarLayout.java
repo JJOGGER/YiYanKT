@@ -21,17 +21,14 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
-
+import androidx.collection.SimpleArrayMap;
 import com.qmuiteam.qmui.R;
 import com.qmuiteam.qmui.alpha.QMUIAlphaImageButton;
 import com.qmuiteam.qmui.layout.QMUIFrameLayout;
 import com.qmuiteam.qmui.qqface.QMUIQQFaceView;
 import com.qmuiteam.qmui.skin.QMUISkinValueBuilder;
 import com.qmuiteam.qmui.skin.defaultAttr.IQMUISkinDefaultAttrProvider;
-
-import androidx.collection.SimpleArrayMap;
 
 /**
  * 这是一个对 {@link QMUITopBar} 的代理类，需要它的原因是：
@@ -79,6 +76,10 @@ public class QMUITopBarLayout extends QMUIFrameLayout implements IQMUISkinDefaul
 
     public QMUIQQFaceView setTitle(String title) {
         return mTopBar.setTitle(title);
+    }
+
+    public CharSequence getTitle() {
+        return mTopBar.getTitle();
     }
 
     public void showTitlteView(boolean toShow) {

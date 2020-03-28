@@ -24,7 +24,7 @@
             android:fitsSystemWindows="true"
             android:layout_height="?attr/qmui_topbar_height">
 
-        <com.jogger.module_star.widget.CustomTabLayout
+        <com.jogger.widget.CustomTabLayout
                 android:id="@+id/tl_tab"
                 android:layout_width="match_parent"
                 app:tabMinWidth="@dimen/dp_60"

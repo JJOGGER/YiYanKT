@@ -4,8 +4,10 @@ import android.app.Application
 import android.content.Context
 import android.os.Parcel
 import com.alibaba.android.arouter.launcher.ARouter
+import com.jogger.manager.QDQQFaceManager
 import com.jogger.manager.QDSkinManager
 import com.jogger.widget.YiYanHeader
+import com.qmuiteam.qmui.qqface.QMUIQQFaceCompiler
 import com.scwang.smartrefresh.layout.SmartRefreshLayout
 import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreator
 import com.scwang.smartrefresh.layout.api.RefreshLayout
@@ -30,6 +32,7 @@ fun initApp(app: Application) {
     ARouter.openDebug()
     ARouter.init(app)
     QDSkinManager.install(app)
+    QMUIQQFaceCompiler.setDefaultQQFaceManager(QDQQFaceManager.getInstance())
     SmartRefreshLayout.setDefaultRefreshHeaderCreator(object : DefaultRefreshHeaderCreator {
         override fun createRefreshHeader(context: Context, layout: RefreshLayout) = YiYanHeader(app)
     })

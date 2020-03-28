@@ -9,10 +9,10 @@ import android.view.Gravity
 import android.view.View
 import android.widget.ImageView
 import com.bumptech.glide.Glide
+import com.jogger.base.BaseCardViewHolder
 import com.jogger.entity.TextCard
 import com.jogger.manager.AssetsManager
 import com.jogger.module_star.R
-import com.jogger.utils.LogUtils
 import com.qmuiteam.qmui.widget.QMUIRadiusImageView
 
 class TopicItemViewHolder(view: View, context: Context) : BaseCardViewHolder(view, context) {
@@ -28,15 +28,19 @@ class TopicItemViewHolder(view: View, context: Context) : BaseCardViewHolder(vie
     override fun convert(card: TextCard) {
         val imgShow = card.type?.split("_")?.get(1)?.toInt()
         val image: ImageView?
-        if (imgShow == 1) {
-            image = getView(R.id.iv_header)
-        } else {
-            image = getView(R.id.iv_header2)
-            if (imgShow == 0) {
-                (image as QMUIRadiusImageView).isCircle = false
-            }
-        }
         if (!TextUtils.isEmpty(card.picpath)) {
+            if (imgShow == 1) {
+                setVisible(R.id.iv_header, true)
+                setVisible(R.id.iv_header2, false)
+                image = getView(R.id.iv_header)
+            } else {
+                image = getView(R.id.iv_header2)
+                setVisible(R.id.iv_header, false)
+                setVisible(R.id.iv_header2, true)
+                if (imgShow == 0) {
+                    (image as QMUIRadiusImageView).isCircle = false
+                }
+            }
             getView<View>(R.id.fl_header).visibility = View.VISIBLE
             image.visibility = View.VISIBLE
             Glide.with(mContext)
@@ -63,11 +67,30 @@ class TopicItemViewHolder(view: View, context: Context) : BaseCardViewHolder(vie
                 "${split[0]}:${split[1]}"
             } else ""
         )
-            .setText(R.id.tv_text_title, if (!TextUtils.isEmpty(card.title)) spannable.append(card.title) else "")
+            .setText(R.id.tv_topic_title, if (!TextUtils.isEmpty(card.title)) spannable.append(card.title) else "")
             .setText(R.id.tv_content, card.content)
-            .setText(R.id.tv_topic_reply, "${card.replycnt}条回复")
+            .setText(
+                R.id.tv_from, if (!TextUtils.isEmpty(card.from)) {
+                    "- " + card.from + " -"
+                } else {
+                    setVisible(R.id.tv_from, false)
+                    ""
+                }
+            )
+        if (existView(R.id.tv_collection) &&
+            existView(R.id.tv_comment) &&
+            existView(R.id.tv_like)
+        ) {
+            setText(R.id.tv_collection, card.collectcnt.toString())
+                .setText(R.id.tv_comment, card.replycnt.toString())
+                .setText(R.id.tv_like, (card.commentcnt - card.replycnt).toString())
+        }
+        if (existView(R.id.tv_topic_reply)) {
+            setText(R.id.tv_topic_reply, "${card.replycnt}条回复")
+        }
+
         setTypeFace(
-            R.id.tv_text_title, R.id.tv_content, typeface = AssetsManager.getTypeFaceByType(
+            R.id.tv_topic_title, R.id.tv_content, R.id.tv_from, typeface = AssetsManager.getTypeFaceByType(
                 card.type?.split("_")?.get(3)?.toInt() ?: 0
             )
         )
@@ -75,9 +98,5 @@ class TopicItemViewHolder(view: View, context: Context) : BaseCardViewHolder(vie
             R.id.tv_content,
             if (card.type?.split("_")?.get(4)?.toInt() == 1) Gravity.START else Gravity.CENTER_HORIZONTAL
         )
-        getView<View>(R.id.layout_item)
-            .setOnClickListener({
-                LogUtils.e("--------card$card")
-            })
     }
 }

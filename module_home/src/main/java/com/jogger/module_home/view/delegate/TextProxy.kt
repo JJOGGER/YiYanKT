@@ -21,15 +21,15 @@ class TextProxy(binding: HomeDetailTextViewBinding, context: Context) :
         val image: ImageView
         image =
             if (imgShow == 1) {
-            mBinding.nsvCommonView.visibility = View.VISIBLE
-            mBinding.ivHeader
-        } else if (imgShow == 0) {
-            mBinding.nsvCommonView.visibility = View.VISIBLE
-            mBinding.ivHeader2
-        } else {
-            mBinding.clImgTxtView.visibility = View.VISIBLE
-            mBinding.ivHeader3
-        }
+                mBinding.nsvCommonView.visibility = View.VISIBLE
+                mBinding.ivHeader
+            } else if (imgShow == 0) {
+                mBinding.nsvCommonView.visibility = View.VISIBLE
+                mBinding.ivHeader2
+            } else {
+                mBinding.clImgTxtView.visibility = View.VISIBLE
+                mBinding.ivHeader3
+            }
         if (!TextUtils.isEmpty(card.picpath)) {
             image.visibility = View.VISIBLE
             Glide.with(mContext)
@@ -37,9 +37,8 @@ class TextProxy(binding: HomeDetailTextViewBinding, context: Context) :
                 .into(image)
         }
         if (!TextUtils.isEmpty(card.showtime)) {
-//            mBinding.tabView.visibility = View.VISIBLE
-//            val date = card.showtime!!.split("-", " ")
-//            mBinding.tvDate.text = "${date[0]}\n/\n${date[1]}\n/\n${date[2]}"
+            val date = card.showtime!!.split("-", " ")
+            mBinding.tabView.tvDate.text = "${date[0]}\n/\n${date[1]}\n/\n${date[2]}"
         }
 //        if (card.creator != null && card.originbook != null)
 //            mBinding.tvCreated.text = "${card.creator!!.username} 创建于 [${card.originbook!!.bookname}]"

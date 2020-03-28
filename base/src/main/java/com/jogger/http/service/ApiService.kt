@@ -186,4 +186,13 @@ interface ApiService {//Cookie: JSESSIONID=9CF61CDE1A602835A152B72B8967A2CE
         @Query("v") v: String,
         @Query("booksorder") booksorder: String//2308828,2183042
     )
+
+
+    @GET("yiyan/getcardintopic")
+    suspend fun getCardInTopic(
+        @Query("v") v: String,
+        @Query("cardid") cardId: String,
+        @Query("refreshextra") refreshextra: String?,//为空表示所有话题留言 ，{"hot":"1"}表示热门留言
+        @Query("moreextra") moreextra: String?
+    ): ArticleData
 }

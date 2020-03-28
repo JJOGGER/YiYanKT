@@ -60,7 +60,6 @@ dependencies {
     api rootProject.ext.dependencies.converterGson
 //    implementation rootProject.ext.dependencies.adapterRxjava
     api rootProject.ext.dependencies.glide
-    api rootProject.ext.dependencies.adapterHelper
     api rootProject.ext.dependencies.eventbus
     api rootProject.ext.dependencies.zxing
     api rootProject.ext.dependencies.permission

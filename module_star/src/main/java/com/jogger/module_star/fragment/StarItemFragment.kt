@@ -2,7 +2,6 @@ package com.jogger.module_star.fragment
 
 import android.os.Bundle
 import android.view.View
-import androidx.annotation.NonNull
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,7 +18,6 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener
 import ex.*
 import kotlinx.android.synthetic.main.star_fragment_item.*
-import kotlinx.android.synthetic.main.star_fragment_main.*
 
 /**
  * Created by jogger on 2020/3/4
@@ -27,16 +25,14 @@ import kotlinx.android.synthetic.main.star_fragment_main.*
  */
 class StarItemFragment : BaseFragment<StarViewModel, ViewDataBinding>(), OnRefreshLoadMoreListener,
     OnItemClickListener {
-    override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-        val map = HashMap<String, Any>()
-        map.put(POSITION, position)
-        map.put(FROM_PAGE, PAGE_STAR)
-        map.put(TEXT_CARDS, mAdapter.data)
-        toActivity(mContext!!, TEXT_CARD_DETAIL, map)
-    }
 
     private var mType = CARD_CATEGORY.TYPE_ALL._value
-    private lateinit var mAdapter: StarAdapter
+    private val mAdapter: StarAdapter by lazy {
+        StarAdapter(null, mType).apply {
+            setOnItemClickListener(this@StarItemFragment)
+        }
+    }
+
     override fun layoutId(): Int = R.layout.star_fragment_item
 
     companion object {
@@ -52,8 +48,6 @@ class StarItemFragment : BaseFragment<StarViewModel, ViewDataBinding>(), OnRefre
     override fun initView(savedInstanceState: Bundle?) {
         srl_refresh.setRefreshHeader(YiYanHeader(mContext!!))
         mType = arguments!!.getInt(INDEX)
-        mAdapter = StarAdapter(null)
-        mAdapter.setOnItemClickListener(this@StarItemFragment)
         rv_content.layoutManager = LinearLayoutManager(mContext)
         rv_content.adapter = mAdapter
         srl_refresh.setOnRefreshLoadMoreListener(this)
@@ -90,8 +84,22 @@ class StarItemFragment : BaseFragment<StarViewModel, ViewDataBinding>(), OnRefre
     }
 
     override fun onLoadMore(refreshLayout: RefreshLayout) {
-        vp_content.postDelayed({
+        rv_content.postDelayed({
             mViewModel.getTextCardsByType(mType)
         }, 300)
+    }
+
+    override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
+        val item = adapter.getItem(position) as TextCard
+        val map = HashMap<String, Any>()
+        if (item.category == CARD_CATEGORY.TYPE_TOPIC._value) {
+            map.put(TEXT_CARD, item)
+            toActivity(mContext!!, TOPIC_MIAN_DETAIL, map)
+            return
+        }
+        map.put(POSITION, position)
+        map.put(FROM_PAGE, PAGE_STAR)
+        map.put(TEXT_CARDS, mAdapter.data)
+        toActivity(mContext!!, TEXT_CARD_DETAIL, map)
     }
 }

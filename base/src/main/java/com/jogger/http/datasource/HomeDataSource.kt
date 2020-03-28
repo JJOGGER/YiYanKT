@@ -22,4 +22,7 @@ object HomeDataSource {
 
     suspend fun searchUsers(content: String) = mService.searchUsers(APP_VERSION, content)
     suspend fun searchUsers(content: String, index: Int?) = mService.searchUsers(APP_VERSION, content, index)
+
+    suspend fun getCardInTopic(cardId: String, refreshextra: String?, moreextra: String?) =
+        mService.getCardInTopic(APP_VERSION, cardId, refreshextra, moreextra)
 }

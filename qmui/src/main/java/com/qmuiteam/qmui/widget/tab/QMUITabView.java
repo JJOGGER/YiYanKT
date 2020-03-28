@@ -134,7 +134,7 @@ public class QMUITabView extends FrameLayout implements IQMUISkinHandlerView {
         mCollapsingTextHelper.setGravity(gravity, gravity, false);
         mCollapsingTextHelper.setText(tab.getText());
         mTab = tab;
-        if(tab.tabIcon != null){
+        if (tab.tabIcon != null) {
             tab.tabIcon.setCallback(this);
         }
         boolean hasRedPoint = mTab.signCount == QMUITab.RED_POINT_SIGN_COUNT;
@@ -309,7 +309,7 @@ public class QMUITabView extends FrameLayout implements IQMUISkinHandlerView {
                         mTab.getIconTextGap() +
                         mTab.getNormalTabIconWidth() * mTab.getSelectedTabIconScale());
             }
-            if(mSignCountView != null && mSignCountView.getVisibility() != View.GONE){
+            if (mSignCountView != null && mSignCountView.getVisibility() != View.GONE) {
                 mSignCountView.measure(0, 0);
                 widthSize = Math.max(widthSize,
                         widthSize + mSignCountView.getMeasuredWidth() + mTab.signCountLeftMarginWithIconOrText);
@@ -389,10 +389,10 @@ public class QMUITabView extends FrameLayout implements IQMUISkinHandlerView {
         }
         Point point = new Point(left, bottom);
         int verticalOffset = mTab.signCountBottomMarginWithIconOrText;
-        if(verticalOffset == QMUITab.SIGN_COUNT_VIEW_LAYOUT_VERTICAL_CENTER && mSignCountView != null){
+        if (verticalOffset == QMUITab.SIGN_COUNT_VIEW_LAYOUT_VERTICAL_CENTER && mSignCountView != null) {
             point.y = getMeasuredHeight() - (getMeasuredHeight() - mSignCountView.getMeasuredHeight()) / 2;
             point.offset(mTab.signCountLeftMarginWithIconOrText, 0);
-        }else{
+        } else {
             point.offset(mTab.signCountLeftMarginWithIconOrText, verticalOffset);
         }
 
@@ -694,6 +694,7 @@ public class QMUITabView extends FrameLayout implements IQMUISkinHandlerView {
     private void updateSkinInfo(QMUITab tab) {
         int normalColor = tab.getNormalColor(this);
         int selectedColor = tab.getSelectColor(this);
+        int defaultSelectedIndicatorColor = tab.getDefaultSelectedIndicatorColor(this);
         mCollapsingTextHelper.setTextColor(
                 ColorStateList.valueOf(normalColor),
                 ColorStateList.valueOf(selectedColor),

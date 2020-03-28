@@ -52,7 +52,7 @@ ext {
             okhttpLogging       : 'com.squareup.okhttp3:logging-interceptor:3.9.0',
             glide               : "com.github.bumptech.glide:glide:4.9.0",
             "glide-compiler"    : "com.github.bumptech.glide:compiler:4.9.0",
-            adapterHelper       : 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.0',
+            adapterHelper       : 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.1',
             onhttp              : 'com.yanzhenjie.nohttp:okhttp:1.1.11',
             nohttp              : 'com.yanzhenjie.nohttp:nohttp:1.1.11',
             umengCommon         : 'com.umeng.umsdk:common:1.5.4',

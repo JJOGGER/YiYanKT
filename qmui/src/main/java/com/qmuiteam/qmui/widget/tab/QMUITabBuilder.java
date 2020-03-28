@@ -35,12 +35,14 @@ public class QMUITabBuilder {
      * icon in normal state
      */
     private int normalDrawableAttr = 0;
-    private @Nullable Drawable normalDrawable;
+    private @Nullable
+    Drawable normalDrawable;
     /**
      * icon in selected state
      */
     private int selectedDrawableAttr = 0;
-    private @Nullable Drawable selectedDrawable;
+    private @Nullable
+    Drawable selectedDrawable;
     /**
      * change icon by tint color, if true, selectedDrawable will not work
      */
@@ -69,7 +71,8 @@ public class QMUITabBuilder {
      * text color(icon color in if dynamicChangeIconColor == true) in  selected state
      */
     private int selectedColorAttr = R.attr.qmui_skin_support_tab_selected_color;
-
+    private int defaultSelectedIndicatorColor = 0;//默认选中下标颜色
+    private int defaultSelectedIndicatorColorAttr = selectedColorAttr;
     /**
      * text color with no skin support
      */
@@ -83,7 +86,8 @@ public class QMUITabBuilder {
     /**
      * icon position(left/top/right/bottom)
      */
-    private @QMUITab.IconPosition int iconPosition = QMUITab.ICON_POSITION_TOP;
+    private @QMUITab.IconPosition
+    int iconPosition = QMUITab.ICON_POSITION_TOP;
     /**
      * gravity of text
      */
@@ -145,6 +149,8 @@ public class QMUITabBuilder {
      */
     private boolean allowIconDrawOutside = true;
 
+    private int indicatorWith;
+
 
     QMUITabBuilder(Context context) {
         iconTextGap = QMUIDisplayHelper.dp2px(context, 2);
@@ -177,6 +183,9 @@ public class QMUITabBuilder {
         this.selectedTabIconScale = other.selectedTabIconScale;
         this.iconTextGap = other.iconTextGap;
         this.allowIconDrawOutside = other.allowIconDrawOutside;
+        this.indicatorWith = other.indicatorWith;
+        this.defaultSelectedIndicatorColor = other.defaultSelectedIndicatorColor;
+        this.defaultSelectedIndicatorColorAttr = other.defaultSelectedIndicatorColorAttr;
     }
 
     public QMUITabBuilder setAllowIconDrawOutside(boolean allowIconDrawOutside) {
@@ -204,7 +213,7 @@ public class QMUITabBuilder {
         return this;
     }
 
-    public QMUITabBuilder skinChangeWithTintColor(boolean skinChangeWithTintColor){
+    public QMUITabBuilder skinChangeWithTintColor(boolean skinChangeWithTintColor) {
         this.skinChangeWithTintColor = skinChangeWithTintColor;
         return this;
     }
@@ -257,6 +266,16 @@ public class QMUITabBuilder {
         return this;
     }
 
+    public QMUITabBuilder setDefaultSelectedIndicatorColor(int defaultSelectedIndicatorColor) {
+        this.defaultSelectedIndicatorColor = defaultSelectedIndicatorColor;
+        return this;
+    }
+
+    public QMUITabBuilder setDefaultSelectedIndicatorColorAttr(int defaultSelectedIndicatorColorAttr) {
+        this.defaultSelectedIndicatorColorAttr = defaultSelectedIndicatorColorAttr;
+        return this;
+    }
+
     public QMUITabBuilder setNormalColorAttr(int normalColorAttr) {
         this.normalColorAttr = normalColorAttr;
         return this;
@@ -267,7 +286,7 @@ public class QMUITabBuilder {
         return this;
     }
 
-    public QMUITabBuilder setColor(int normalColor, int selectColor){
+    public QMUITabBuilder setColor(int normalColor, int selectColor) {
         this.normalColorAttr = 0;
         this.selectedColorAttr = 0;
         this.normalColor = normalColor;
@@ -307,15 +326,20 @@ public class QMUITabBuilder {
         return this;
     }
 
+    public QMUITabBuilder setIndicatorWidth(int indicatorWidth) {
+        this.indicatorWith = indicatorWidth;
+        return this;
+    }
+
     public QMUITab build(Context context) {
         QMUITab tab = new QMUITab(this.text);
-        if(!skinChangeWithTintColor){
-            if(normalDrawableAttr != 0){
+        if (!skinChangeWithTintColor) {
+            if (normalDrawableAttr != 0) {
                 normalDrawable = QMUIResHelper.getAttrDrawable(context, normalDrawableAttr);
             }
 
-            if(selectedDrawableAttr != 0){
-                selectedDrawable =  QMUIResHelper.getAttrDrawable(context, selectedDrawableAttr);
+            if (selectedDrawableAttr != 0) {
+                selectedDrawable = QMUIResHelper.getAttrDrawable(context, selectedDrawableAttr);
             }
         }
 
@@ -348,6 +372,9 @@ public class QMUITabBuilder {
         tab.signCountLeftMarginWithIconOrText = this.signCountLeftMarginWithIconOrText;
         tab.signCountBottomMarginWithIconOrText = this.signCountBottomMarginWithIconOrText;
         tab.iconTextGap = this.iconTextGap;
+        tab.indicatorWith = this.indicatorWith;
+        tab.defaultSelectedIndicatorColor = this.defaultSelectedIndicatorColor;
+        tab.defaultSelectedIndicatorColorAttr = this.defaultSelectedIndicatorColorAttr;
         return tab;
     }
 }

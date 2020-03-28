@@ -6,11 +6,11 @@ import android.view.Gravity
 import android.view.View
 import android.widget.ImageView
 import com.bumptech.glide.Glide
+import com.jogger.base.BaseCardViewHolder
 import com.jogger.constant.CARD_CATEGORY
 import com.jogger.entity.TextCard
 import com.jogger.manager.AssetsManager
 import com.jogger.module_star.R
-import com.jogger.utils.LogUtils
 import com.qmuiteam.qmui.widget.QMUIRadiusImageView
 
 class CommonItemViewHolder(view: View, context: Context) : BaseCardViewHolder(view, context) {
@@ -19,15 +19,19 @@ class CommonItemViewHolder(view: View, context: Context) : BaseCardViewHolder(vi
         setGone(R.id.text_container, false)
         val imgShow = card.type?.split("_")?.get(1)?.toInt()
         val image: ImageView?
-        if (imgShow == 1) {
-            image = getView(R.id.iv_header)
-        } else {
-            image = getView(R.id.iv_header2)
-            if (imgShow == 0) {
-                (image as QMUIRadiusImageView).isCircle = false
-            }
-        }
         if (!TextUtils.isEmpty(card.picpath)) {
+            if (imgShow == 1) {
+                setVisible(R.id.iv_header, true)
+                setVisible(R.id.iv_header2, false)
+                image = getView(R.id.iv_header)
+            } else {
+                image = getView(R.id.iv_header2)
+                setVisible(R.id.iv_header, false)
+                setVisible(R.id.iv_header2, true)
+                if (imgShow == 0) {
+                    (image as QMUIRadiusImageView).isCircle = false
+                }
+            }
             getView<View>(R.id.fl_header).visibility = View.VISIBLE
             image.visibility = View.VISIBLE
             Glide.with(mContext)
@@ -77,14 +81,9 @@ class CommonItemViewHolder(view: View, context: Context) : BaseCardViewHolder(vi
         setTypeFace(
             R.id.tv_category, typeface = AssetsManager.getFontTypeFace(AssetsManager.ASSETS_FONT1)
         )
-//        isVerticalMode(R.id.tv_content, card.type?.split("_")?.get(2)?.toInt() == 0)
         setGravity(
             R.id.tv_content,
             if (card.type?.split("_")?.get(4)?.toInt() == 1) Gravity.START else Gravity.CENTER_HORIZONTAL
         )
-        getView<View>(R.id.layout_item)
-            .setOnClickListener({
-                LogUtils.e("--------card$card")
-            })
     }
 }

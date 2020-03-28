@@ -1,0 +1,98 @@
+package com.jogger.module_home.view.activity
+
+import android.os.Bundle
+import android.text.SpannableStringBuilder
+import android.text.Spanned
+import android.text.TextUtils
+import android.text.style.ImageSpan
+import android.view.View
+import androidx.core.widget.NestedScrollView
+import com.alibaba.android.arouter.facade.annotation.Route
+import com.jogger.base.BaseActivity
+import com.jogger.base.BaseViewModel
+import com.jogger.entity.TextCard
+import com.jogger.module_home.R
+import com.jogger.module_home.adapter.TopicMainPageAdapter
+import com.jogger.module_home.databinding.HomeActivityTopicMainBinding
+import com.jogger.module_home.view.fragment.TopicMainFragment
+import com.qmuiteam.qmui.widget.tab.QMUITab
+import com.qmuiteam.qmui.widget.tab.TabMediator
+import ex.TEXT_CARD
+import ex.TOPIC_MIAN_DETAIL
+import ex.sApplication
+import kotlinx.android.synthetic.main.home_activity_topic_main.*
+
+@Route(path = TOPIC_MIAN_DETAIL)
+class TopicMainActivity : BaseActivity<BaseViewModel, HomeActivityTopicMainBinding>() {
+    private var mTabPosition: Float? = null
+    private var mSpannable = SpannableStringBuilder("[icon] ")
+    lateinit var mAdapter: TopicMainPageAdapter
+    override fun getLayoutId() = R.layout.home_activity_topic_main
+    override fun init(savedInstanceState: Bundle?) {
+        mTopBar.addLeftBackImageButton().setOnClickListener({ finish() })
+        mTopBar.addRightImageButton(R.drawable.vmore_22_gray_3x, R.id.ibtn_more)
+            .setOnClickListener({
+
+            })
+        val textCard = intent.getParcelableExtra<TextCard>(TEXT_CARD)
+        mBinding!!.textCard = textCard
+        val fragments = arrayListOf<TopicMainFragment>().apply {
+            add(TopicMainFragment.getInstance(TopicMainFragment.TYPE_ALL, textCard.textcardid!!))
+            add(TopicMainFragment.getInstance(TopicMainFragment.TYPE_HOT, textCard.textcardid!!))
+        }
+        mAdapter = TopicMainPageAdapter(this, fragments)
+        vp_content.adapter = mAdapter
+
+        val drawable = sApplication.resources.getDrawable(R.drawable.icon_topicmark_3x)
+        drawable.setBounds(0, 0, drawable.intrinsicWidth, drawable.intrinsicHeight)
+        val imageSpan1 = ImageSpan(drawable, ImageSpan.ALIGN_BASELINE)
+        mSpannable.setSpan(imageSpan1, 0, 6, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
+
+        initTab()
+        nsv_root.setOnScrollChangeListener(object : NestedScrollView.OnScrollChangeListener {
+            override fun onScrollChange(
+                v: NestedScrollView?,
+                scrollX: Int,
+                scrollY: Int,
+                oldScrollX: Int,
+                oldScrollY: Int
+            ) {
+                if (mTabPosition == null) return
+                if (scrollY >= mTabPosition!!) {
+                    if (tl_tab2.visibility == View.GONE)
+                        tl_tab2.visibility = View.VISIBLE
+                    nsv_root.setNeedScroll(false)
+                    if (TextUtils.isEmpty(mTopBar.title))
+                        mTopBar.setTitle("[icon] ${textCard.title}")
+                } else {
+                    if (tl_tab2.visibility == View.VISIBLE)
+                        tl_tab2.visibility = View.GONE
+                    nsv_root.setNeedScroll(true)
+                    if (!TextUtils.isEmpty(mTopBar.title))
+                        mTopBar.setTitle("")
+                }
+            }
+        })
+    }
+
+    private fun initTab() {
+        tl_tab.setColorAttr(R.attr.qmui_skin_topic_tab_normal_color, R.attr.qmui_skin_topic_tab_selected_color)
+        tl_tab.setDefaultSelectedIndicatorColorAttr(R.attr.qmui_skin_topic_tab_selected_color)
+        TabMediator(this, tl_tab, vp_content, true, object : TabMediator.TabConfigurationStrategy {
+            override fun onConfigureTab(tab: QMUITab, position: Int) {
+                tab.text = if (position == 0) "所有" else "热门"
+            }
+        }).attach()
+        tl_tab2.setColorAttr(R.attr.qmui_skin_topic_tab_normal_color, R.attr.qmui_skin_topic_tab_selected_color)
+        tl_tab2.setDefaultSelectedIndicatorColorAttr(R.attr.qmui_skin_topic_tab_selected_color)
+        TabMediator(this, tl_tab2, vp_content, true, object : TabMediator.TabConfigurationStrategy {
+            override fun onConfigureTab(tab: QMUITab, position: Int) {
+                tab.text = if (position == 0) "所有" else "热门"
+            }
+        }).attach()
+        tl_tab.viewTreeObserver.addOnGlobalLayoutListener({
+            mTabPosition = tl_tab.y
+            tl_tab.viewTreeObserver.removeOnDrawListener { }
+        })
+    }
+}

@@ -17,6 +17,7 @@ const val MODULE_MESSAGE_MAIN = "/module_message/main"
 const val MODULE_MINE_MAIN = "/module_mine/main"
 const val MODULE_LOGIN = "/module_app/login"
 const val TEXT_CARD_DETAIL = "/module_home/text_card_detail"
+const val TOPIC_MIAN_DETAIL = "/module_home/topic_mian_detail"
 
 /**
  * Created by jogger on 2020/2/26

@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import com.jogger.base.BaseViewModel
 import com.jogger.entity.TextCard
 import com.jogger.http.datasource.HomeDataSource
-import com.jogger.utils.LogUtils
 
 class HomeViewModel : BaseViewModel() {
     val mSubcribeArticlesLiveData = MutableLiveData<MutableList<TextCard>>()
@@ -13,7 +12,6 @@ class HomeViewModel : BaseViewModel() {
     val mSubcribeArticlesFailureLiveData = MutableLiveData<Any>()
     fun getSubcribeArticles(feedid: String?) {
         launchOnlyresult({ HomeDataSource.getSubcribeArticles(feedid) }, {
-            LogUtils.e("-----success${it}")
             if (TextUtils.isEmpty(feedid)) {
                 mSubcribeArticlesLiveData.value = it.textcardlist
             } else {

@@ -28,4 +28,8 @@
     <item name="home_clock_funciton" type="id"/>
     <item name="clock_funciton" type="id"/>
     <item name="search_funciton" type="id"/>
+    <item name="BaseQuickAdapter_viewholder_support" type="id"/>
+    <item name="BaseQuickAdapter_swiping_support" type="id"/>
+    <item name="BaseQuickAdapter_dragging_support" type="id"/>
+    <item name="BaseQuickAdapter_databinding_support" type="id"/>
 </resources>

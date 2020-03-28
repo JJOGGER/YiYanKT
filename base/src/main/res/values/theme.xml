@@ -39,6 +39,8 @@
     <attr name="app_skin_alpha_test" format="float"/>
     <attr name="app_skin_search_tab_color" format="color|reference"/>
     <attr name="app_skin_search_txt_color" format="color|reference"/>
+    <attr name="qmui_skin_topic_tab_normal_color" format="color|reference"/>
+    <attr name="qmui_skin_topic_tab_selected_color" format="color|reference"/>
 
     <style name="login_logoTheme" parent="QMUI.Compat.NoActionBar">
         <item name="windowNoTitle">true</item>
@@ -46,6 +48,7 @@
         <item name="android:windowBackground">@drawable/blur_lonely_2208h2</item>
         <item name="android:windowFullscreen">true</item>
     </style>
+
     <style name="AppTheme" parent="QMUI.Compat.NoActionBar">
         <!-- 配置Android提供的theme -->
         <item name="android:textAppearanceListItemSmall">@style/QDTextAppearanceListItemSmall</item>
@@ -92,6 +95,8 @@
         </item>
         <item name="qmui_skin_support_topbar_image_tint_color">@color/qmui_config_color_pure_black</item>
         <item name="qmui_skin_support_tab_normal_color">?attr/qmui_config_color_gray_5</item>
+        <item name="qmui_skin_topic_tab_normal_color">?attr/qmui_config_color_gray_3</item>
+        <item name="qmui_skin_topic_tab_selected_color">@color/color_6a92ad</item>
         <item name="qmui_skin_support_tab_selected_color">@color/qmui_config_color_pure_black</item>
         <item name="qmui_skin_support_round_btn_border_color">@color/s_btn_gray</item>
         <item name="qmui_skin_support_round_btn_text_color">@color/s_btn_gray</item>
@@ -132,6 +137,8 @@
         <item name="qmui_skin_support_tab_bg">@color/sub_black</item>
         <item name="qmui_skin_support_tab_normal_color">?attr/qmui_config_color_gray_3</item>
         <item name="qmui_skin_support_tab_selected_color">@color/qmui_config_color_white</item>
+        <item name="qmui_skin_topic_tab_normal_color">@color/qmui_config_color_75_white</item>
+        <item name="qmui_skin_topic_tab_selected_color">@color/colorPrimary</item>
         <item name="qmui_skin_support_tab_sign_count_view_text_color">@color/qmui_config_color_75_white</item>
         <item name="qmui_skin_support_tab_sign_count_view_bg_color">#80FF303A</item>
         <item name="qmui_skin_support_empty_view_loading_color">@color/qmui_config_color_75_white</item>

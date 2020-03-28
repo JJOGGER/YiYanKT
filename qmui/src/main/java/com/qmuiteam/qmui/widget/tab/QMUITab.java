@@ -19,15 +19,12 @@ package com.qmuiteam.qmui.widget.tab;
 import android.graphics.Typeface;
 import android.view.Gravity;
 import android.view.View;
+import androidx.annotation.IntDef;
+import androidx.annotation.NonNull;
+import com.qmuiteam.qmui.skin.QMUISkinHelper;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-
-import androidx.annotation.ColorInt;
-import androidx.annotation.IntDef;
-import androidx.annotation.NonNull;
-
-import com.qmuiteam.qmui.skin.QMUISkinHelper;
 
 public class QMUITab {
     public static final int ICON_POSITION_LEFT = 0;
@@ -69,7 +66,8 @@ public class QMUITab {
     int selectedIconAttr;
     int contentWidth = 0;
     int contentLeft = 0;
-    @IconPosition int iconPosition = ICON_POSITION_TOP;
+    @IconPosition
+    int iconPosition = ICON_POSITION_TOP;
     int gravity = Gravity.CENTER;
     private CharSequence text;
     int signCountDigits = 2;
@@ -81,6 +79,9 @@ public class QMUITab {
     float leftSpaceWeight = 0f;
     int leftAddonMargin = 0;
     int rightAddonMargin = 0;
+    int indicatorWith = 0;
+    int defaultSelectedIndicatorColor;
+    int defaultSelectedIndicatorColorAttr;
 
 
     QMUITab(CharSequence text) {
@@ -122,34 +123,41 @@ public class QMUITab {
         this.signCount = signCount;
     }
 
-    public void setRedPoint(){
-        this.signCount =  RED_POINT_SIGN_COUNT;
+    public void setRedPoint() {
+        this.signCount = RED_POINT_SIGN_COUNT;
     }
 
-    public int getSignCount(){
+    public int getSignCount() {
         return this.signCount;
     }
 
-    public boolean isRedPointShowing(){
+    public boolean isRedPointShowing() {
         return this.signCount == RED_POINT_SIGN_COUNT;
     }
 
-    public void clearSignCountOrRedPoint(){
+    public void clearSignCountOrRedPoint() {
         this.signCount = NO_SIGN_COUNT_AND_RED_POINT;
     }
 
     public int getNormalColor(@NonNull View skinFollowView) {
-        if(normalColorAttr == 0){
+        if (normalColorAttr == 0) {
             return normalColor;
         }
         return QMUISkinHelper.getSkinColor(skinFollowView, normalColorAttr);
     }
 
     public int getSelectColor(@NonNull View skinFollowView) {
-        if(selectedColorAttr == 0){
+        if (selectedColorAttr == 0) {
             return selectColor;
         }
         return QMUISkinHelper.getSkinColor(skinFollowView, selectedColorAttr);
+    }
+
+    public int getDefaultSelectedIndicatorColor(@NonNull View skinFollowView) {
+        if (defaultSelectedIndicatorColorAttr == 0) {
+            return defaultSelectedIndicatorColor;
+        }
+        return QMUISkinHelper.getSkinColor(skinFollowView, defaultSelectedIndicatorColorAttr);
     }
 
     public int getNormalColorAttr() {

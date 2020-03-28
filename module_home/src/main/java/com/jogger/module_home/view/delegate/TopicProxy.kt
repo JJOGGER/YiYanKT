@@ -25,7 +25,6 @@ class TopicProxy(binding: HomeDetailTopicViewBinding, context: Context) :
         mBinding.bottomAction.tvLike.visibility = View.GONE
 
         val card = mBinding.textCard!!
-        val imgShow = card.type?.split("_")?.get(1)?.toInt()
         if (!TextUtils.isEmpty(card.picpath)) {
             mBinding.ivHeader.visibility = View.VISIBLE
             Glide.with(mContext)
@@ -38,6 +37,10 @@ class TopicProxy(binding: HomeDetailTopicViewBinding, context: Context) :
         spannable.setSpan(imageSpan1, 0, 6, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
         spannable.append(card.title)
         mBinding.tvTextTitle.setText(spannable)
+        if (!TextUtils.isEmpty(card.showtime)) {
+            val date = card.showtime!!.split("-", " ")
+            mBinding.tvDate.text = "${date[0]}\n/\n${date[1]}\n/\n${date[2]}"
+        }
 //        if (card.creator != null && card.originbook != null)
 //            mBinding.tvCreated.text = "${card.creator!!.username} 创建于 [${card.originbook!!.bookname}]"
 //        mBinding.commonBottom.tvCollection.text = "${card.collectcnt}"

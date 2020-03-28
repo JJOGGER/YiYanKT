@@ -8,7 +8,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
  * Created by jogger on 2020/3/20
  * 描述：
  */
-class TextCardDetailAdapter(activity: FragmentActivity, fragments: ArrayList< out Fragment>) :
+class TextCardDetailAdapter(activity: FragmentActivity, fragments: ArrayList<out Fragment>) :
     FragmentStateAdapter(activity) {
     var mFragments = fragments
     override fun getItemCount(): Int = mFragments.size

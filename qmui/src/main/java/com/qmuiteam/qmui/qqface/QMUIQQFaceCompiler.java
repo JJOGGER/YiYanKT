@@ -19,19 +19,12 @@ package com.qmuiteam.qmui.qqface;
 import android.graphics.drawable.Drawable;
 import android.text.Spannable;
 import android.util.LruCache;
-
+import androidx.annotation.MainThread;
+import androidx.annotation.NonNull;
 import com.qmuiteam.qmui.span.QMUITouchableSpan;
 import com.qmuiteam.qmui.util.QMUILangHelper;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import androidx.annotation.MainThread;
-import androidx.annotation.NonNull;
+import java.util.*;
 
 /**
  * {@link QMUIQQFaceView} 的内容解析器，将文本内容解析成 {@link QMUIQQFaceView} 想要的数据格式。
@@ -54,7 +47,7 @@ public class QMUIQQFaceCompiler {
 
 
     @MainThread
-    public static QMUIQQFaceCompiler getDefaultInstance(){
+    public static QMUIQQFaceCompiler getDefaultInstance() {
         return getInstance(sDefaultQQFaceManager);
     }
 
