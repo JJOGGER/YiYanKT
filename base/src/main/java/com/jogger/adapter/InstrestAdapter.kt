@@ -1,4 +1,4 @@
-package com.jogger.module_star.adapter
+package com.jogger.adapter
 
 import android.text.SpannableStringBuilder
 import android.text.Spanned
@@ -8,9 +8,9 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
+import com.jogger.base.R
 import com.jogger.entity.TextCard
 import com.jogger.manager.AssetsManager
-import com.jogger.module_star.R
 
 class InstrestAdapter(data: MutableList<TextCard>?) :
     BaseQuickAdapter<TextCard, BaseViewHolder>(R.layout.star_rv_instrest_item_item, data) {

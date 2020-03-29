@@ -3,6 +3,8 @@
           package="com.jogger.module_home">
 
     <application>
+        <activity android:name=".view.activity.CommentActivity">
+        </activity>
         <activity android:name=".view.activity.TopicMainActivity">
         </activity>
         <activity android:name=".view.activity.TextCardDetailActivity">

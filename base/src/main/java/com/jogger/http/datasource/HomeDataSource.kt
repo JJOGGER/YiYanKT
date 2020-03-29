@@ -1,13 +1,6 @@
 package com.jogger.http.datasource
 
-import com.jogger.http.basic.RetrofitManager
-import com.jogger.http.service.ApiService
-
-object HomeDataSource {
-    private const val APP_VERSION = "3.35"
-    private val mService: ApiService = RetrofitManager.getService(ApiService::class.java)
-
-
+object HomeDataSource : BaseDataSource() {
     suspend fun getSubcribeArticles(moreextra: String?) = mService.getSubcribeArticles(APP_VERSION, moreextra)
 
     suspend fun getTextCardsByType(type: Int, lastCardId: String?, moreextra: String?) =

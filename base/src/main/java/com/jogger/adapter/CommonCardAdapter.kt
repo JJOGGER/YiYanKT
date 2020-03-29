@@ -1,17 +1,17 @@
-package com.jogger.module_star.adapter
+package com.jogger.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
+import com.jogger.adapter.holder.CommonItemViewHolder
+import com.jogger.adapter.holder.InstrestItemViewHolder
+import com.jogger.adapter.holder.TopicItemViewHolder
 import com.jogger.base.BaseCardViewHolder
+import com.jogger.base.R
 import com.jogger.constant.CARD_CATEGORY
 import com.jogger.entity.TextCard
-import com.jogger.module_star.R
-import com.jogger.module_star.adapter.holder.CommonItemViewHolder
-import com.jogger.module_star.adapter.holder.InstrestItemViewHolder
-import com.jogger.module_star.adapter.holder.TopicItemViewHolder
 
-class StarAdapter(data: MutableList<TextCard>?, type: Int) :
+class CommonCardAdapter(data: MutableList<TextCard>?, type: Int) :
     BaseMultiItemQuickAdapter<TextCard, BaseCardViewHolder>(data) {
     private val mType = type
     private val mItemTypes = arrayListOf(
@@ -26,22 +26,22 @@ class StarAdapter(data: MutableList<TextCard>?, type: Int) :
     )
 
     init {
-        for (type in mItemTypes) {
-            when (type) {
+        for (t in mItemTypes) {
+            when (t) {
                 CARD_CATEGORY.TYPE_TEXT,
                 CARD_CATEGORY.TYPE_POETRY,
                 CARD_CATEGORY.TYPE_FILM,
                 CARD_CATEGORY.TYPE_WORD ->
-                    addItemType(type._value, R.layout.star_rv_common_item)
-                CARD_CATEGORY.TYPE_HOT_CARD -> addItemType(type._value, R.layout.star_rv_instrest_item)
+                    addItemType(t._value, R.layout.star_rv_common_item)
+                CARD_CATEGORY.TYPE_HOT_CARD -> addItemType(t._value, R.layout.star_rv_instrest_item)
                 CARD_CATEGORY.TYPE_TOPIC -> if (mType == CARD_CATEGORY.TYPE_TOPIC._value) addItemType(
-                    type._value,
+                    t._value,
                     R.layout.rv_common_topic_item
                 ) else addItemType(
-                    type._value,
+                    t._value,
                     R.layout.star_rv_topic_item
                 )
-                else -> addItemType(type._value, R.layout.star_rv_common_item)
+                else -> addItemType(t._value, R.layout.star_rv_common_item)
             }
         }
     }

@@ -1,9 +1,6 @@
 package com.jogger.http.service
 
-import com.jogger.entity.ArticleData
-import com.jogger.entity.LoginResult
-import com.jogger.entity.SinaUserData
-import com.jogger.entity.UsersData
+import com.jogger.entity.*
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query
@@ -56,6 +53,17 @@ interface ApiService {//Cookie: JSESSIONID=9CF61CDE1A602835A152B72B8967A2CE
     ): ArticleData
 
     /**
+     * 穿越卡片列表
+     */
+    @GET("yiyan/crosstime")
+    suspend fun getCrossTimeCards(
+        @Query("v") v: String,
+        @Query("cross") cross: Int?,
+        @Query("datetime") datetime: String?,
+        @Query("moreextra") moreExtra: String?//{"ltid":"10768220"}
+    ): ArticleData
+
+    /**
      * 搜索卡片
      */
     @GET("/yiyan/search")
@@ -86,7 +94,7 @@ interface ApiService {//Cookie: JSESSIONID=9CF61CDE1A602835A152B72B8967A2CE
     suspend fun checkLiked(
         @Query("v") v: String,
         @Query("cardid") c: String
-    )//"l:0
+    ): CheckLikeResponse
 
     @POST("/yiyan/newlike")
     suspend fun newLike(
@@ -118,7 +126,7 @@ interface ApiService {//Cookie: JSESSIONID=9CF61CDE1A602835A152B72B8967A2CE
     suspend fun getUserinfoAndBooklist(
         @Query("v") v: String,
         @Query("uid") uid: String
-    )
+    ): UserHomeData
 
     //用户首页字句
     @GET("/yiyan/gettextcardbyuser")
@@ -135,12 +143,39 @@ interface ApiService {//Cookie: JSESSIONID=9CF61CDE1A602835A152B72B8967A2CE
         @Query("jo") jo: Int
     )
 
-    //我同感的
+    //用户主页我同感的
     @POST("/yiyan/getcommentbyuser")
     suspend fun getCommentByuser(
         @Query("v") v: String,
         @Query("u") uid: String,
-        @Query("ml") ml: Int
+        @Query("ml") ml: Int?,//1表示同感列表，其他用户ml mc不传默认同感
+        @Query("mc") mc: Int?//1表示评论列表
+    ): CommentResponse
+
+    /**
+     * 用户首页我的订阅列表
+     */
+    @GET("yiyan/getwriters")
+    suspend fun getwriters(
+        @Query("uid") uid: String,
+        @Query("datetime") dateTime: String?,//2020-03-08 12:05:56
+        @Query("i") i: Int?
+    ): CommentResponse
+
+    /**
+     * 订阅用户
+     */
+    @POST("yiyan/follow")
+    suspend fun followUser(
+        @Query("fid") uid: String,
+        @Query("cancel") cancel: Int?//1取消订阅
+    )
+
+    @GET("yiyan/getfollowers")
+    suspend fun getFollowers(
+        @Query("uid") uid: String,
+        @Query("datetime") dateTime: String?,//当前时间2020-03-08 12:05:56
+        @Query("i") i: Int?//当前加载的条数
     )
 
     //单条卡片信息
@@ -195,4 +230,67 @@ interface ApiService {//Cookie: JSESSIONID=9CF61CDE1A602835A152B72B8967A2CE
         @Query("refreshextra") refreshextra: String?,//为空表示所有话题留言 ，{"hot":"1"}表示热门留言
         @Query("moreextra") moreextra: String?
     ): ArticleData
+
+    /**
+     * 获取感悟列表
+     */
+    @POST("yiyan/getcommentbycard_jc")
+    suspend fun getCommentsByCard(
+        @Query("v") v: String,
+        @Query("cardid") cardId: String,
+        @Query("hot") hot: Int?,//为1表示获取更多评论
+        @Query("ltid") lastCommentId: String?
+    ): CommentResponse
+
+    /**
+     * 发表评论
+     */
+    @POST("yiyan/newcomment")
+    suspend fun newComment(
+        @Query("v") v: String,
+        @Query("cardid") cardId: String,
+        @Query("content") content: String?
+    ): CommentData
+
+    /**
+     * 获取帖子详情同感列表
+     */
+    @POST("yiyan/getcommentbycard")
+    suspend fun getUserLikeds(
+        @Query("v") v: String,
+        @Query("cardid") cardId: String,
+        @Query("ltid") lastCommentId: String?
+    ): CommentResponse
+
+    /**
+     * 点赞别人的同感
+     */
+    @POST("yiyan/getcommentbycard")
+    suspend fun likeComment(
+        @Query("commentid") commentId: String,
+        @Query("content") content: String,
+        @Query("cancel") cancel: Int?//0点赞，1取消点赞
+    ): CommentResponse
+
+    /**
+     * 获取book内容列表
+     */
+    @GET("yiyan/gettextcardsinbook?v=3.35&bookid=119")
+    suspend fun likeComment(
+        @Query("bookid") bookId: String?
+    ): ArticleData
+
+    /**
+     * 收藏卡片
+     */
+    @POST("yiyan/collectcard")
+    suspend fun collectCard(
+        @Query("collectbookid") collectBookId: String?,
+        @Query("collectbn") collectbn: String?,
+        @Query("cardid") cardId: String?,
+        @Query("collectuid") collectUid: String?,
+        @Query("collectun") collectUserName: String?
+    )
+
+
 }

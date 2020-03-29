@@ -1,13 +1,12 @@
 package com.jogger.module_home.adapter
 
 import android.content.Context
-import android.text.SpannableStringBuilder
-import android.text.Spanned
+import android.graphics.Typeface
 import android.text.TextUtils
-import android.text.style.ImageSpan
 import android.view.Gravity
 import android.view.View
 import android.widget.ImageView
+import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.jogger.base.BaseCardViewHolder
 import com.jogger.entity.TextCard
@@ -16,15 +15,6 @@ import com.jogger.module_home.R
 import com.qmuiteam.qmui.widget.QMUIRadiusImageView
 
 class TopicItemViewHolder(view: View, context: Context) : BaseCardViewHolder(view, context) {
-    var spannable = SpannableStringBuilder("[icon] ")
-
-    init {
-        val drawable = context.resources.getDrawable(R.drawable.icon_topicmark_3x)
-        drawable.setBounds(0, 0, drawable.intrinsicWidth, drawable.intrinsicHeight)
-        val imageSpan1 = ImageSpan(drawable, ImageSpan.ALIGN_BASELINE)
-        spannable.setSpan(imageSpan1, 0, 6, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
-    }
-
     override fun convert(card: TextCard) {
         val imgShow = card.type?.split("_")?.get(1)?.toInt()
         if (!TextUtils.isEmpty(card.picpath)) {
@@ -66,7 +56,7 @@ class TopicItemViewHolder(view: View, context: Context) : BaseCardViewHolder(vie
                 "${split[0]}:${split[1]}"
             } else ""
         )
-            .setText(R.id.tv_topic_title, if (!TextUtils.isEmpty(card.title)) spannable.append(card.title) else "")
+            .setText(R.id.tv_topic_title, if (!TextUtils.isEmpty(card.title)) "[icon] ${card.title}" else "")
             .setText(R.id.tv_content, card.content)
             .setText(
                 R.id.tv_from, if (!TextUtils.isEmpty(card.from)) {
@@ -87,12 +77,11 @@ class TopicItemViewHolder(view: View, context: Context) : BaseCardViewHolder(vie
         if (existView(R.id.tv_topic_reply)) {
             setText(R.id.tv_topic_reply, "${card.replycnt}条回复")
         }
-
-        setTypeFace(
-            R.id.tv_topic_title, R.id.tv_content, R.id.tv_from, typeface = AssetsManager.getTypeFaceByType(
-                card.type?.split("_")?.get(3)?.toInt() ?: 0
+            setTypeFace(
+                R.id.tv_topic_title, R.id.tv_content, R.id.tv_from, typeface = AssetsManager.getTypeFaceByType(
+                    card.type?.split("_")?.get(3)?.toInt() ?: 0
+                )
             )
-        )
         setGravity(
             R.id.tv_content,
             if (card.type?.split("_")?.get(4)?.toInt() == 1) Gravity.START else Gravity.CENTER_HORIZONTAL

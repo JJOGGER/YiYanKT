@@ -1,14 +1,14 @@
-package com.jogger.module_star.adapter.holder
+package com.jogger.adapter.holder
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.jogger.adapter.InstrestAdapter
 import com.jogger.base.BaseCardViewHolder
+import com.jogger.base.R
 import com.jogger.entity.TextCard
-import com.jogger.module_star.R
-import com.jogger.module_star.adapter.InstrestAdapter
 
 class InstrestItemViewHolder(view: View, context: Context) : BaseCardViewHolder(view, context) {
     override fun convert(card: TextCard) {

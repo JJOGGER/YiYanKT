@@ -13,6 +13,7 @@ class HeaderInterceptor : Interceptor {
         val request = chain.request()
         val newBuilder = request.newBuilder()
         newBuilder.addHeader("Cookie", MConfig.getCookie());
+        newBuilder.addHeader("v", "3.35");
         return chain.proceed(newBuilder.build())
     }
 }

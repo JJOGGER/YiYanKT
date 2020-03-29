@@ -32,15 +32,19 @@ class MainActivity : BaseActivity<BaseViewModel, ActivityMainBinding>() {
         }
         fl_home.setOnClickListener({ v ->
             setTabStatus(TAB_HOME)
+            showActionAnimation(tab_home)
         })
         fl_star.setOnClickListener({ v ->
             setTabStatus(TAB_STAR)
+            showActionAnimation(tab_star)
         })
         fl_message.setOnClickListener({ v ->
             setTabStatus(TAB_MESSAGE)
+            showActionAnimation(tab_message)
         })
         fl_mine.setOnClickListener({ v ->
             setTabStatus(TAB_MINE)
+            showActionAnimation(tab_mine)
         })
         setTabStatus(mIndex)
     }

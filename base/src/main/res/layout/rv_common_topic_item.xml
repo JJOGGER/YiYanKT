@@ -24,7 +24,7 @@
                 android:layout_marginEnd="@dimen/dp_54"
                 android:layout_height="wrap_content">
 
-            <TextView
+            <com.qmuiteam.qmui.qqface.QMUIQQFaceView
                     android:layout_width="match_parent"
                     android:maxLines="1"
                     android:ellipsize="end"

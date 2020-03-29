@@ -3,6 +3,8 @@
           package="com.jogger.module_mine">
 
     <application>
+        <activity android:name=".activity.BookListActivity">
+        </activity>
     </application>
 
 </manifest>

@@ -15,6 +15,8 @@ abstract class BaseCardViewHolder(view: View, context: Context) : BaseViewHolder
 
     open fun setTypeFace(vararg @IdRes viewIds: Int, typeface: Typeface): BaseCardViewHolder {
         for (it in viewIds) {
+            if (getView<TextView>(it).typeface == Typeface.DEFAULT)
+                continue
             getView<TextView>(it).typeface = typeface
         }
         return this

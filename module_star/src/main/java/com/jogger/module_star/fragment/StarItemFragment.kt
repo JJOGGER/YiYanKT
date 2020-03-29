@@ -11,7 +11,7 @@ import com.jogger.base.BaseFragment
 import com.jogger.constant.CARD_CATEGORY
 import com.jogger.entity.TextCard
 import com.jogger.module_star.R
-import com.jogger.module_star.adapter.StarAdapter
+import com.jogger.adapter.CommonCardAdapter
 import com.jogger.module_star.viewmodel.StarViewModel
 import com.jogger.widget.YiYanHeader
 import com.scwang.smartrefresh.layout.api.RefreshLayout
@@ -27,8 +27,8 @@ class StarItemFragment : BaseFragment<StarViewModel, ViewDataBinding>(), OnRefre
     OnItemClickListener {
 
     private var mType = CARD_CATEGORY.TYPE_ALL._value
-    private val mAdapter: StarAdapter by lazy {
-        StarAdapter(null, mType).apply {
+    private val mAdapter: CommonCardAdapter by lazy {
+        CommonCardAdapter(null, mType).apply {
             setOnItemClickListener(this@StarItemFragment)
         }
     }

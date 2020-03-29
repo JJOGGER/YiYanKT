@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundFrameLayout
+            android:layout_marginEnd="@dimen/dp_18"
+            app:qmui_radius="@dimen/dp_8"
+            android:layout_width="@dimen/dp_180"
+            android:layout_height="@dimen/dp_180">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:lineSpacingExtra="@dimen/dp_3"
+                android:text="查看更多"
+                android:textColor="@color/qmui_config_color_black"
+                android:textSize="18sp"
+                android:layout_gravity="center"
+                android:gravity="center"
+                app:qmui_skin_text_color="?attr/app_skin_card_text_color"
+                android:layout_height="wrap_content"/>
+    </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundFrameLayout>
+</layout>

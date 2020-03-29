@@ -15,6 +15,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
+            app:qmui_skin_background="?attr/app_skin_common_background"
             android:id="@+id/cl_header"
             android:layout_height="wrap_content">
 

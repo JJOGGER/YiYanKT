@@ -112,7 +112,7 @@ class SearchActivity : BaseActivity<SearchViewModel, StarActivitySearchBinding>(
             }
         } else {
             if (mViewModel.mUserIndex == null) {
-                mUserAdapter.setNewData(it)
+                mUserAdapter.setNewInstance(it)
             } else {
                 mUserAdapter.addData(it)
             }

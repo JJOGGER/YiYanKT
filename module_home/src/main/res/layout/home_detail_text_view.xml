@@ -49,7 +49,6 @@
 
                         <FrameLayout
                                 android:id="@+id/fl_header"
-                                android:visibility="@{!TextUtils.isEmpty(textCard.picpath)?View.VISIBLE:View.GONE}"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content">
 
@@ -61,10 +60,11 @@
                                     android:layout_width="match_parent"
                                     android:visibility="gone"
                                     tools:visibility="visible"
+                                    android:layout_height="@dimen/dp_160"
+                                    android:scaleType="centerCrop"
                                     tools:src="@drawable/s_list_item_bg_dark_2"
                                     android:layout_gravity="center_horizontal"
-                                    android:adjustViewBounds="true"
-                                    android:layout_height="wrap_content"/>
+                                    android:adjustViewBounds="true"/>
 
                             <com.qmuiteam.qmui.widget.QMUIRadiusImageView
                                     app:qmui_is_circle="true"
@@ -144,7 +144,9 @@
                         android:layout_height="match_parent">
 
                     <FrameLayout
+                            android:id="@+id/fl_img_shadow"
                             android:layout_width="0dp"
+                            android:visibility="gone"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintDimensionRatio="h,1:1"

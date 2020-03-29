@@ -5,6 +5,7 @@ import android.text.TextUtils
 import android.view.View
 import android.widget.ImageView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.jogger.constant.CARD_CATEGORY
 import com.jogger.module_home.databinding.HomeDetailTextViewBinding
 
@@ -34,32 +35,13 @@ class TextProxy(binding: HomeDetailTextViewBinding, context: Context) :
             image.visibility = View.VISIBLE
             Glide.with(mContext)
                 .load(card.picpath)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(image)
         }
         if (!TextUtils.isEmpty(card.showtime)) {
             val date = card.showtime!!.split("-", " ")
-            mBinding.tabView.tvDate.text = "${date[0]}\n/\n${date[1]}\n/\n${date[2]}"
+            mBinding.tabView.tvDate.text = "${date[1]}-${date[2]}"
         }
-//        if (card.creator != null && card.originbook != null)
-//            mBinding.tvCreated.text = "${card.creator!!.username} 创建于 [${card.originbook!!.bookname}]"
-//        mBinding.commonBottom.tvCollection.text = "${card.collectcnt}"
-//        mBinding.commonBottom.tvComment.text = "${card.replycnt}"
-//        mBinding.commonBottom.tvLike.text = "${(card.commentcnt - card.replycnt)}"
-//        mBinding.tvCreated.typeface = AssetsManager.getFontTypeFace(AssetsManager.ASSETS_FONT4)
-//        mBinding.tvCategory.typeface = mBinding.tvCreated.typeface
-//        mBinding.topicBottom.tvTopicReply.typeface = mBinding.tvCreated.typeface
-//        mBinding.topicBottom.tvTopicCreated.typeface = mBinding.tvCreated.typeface
-//        mBinding.textLayout.tvTextTitle.typeface =
-//            AssetsManager.getTypeFaceByType(
-//                card.type?.split("_")?.get(3)?.toInt() ?: 0
-//            )
-//        mBinding.textLayout.tvContent.typeface = mBinding.textLayout.tvTextTitle.typeface
-//        mBinding.textLayout.tvTextFrom.typeface = mBinding.textLayout.tvTextTitle.typeface
-//        mBinding.musicLayout.tvMusicTitle.typeface = mBinding.textLayout.tvTextTitle.typeface
-//        mBinding.musicLayout.tvMusicFrom.typeface = mBinding.textLayout.tvTextTitle.typeface
-////        mBinding.textLayout.tvContent.isVerticalMode = card.type?.split("_")?.get(2)?.toInt() == 0
-//        mBinding.textLayout.tvContent.gravity =
-//            if (card.type?.split("_")?.get(4)?.toInt() == 1) Gravity.START else Gravity.CENTER_HORIZONTAL
         var category = ""
         if (card.original == 1)
             category += "#原创 "
@@ -71,9 +53,9 @@ class TextProxy(binding: HomeDetailTextViewBinding, context: Context) :
             CARD_CATEGORY.TYPE_RECORD._value -> mBinding.tvCategory.text = category + "#语录"
             CARD_CATEGORY.TYPE_WORD._value -> mBinding.tvCategory.text = category + "#歌词"
         }
-//        setOnClickListener({
-//            LogUtils.e("--------card$card")
-//        })
+        mBinding.bottomAction.proxy = this
+        checkLiked(card.textcardid!!)
+        setupBottomAction(mBinding.bottomAction)
     }
 
 }

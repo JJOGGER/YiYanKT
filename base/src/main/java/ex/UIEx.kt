@@ -1,14 +1,15 @@
 package ex
 
+import android.animation.ValueAnimator
 import android.app.Activity
 import android.content.Context
 import android.os.Parcelable
 import android.text.TextUtils
+import android.view.View
 import androidx.fragment.app.Fragment
 import com.alibaba.android.arouter.launcher.ARouter
 import com.jogger.utils.ToastHelper
 import java.io.Serializable
-import java.security.MessageDigest
 import java.util.*
 
 const val MODULE_HOME_MAIN = "/module_home/main"
@@ -106,23 +107,18 @@ fun toActivity(context: Context, url: String, params: Map<String, *>?) {
     postcard.navigation(context)
 }
 
-fun String.MD5(): String {
-    try {
-        val messageDigest = MessageDigest.getInstance("MD5")
-        messageDigest.update(this.toByteArray())
-        val arrayOfByte = messageDigest.digest()
-        val sb = StringBuffer()
-        for (i in arrayOfByte.indices) {
-            val j = 0xFF and arrayOfByte[i].toInt()
-            if (j < 16)
-                sb.append("0")
-            sb.append(Integer.toHexString(j))
-        }
-        return sb.toString()
-    } catch (e: Exception) {
-        e.printStackTrace()
-    }
 
-    return ""
+fun showActionAnimation(view: View) {
+    val animator = ValueAnimator.ofFloat(1f, 1.3f, 1f)
+    with(animator) {
+        setDuration(1000)
+        addUpdateListener {
+            val animatedValue = it.animatedValue as Float
+            print("-----------animatedValue:$animatedValue")
+            view.scaleX = animatedValue
+            view.scaleY = animatedValue
+        }
+        start()
+    }
 
 }
