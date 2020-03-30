@@ -1,6 +1,6 @@
 package com.jogger.module_home.view.delegate
 
-import android.content.Context
+import android.app.Activity
 import android.text.TextUtils
 import android.view.View
 import android.widget.ImageView
@@ -13,7 +13,7 @@ import com.jogger.module_home.databinding.HomeDetailTextViewBinding
  * Created by jogger on 2020/3/20
  * 描述：
  */
-class TextProxy(binding: HomeDetailTextViewBinding, context: Context) :
+class TextProxy(binding: HomeDetailTextViewBinding, context: Activity) :
     BaseProxy<HomeDetailTextViewBinding>(binding, context) {
 
     override fun initView() {

@@ -14,3 +14,5 @@ const val PAGE_HOME = 0
 const val PAGE_STAR = 1
 const val TYPE = "type"
 const val CARD_ID = "card_id"
+const val COMMENT_CNT="comment_cnt"
+const val IS_HOT="is_hot"

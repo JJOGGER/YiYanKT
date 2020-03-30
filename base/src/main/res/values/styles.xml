@@ -51,7 +51,7 @@
         <item name="qmui_topbar_title_color">@color/main_black</item>
         <item name="qmui_topbar_subtitle_color">@color/qmui_config_color_white</item>
         <item name="qmui_topbar_text_btn_color_state_list">@color/s_topbar_btn_color</item>
-        <!--<item name="qmui_topbar_left_back_drawable_id">@mipmap/icon_back</item>-->
+        <item name="qmui_topbar_left_back_drawable_id">@drawable/arrow_left_60_gray</item>
         <item name="qmui_topbar_title_text_size">@dimen/text_size_18</item>
         <item name="qmui_topbar_image_btn_width">@dimen/dp_54</item>
     </style>
@@ -161,5 +161,8 @@
         <item name="qmui_backgroundColor">?attr/app_skin_line_bg_color</item>
     </style>
 
-
+    <style name="AnimBottom" parent="@android:style/Animation">
+        <item name="android:windowEnterAnimation">@anim/push_bottom_in</item>
+        <item name="android:windowExitAnimation">@anim/push_bottom_out</item>
+    </style>
 </resources>

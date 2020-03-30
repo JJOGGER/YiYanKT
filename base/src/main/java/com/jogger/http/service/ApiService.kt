@@ -96,6 +96,9 @@ interface ApiService {//Cookie: JSESSIONID=9CF61CDE1A602835A152B72B8967A2CE
         @Query("cardid") c: String
     ): CheckLikeResponse
 
+    /**
+     * 喜欢
+     */
     @POST("/yiyan/newlike")
     suspend fun newLike(
         @Query("v") v: String,
@@ -249,8 +252,15 @@ interface ApiService {//Cookie: JSESSIONID=9CF61CDE1A602835A152B72B8967A2CE
     suspend fun newComment(
         @Query("v") v: String,
         @Query("cardid") cardId: String,
+        @Query("receiverid") receiverId: String?,
         @Query("content") content: String?
     ): CommentData
+
+    @POST("yiyan/deletecomment")
+    suspend fun deleteComment(
+        @Query("v") v: String,
+        @Query("commentid") commentId: String
+    )
 
     /**
      * 获取帖子详情同感列表

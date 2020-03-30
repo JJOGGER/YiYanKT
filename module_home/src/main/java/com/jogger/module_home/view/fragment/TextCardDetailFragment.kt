@@ -51,13 +51,13 @@ class TextCardDetailFragment :
             CARD_CATEGORY.TYPE_WORD._value -> {
                 val inflate = mBinding!!.viewText.viewStub?.inflate()
                 val binding = DataBindingUtil.getBinding<HomeDetailTextViewBinding>(inflate!!)!!
-                mDelegate = TextProxy(binding, mContext!!.baseContext)
+                mDelegate = TextProxy(binding, mContext!!)
                 mDelegate.initView()
             }
             CARD_CATEGORY.TYPE_TOPIC._value -> {
                 val inflate = mBinding!!.viewTopic.viewStub?.inflate()
                 val binding = DataBindingUtil.getBinding<HomeDetailTopicViewBinding>(inflate!!)!!
-                mDelegate = TopicProxy(binding, mContext!!.baseContext)
+                mDelegate = TopicProxy(binding, mContext!!)
                 mDelegate.initView()
             }
             CARD_CATEGORY.TYPE_MUSIC._value -> {
@@ -65,7 +65,7 @@ class TextCardDetailFragment :
             else -> {
                 val inflate = mBinding!!.viewText.viewStub?.inflate()
                 val binding = DataBindingUtil.getBinding<HomeDetailTextViewBinding>(inflate!!)!!
-                mDelegate = TextProxy(binding, mContext!!.baseContext)
+                mDelegate = TextProxy(binding, mContext!!)
                 mDelegate.initView()
             }
         }

@@ -26,7 +26,7 @@
             <ImageButton
                     android:layout_width="wrap_content"
                     android:background="@null"
-                    android:onClick="@{()->proxy.likeArticle(textCard.textcardid)}"
+                    android:onClick="@{()->proxy.finish()}"
                     android:paddingStart="@dimen/dp_16"
                     android:paddingEnd="@dimen/dp_16"
                     android:src="@drawable/arrow_left_60_gray"
@@ -59,11 +59,13 @@
                     android:drawablePadding="@dimen/dp_4"
                     android:paddingStart="@dimen/dp_10"
                     android:paddingEnd="@dimen/dp_10"
+                    android:onClick="@{()->proxy.toComments(textCard)}"
                     android:gravity="center"
-                    android:text="@{String.valueOf(textCard.commentcnt)}"
+                    android:text="@{String.valueOf(textCard.replycnt)}"
                     android:textSize="@dimen/text_size_12"
                     app:qmui_skin_text_color="?attr/app_skin_card_function_tint_color"
                     android:layout_height="match_parent"/>
+
             <ImageView
                     android:onClick="@{()->proxy.likeArticle(textCard.textcardid)}"
                     android:layout_width="@dimen/dp_25"
@@ -71,6 +73,7 @@
                     android:paddingStart="@dimen/dp_10"
                     android:src="@drawable/home_selector_action_like"
                     android:layout_height="@dimen/dp_25"/>
+
             <TextView
                     app:typeface="@{1}"
                     android:text="@{String.valueOf(textCard.commentcnt - textCard.replycnt)}"

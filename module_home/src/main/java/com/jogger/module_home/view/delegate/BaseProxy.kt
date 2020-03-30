@@ -1,17 +1,18 @@
 package com.jogger.module_home.view.delegate
 
-import android.content.Context
+import android.app.Activity
 import androidx.databinding.ObservableField
 import com.jogger.base.BaseViewModel
 import com.jogger.entity.TextCard
 import com.jogger.http.datasource.ArticleActionDataSource
 import com.jogger.module_home.databinding.HomeDetailBottomActionBinding
+import com.jogger.module_home.view.activity.CommentActivity
 import com.jogger.utils.ToastHelper
 import ex.showActionAnimation
 
-abstract class BaseProxy<T>(binding: T, context: Context) : BaseViewModel() {
+abstract class BaseProxy<T>(binding: T, context: Activity) : BaseViewModel() {
     val mBinding: T
-    val mContext: Context
+    val mContext: Activity
     val mTextCardObservable = ObservableField<TextCard>()
     var mBottomBinding: HomeDetailBottomActionBinding? = null
     private var mIsLike = false
@@ -62,7 +63,7 @@ abstract class BaseProxy<T>(binding: T, context: Context) : BaseViewModel() {
                     mBottomBinding!!.ibtnLike.isSelected = !mBottomBinding!!.ibtnLike.isSelected
                     mBottomBinding!!.tvLike.text = (mBottomBinding!!.tvLike.text.toString().toInt() - 1).toString()
                 }
-                mIsLike=!mIsLike
+                mIsLike = !mIsLike
             }, {
                 ToastHelper.showToast(it.errormsg)
                 mBottomBinding!!.ibtnLike.isSelected = !mBottomBinding!!.ibtnLike.isSelected
@@ -76,7 +77,7 @@ abstract class BaseProxy<T>(binding: T, context: Context) : BaseViewModel() {
                     mBottomBinding!!.ibtnLike.isSelected = !mBottomBinding!!.ibtnLike.isSelected
                     mBottomBinding!!.tvLike.text = (mBottomBinding!!.tvLike.text.toString().toInt() + 1).toString()
                 }
-                mIsLike=!mIsLike
+                mIsLike = !mIsLike
             }, {
                 ToastHelper.showToast(it.errormsg)
                 mBottomBinding!!.ibtnLike.isSelected = !mBottomBinding!!.ibtnLike.isSelected
@@ -85,4 +86,12 @@ abstract class BaseProxy<T>(binding: T, context: Context) : BaseViewModel() {
 
     }
 
+
+    fun toComments(card: TextCard) {
+        CommentActivity.navTo(mContext, card.textcardid!!, card.commentcnt, false)
+    }
+
+    fun finish() {
+        mContext.finish()
+    }
 }

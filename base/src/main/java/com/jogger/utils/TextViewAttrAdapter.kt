@@ -1,5 +1,6 @@
 package com.jogger.utils
 
+import android.graphics.Typeface
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
 import com.jogger.entity.TextCard
@@ -33,7 +34,8 @@ object TextViewAttrAdapter {
     @BindingAdapter("app:typeface")
     @JvmStatic
     fun setTypeface(view: TextView, type: Int) {
-        view.typeface = AssetsManager.getTypeFaceByType(type)
+        if (view.typeface == Typeface.DEFAULT)
+            view.typeface = AssetsManager.getTypeFaceByType(type)
     }
 
     @BindingAdapter("app:typeface")

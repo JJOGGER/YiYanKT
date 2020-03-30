@@ -3,12 +3,22 @@ package ex
 import android.animation.ValueAnimator
 import android.app.Activity
 import android.content.Context
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Parcelable
 import android.text.TextUtils
-import android.view.View
+import android.util.TypedValue
+import android.view.*
+import android.widget.PopupWindow
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.alibaba.android.arouter.launcher.ARouter
+import com.chad.library.adapter.base.entity.TYPE_ERROR
+import com.chad.library.adapter.base.entity.WindowModel
+import com.jogger.base.R
 import com.jogger.utils.ToastHelper
+import com.qmuiteam.qmui.skin.QMUISkinManager
+import com.qmuiteam.qmui.util.QMUIResHelper
 import java.io.Serializable
 import java.util.*
 
@@ -120,5 +130,106 @@ fun showActionAnimation(view: View) {
         }
         start()
     }
+}
 
+var popupWindow: PopupWindow? = null
+
+interface OnFunctionWindowClickListener {
+    fun onClick(popupWindow: PopupWindow, index: Int)
+}
+
+fun showFunctionWindow(context: Activity, vararg windowModels: WindowModel, listener: OnFunctionWindowClickListener?) {
+    val resources = context.resources
+    val view = LayoutInflater.from(context).inflate(R.layout.window_common_function, null) as ViewGroup
+    val backgroundColor = QMUIResHelper.getAttrColorStateList(
+        view.getContext(),
+        QMUISkinManager.defaultInstance(context).currentTheme,
+        R.attr.app_skin_common_background
+    )!!.defaultColor
+    val textColor = QMUIResHelper.getAttrColorStateList(
+        view.getContext(),
+        QMUISkinManager.defaultInstance(context).currentTheme,
+        R.attr.app_skin_common_title_text_color
+    )!!.defaultColor
+    for (i in 0..windowModels.size - 1) {
+        view.addView(TextView(context).apply {
+            setText(windowModels[i].text)
+            if (windowModels[i].type == TYPE_ERROR) {
+                setTextColor(Color.RED)
+            } else {
+                setTextColor(textColor)
+            }
+//            setBackgroundColor(backgroundColor)
+            layoutParams =
+                ViewGroup.MarginLayoutParams(
+                    ViewGroup.MarginLayoutParams.MATCH_PARENT,
+                    ViewGroup.MarginLayoutParams.WRAP_CONTENT
+                )
+            setPadding(
+                0,
+                resources.getDimensionPixelOffset(R.dimen.dp_16),
+                0,
+                resources.getDimensionPixelOffset(R.dimen.dp_16)
+            )
+            gravity = Gravity.CENTER
+            setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimensionPixelOffset(R.dimen.text_size_16).toFloat())
+            setOnClickListener {
+                if (listener != null)
+                    listener.onClick(popupWindow!!, i)
+            }
+        })
+        val line = View(context)
+        if (i == windowModels.size - 1) {
+            line.layoutParams = ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                resources.getDimensionPixelOffset(R.dimen.text_size_6)
+            )
+            line.setBackgroundColor(resources.getColor(R.color.color_80e2e2e2))
+        } else {
+            line.layoutParams = ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                resources.getDimensionPixelOffset(R.dimen.text_size_dot5)
+            )
+            line.setBackgroundColor(resources.getColor(R.color.gray_999999))
+        }
+        view.addView(line)
+    }
+    val cancel = TextView(context)
+        .apply {
+            text = "取消"
+            setTextColor(textColor)
+            layoutParams =
+                ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            setPadding(
+                0,
+                context.resources.getDimensionPixelOffset(R.dimen.dp_16),
+                0,
+                context.resources.getDimensionPixelOffset(R.dimen.dp_16)
+            )
+            setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimensionPixelOffset(R.dimen.text_size_16).toFloat())
+            gravity = Gravity.CENTER
+            setOnClickListener({ popupWindow?.dismiss() })
+        }
+    view.addView(cancel)
+    if (popupWindow == null) {
+        popupWindow = PopupWindow(
+            view, WindowManager.LayoutParams.MATCH_PARENT,
+            WindowManager.LayoutParams.WRAP_CONTENT
+        )
+        popupWindow!!.setOutsideTouchable(true)
+        popupWindow!!.isFocusable = true
+        popupWindow!!.animationStyle = R.style.AnimBottom
+        popupWindow!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        popupWindow!!.setOnDismissListener {
+            backgroundAlpha(context, 1f)
+        }
+    }
+    backgroundAlpha(context, 0.5f)
+    popupWindow!!.showAtLocation(view, Gravity.BOTTOM, 0, 0)
+}
+
+private fun backgroundAlpha(context: Activity, bgAlpha: Float) {
+    val layoutParams = context.window.attributes
+    layoutParams.alpha = bgAlpha
+    context.window.setAttributes(layoutParams)
 }

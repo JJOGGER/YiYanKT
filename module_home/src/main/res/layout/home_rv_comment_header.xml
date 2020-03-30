@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <FrameLayout
+                android:id="@+id/fl_top"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_42">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:id="@+id/tv_comment_count"
+                    android:textSize="@dimen/text_size_14"
+                    android:paddingStart="@dimen/dp_16"
+                    android:layout_gravity="center_vertical"
+                    app:qmui_skin_text_color="?attr/qmui_skin_text_color"
+                    android:layout_height="wrap_content"/>
+
+            <TextView
+                    android:textSize="@dimen/text_size_14"
+                    android:gravity="center"
+                    app:qmui_skin_text_color="?attr/qmui_skin_text_color"
+                    android:drawablePadding="@dimen/dp_4"
+                    android:drawableEnd="@drawable/arrow_right_60_gray"
+                    android:paddingEnd="@dimen/dp_12"
+                    android:layout_gravity="end|center_vertical"
+                    android:paddingStart="@dimen/dp_16"
+                    android:layout_width="wrap_content"
+                    android:id="@+id/tv_like_count"
+                    android:layout_height="match_parent"/>
+        </FrameLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_header"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                android:id="@+id/tv_more"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                app:qmui_skin_text_color="?attr/qmui_skin_topic_tab_selected_color"
+                android:textSize="@dimen/text_size_16"
+                android:text="查看更多热门评论"
+                android:layout_height="@dimen/dp_42"/>
+    </LinearLayout>
+</layout>

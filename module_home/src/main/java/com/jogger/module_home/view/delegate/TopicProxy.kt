@@ -1,6 +1,6 @@
 package com.jogger.module_home.view.delegate
 
-import android.content.Context
+import android.app.Activity
 import android.text.SpannableStringBuilder
 import android.text.Spanned
 import android.text.TextUtils
@@ -14,7 +14,7 @@ import com.jogger.module_home.databinding.HomeDetailTopicViewBinding
  * Created by jogger on 2020/3/20
  * 描述：
  */
-class TopicProxy(binding: HomeDetailTopicViewBinding, context: Context) :
+class TopicProxy(binding: HomeDetailTopicViewBinding, context: Activity) :
     BaseProxy<HomeDetailTopicViewBinding>(binding, context) {
     var spannable = SpannableStringBuilder("[icon] ")
     override fun initView() {

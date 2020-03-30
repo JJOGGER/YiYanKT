@@ -48,7 +48,7 @@ class CommonItemViewHolder(view: View, context: Context) : BaseCardViewHolder(vi
             R.id.tv_nickname, card.creator?.username
         ).setText(
             R.id.tv_book,
-            if (card.creator != null && card.originbook != null && card.originbook!!.bookname != null) "[${card.originbook!!.bookname}]" else ""
+            if (card.creator != null && card.originbook != null && card.originbook.bookname != null) "[${card.originbook!!.bookname}]" else ""
         ).setText(
             R.id.tv_date,
             if (!TextUtils.isEmpty(card.datetime)) {
