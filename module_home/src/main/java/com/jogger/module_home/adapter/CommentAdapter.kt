@@ -31,7 +31,7 @@ class CommentAdapter(datas: MutableList<CommentData>?) :
             .setVisible(R.id.tv_reply_title, item.receiver != null)
             .setVisible(
                 R.id.tv_reply_name, if (item.receiver != null) {
-                    holder.setText(R.id.tv_reply_name, item.creator!!.username)
+                    holder.setText(R.id.tv_reply_name, item.receiver!!.username)
                     true
                 } else {
                     false
