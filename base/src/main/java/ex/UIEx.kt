@@ -45,8 +45,8 @@ fun showToast(text: String) {
     ToastHelper.showToast(text)
 }
 
-fun getFragment(path: String): Fragment {
-    return ARouter.getInstance().build(path).navigation() as Fragment
+fun getFragment(path: String): Fragment? {
+    return ARouter.getInstance().build(path).navigation() as Fragment?
 }
 
 fun getActivity(path: String): Activity {

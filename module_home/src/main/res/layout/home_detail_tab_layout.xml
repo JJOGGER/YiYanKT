@@ -7,6 +7,9 @@
         <variable
                 name="textCard"
                 type="com.jogger.entity.TextCard"/>
+        <variable
+                name="proxy"
+                type="com.jogger.module_home.view.delegate.BaseProxy"/>
     </data>
 
     <com.qmuiteam.qmui.widget.QMUITopBarLayout

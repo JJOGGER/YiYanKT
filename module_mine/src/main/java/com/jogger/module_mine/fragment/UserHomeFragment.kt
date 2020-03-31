@@ -76,6 +76,9 @@ class UserHomeFragment :
             cardCount = cardCount + it.cardcnt
         }
         mBinding!!.userHeader.cardCount = cardCount.toString()
+        mBinding!!.userHeader.tvCards.setOnClickListener({
+
+        })
         if (mEditable) {
             userData.booklist?.add(OriginBook())
             btn_subscrib.visibility = View.GONE

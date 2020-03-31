@@ -53,6 +53,7 @@ class TextProxy(binding: HomeDetailTextViewBinding, context: Activity) :
             CARD_CATEGORY.TYPE_RECORD._value -> mBinding.tvCategory.text = category + "#语录"
             CARD_CATEGORY.TYPE_WORD._value -> mBinding.tvCategory.text = category + "#歌词"
         }
+        mBinding.tabView.proxy = this
         mBinding.bottomAction.proxy = this
         checkLiked(card.textcardid!!)
         setupBottomAction(mBinding.bottomAction)

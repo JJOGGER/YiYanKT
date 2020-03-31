@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentTransaction
 import com.jogger.base.BaseActivity
 import com.jogger.base.BaseViewModel
 import com.jogger.manager.QDSkinManager
+import com.jogger.utils.LogUtils
 import com.jogger.yiyan.databinding.ActivityMainBinding
 import com.qmuiteam.qmui.skin.QMUISkinManager
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper
@@ -133,7 +134,12 @@ class MainActivity : BaseActivity<BaseViewModel, ActivityMainBinding>() {
             transaction.show(fragment)
         } else {
             fragment = getFragment(tag)
-            transaction.add(R.id.fl_container, fragment, tag)
+            if (fragment == null) {
+                LogUtils.e(" ----fragment null " + tag)
+                return
+            }
+            else
+                transaction.add(R.id.fl_container, fragment, tag)
         }
         if (!mFragments.contains(fragment)) {
             mFragments.add(fragment)

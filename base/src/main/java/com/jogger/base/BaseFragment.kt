@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.jogger.event.Message
 import com.jogger.http.basic.config.HttpCode
 import com.jogger.utils.MConfig
+import com.qmuiteam.qmui.skin.QMUISkinManager
 import ex.MODULE_LOGIN
 import ex.showToast
 import ex.toActivity
@@ -35,6 +36,7 @@ abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding> : Fragment
     private var isFirst: Boolean = true
 
     protected var mContext: Activity? = null
+    private var mSkinManager: QMUISkinManager? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -52,6 +54,7 @@ abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding> : Fragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        mSkinManager = QMUISkinManager.defaultInstance(mContext)
         onVisible()
         createViewModel()
         lifecycle.addObserver(mViewModel)
@@ -71,6 +74,19 @@ abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding> : Fragment
     }
 
     abstract fun initView(savedInstanceState: Bundle?)
+    override fun onStart() {
+        super.onStart()
+        if (mSkinManager != null) {
+            mSkinManager!!.register(this)
+        }
+    }
+
+    override fun onStop() {
+        super.onStop()
+        if (mSkinManager != null) {
+            mSkinManager!!.unRegister(this)
+        }
+    }
 
     override fun onResume() {
         super.onResume()

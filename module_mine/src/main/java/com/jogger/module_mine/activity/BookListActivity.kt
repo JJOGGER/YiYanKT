@@ -15,12 +15,12 @@ import com.jogger.base.BaseViewModel
 import com.jogger.constant.CARD_CATEGORY
 import com.jogger.entity.TextCard
 import com.jogger.module_mine.R
-import ex.MODULE_MINE_MAIN
 import ex.TEXT_CARD_DETAIL
+import ex.USER_BOOK_PAGE
 import ex.toActivity
 import kotlinx.android.synthetic.main.mine_activity_book_list.*
 
-@Route(path = MODULE_MINE_MAIN)
+@Route(path = USER_BOOK_PAGE)
 class BookListActivity : BaseActivity<BaseViewModel, ViewDataBinding>(), OnItemClickListener {
     private val mAdapter: CommonCardAdapter by lazy {
         CommonCardAdapter(null, CARD_CATEGORY.TYPE_ALL._value).apply {
