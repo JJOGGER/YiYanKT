@@ -13,6 +13,9 @@ import com.jogger.module_home.R
  */
 class CommentAdapter(datas: MutableList<CommentData>?) :
     BaseQuickAdapter<CommentData, BaseViewHolder>(R.layout.home_rv_comment_item, datas) {
+    init {
+        addChildClickViewIds(R.id.tv_name, R.id.iv_avatar, R.id.tv_prise)
+    }
 
     override fun convert(holder: BaseViewHolder, item: CommentData) {
         Glide.with(context)

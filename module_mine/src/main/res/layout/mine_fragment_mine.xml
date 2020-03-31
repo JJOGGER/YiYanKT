@@ -10,45 +10,9 @@
             android:layout_height="match_parent">
 
         <FrameLayout
+                android:id="@+id/fl_user_home"
                 android:layout_width="match_parent"
-                app:qmui_skin_background="?attr/app_skin_common_background"
-                android:layout_marginTop="?attr/qmui_topbar_height"
-                tools:layout_marginTop="@dimen/dp_46"
-                android:layout_height="match_parent">
-
-            <com.scwang.smartrefresh.layout.SmartRefreshLayout
-                    android:layout_width="match_parent"
-                    android:id="@+id/srl_refresh"
-                    android:layout_height="match_parent">
-
-                <androidx.core.widget.NestedScrollView
-                        android:scrollbars="none"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-
-                    <LinearLayout
-                            android:orientation="vertical"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent">
-
-                        <include
-                                layout="@layout/mine_rv_user_header"
-                                android:id="@+id/user_header"/>
-
-                        <com.jogger.module_mine.widget.BookRecyclerView
-                                android:id="@+id/rv_content"
-                                android:layout_marginStart="@dimen/dp_12"
-                                android:layout_marginEnd="@dimen/dp_12"
-                                app:book_item_spacing="@dimen/dp_12"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"/>
-                    </LinearLayout>
-
-                </androidx.core.widget.NestedScrollView>
-            </com.scwang.smartrefresh.layout.SmartRefreshLayout>
-        </FrameLayout>
-
+                android:layout_height="match_parent"/>
 
         <com.qmuiteam.qmui.widget.QMUITopBarLayout
                 android:layout_width="match_parent"

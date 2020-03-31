@@ -2,7 +2,7 @@ package com.jogger.yiyan.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import com.jogger.base.BaseViewModel
-import com.jogger.entity.LoginResult
+import com.jogger.entity.UserHomeData
 import com.jogger.entity.request.LoginRequest
 import com.jogger.http.basic.exception.ExceptionHandle
 import com.jogger.http.datasource.LoginDataSource
@@ -17,7 +17,7 @@ import kotlinx.coroutines.flow.*
  * 描述：
  */
 class LoginViewModel : BaseViewModel() {
-    val mLoginLiveData = MutableLiveData<LoginResult>()
+    val mLoginLiveData = MutableLiveData<UserHomeData>()
     var mLoginRequest: LoginRequest? = null
     @ExperimentalCoroutinesApi
     fun loginFromOtherPlatform(uid: String, token: String) {

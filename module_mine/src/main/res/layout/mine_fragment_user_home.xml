@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <com.qmuiteam.qmui.layout.QMUIFrameLayout
+            android:layout_width="match_parent"
+            android:layout_marginTop="?attr/qmui_topbar_height"
+            android:layout_height="match_parent">
+
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+                android:layout_width="match_parent"
+                android:id="@+id/srl_refresh"
+                android:layout_height="match_parent">
+
+            <androidx.core.widget.NestedScrollView
+                    android:scrollbars="none"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+
+                <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                    <include
+                            layout="@layout/mine_rv_user_header"
+                            android:id="@+id/user_header"/>
+
+                    <com.jogger.module_mine.widget.BookRecyclerView
+                            android:id="@+id/rv_content"
+                            android:layout_marginStart="@dimen/dp_12"
+                            android:layout_marginEnd="@dimen/dp_12"
+                            app:book_item_spacing="@dimen/dp_12"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"/>
+                </LinearLayout>
+
+            </androidx.core.widget.NestedScrollView>
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+    </com.qmuiteam.qmui.layout.QMUIFrameLayout>
+</layout>

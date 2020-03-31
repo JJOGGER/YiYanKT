@@ -5,7 +5,7 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.Query
 
-interface ApiService {//Cookie: JSESSIONID=9CF61CDE1A602835A152B72B8967A2CE
+interface ApiService {
 
     @GET("https://api.weibo.com/2/users/show.json")
     suspend fun getOtherPlatformUserInfo(
@@ -23,9 +23,9 @@ interface ApiService {//Cookie: JSESSIONID=9CF61CDE1A602835A152B72B8967A2CE
         @Query("gender") gender: String,
         @Query("ac") ac: String,
         @Query("actype") actype: String
-    ): LoginResult
+    ): UserHomeData
 
-    @POST("/yiyan/getfeeds")//"v","3.35"
+    @POST("/yiyan/getfeeds")
     suspend fun getSubcribeArticles(
         @Query("v") v: String,
         @Query("ltid") feedid: String?

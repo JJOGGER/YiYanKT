@@ -13,7 +13,6 @@ import android.widget.PopupWindow
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.alibaba.android.arouter.launcher.ARouter
-import com.chad.library.adapter.base.entity.TYPE_ERROR
 import com.chad.library.adapter.base.entity.WindowModel
 import com.jogger.base.R
 import com.jogger.utils.ToastHelper
@@ -29,6 +28,9 @@ const val MODULE_MINE_MAIN = "/module_mine/main"
 const val MODULE_LOGIN = "/module_app/login"
 const val TEXT_CARD_DETAIL = "/module_home/text_card_detail"
 const val TOPIC_MIAN_DETAIL = "/module_home/topic_mian_detail"
+const val COMMENT_DETAIL = "/module_home/comment_detail"
+const val USER_HOME_PAGE = "/module_mine/user_home_page"
+const val USER_BOOK_PAGE = "/module_mine/user_book_page"
 
 /**
  * Created by jogger on 2020/2/26
@@ -141,11 +143,6 @@ interface OnFunctionWindowClickListener {
 fun showFunctionWindow(context: Activity, vararg windowModels: WindowModel, listener: OnFunctionWindowClickListener?) {
     val resources = context.resources
     val view = LayoutInflater.from(context).inflate(R.layout.window_common_function, null) as ViewGroup
-    val backgroundColor = QMUIResHelper.getAttrColorStateList(
-        view.getContext(),
-        QMUISkinManager.defaultInstance(context).currentTheme,
-        R.attr.app_skin_common_background
-    )!!.defaultColor
     val textColor = QMUIResHelper.getAttrColorStateList(
         view.getContext(),
         QMUISkinManager.defaultInstance(context).currentTheme,
@@ -154,7 +151,7 @@ fun showFunctionWindow(context: Activity, vararg windowModels: WindowModel, list
     for (i in 0..windowModels.size - 1) {
         view.addView(TextView(context).apply {
             setText(windowModels[i].text)
-            if (windowModels[i].type == TYPE_ERROR) {
+            if (windowModels[i].type == WindowModel.TYPE_ERROR) {
                 setTextColor(Color.RED)
             } else {
                 setTextColor(textColor)
@@ -223,9 +220,19 @@ fun showFunctionWindow(context: Activity, vararg windowModels: WindowModel, list
         popupWindow!!.setOnDismissListener {
             backgroundAlpha(context, 1f)
         }
+    } else {
+        popupWindow!!.contentView = view
     }
     backgroundAlpha(context, 0.5f)
+    if (context.isFinishing || context.isDestroyed) return
     popupWindow!!.showAtLocation(view, Gravity.BOTTOM, 0, 0)
+}
+
+fun dismissWindow() {
+    if (popupWindow != null) {
+        popupWindow!!.dismiss()
+        popupWindow = null
+    }
 }
 
 private fun backgroundAlpha(context: Activity, bgAlpha: Float) {

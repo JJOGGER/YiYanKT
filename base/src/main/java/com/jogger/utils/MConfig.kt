@@ -1,6 +1,6 @@
 package com.jogger.utils
 
-import com.jogger.entity.LoginResult
+import com.jogger.entity.UserHomeData
 
 /**
  * Created by jogger on 2020/3/18
@@ -11,15 +11,15 @@ private const val COOKIE = "cookie"
 
 class MConfig {
     companion object {
-        fun setLoginResult(loginResult: LoginResult) {
-            MMKVUtil.getInstance().setValue(LOGIN_RESULT, GsonUtil.toJson(loginResult))
+        fun setLoginResult(userHomeData: UserHomeData) {
+            MMKVUtil.getInstance().setValue(LOGIN_RESULT, GsonUtil.toJson(userHomeData))
         }
 
-        fun getLoginResult(): LoginResult {
+        fun getLoginResult(): UserHomeData {
             val loginResult =
-                GsonUtil.fromJson<LoginResult>(
+                GsonUtil.fromJson<UserHomeData>(
                     MMKVUtil.getInstance().getStringValue(LOGIN_RESULT, ""),
-                    LoginResult::class.java
+                    UserHomeData::class.java
                 )
             return loginResult
         }

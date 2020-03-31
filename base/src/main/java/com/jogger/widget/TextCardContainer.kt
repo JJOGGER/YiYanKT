@@ -19,6 +19,10 @@ import com.jogger.constant.CARD_CATEGORY
 import com.jogger.entity.TextCard
 import com.jogger.manager.AssetsManager
 import com.jogger.utils.LogUtils
+import ex.CARD_ID
+import ex.COMMENT_CNT
+import ex.COMMENT_DETAIL
+import ex.toActivity
 
 
 /**
@@ -81,6 +85,14 @@ class TextCardContainer : FrameLayout {
         mBinding.commonBottom.tvCollection.text = "${card.collectcnt}"
         mBinding.commonBottom.tvComment.text = "${card.replycnt}"
         mBinding.commonBottom.tvLike.text = "${(card.commentcnt - card.replycnt)}"
+        mBinding.commonBottom.tvComment.setOnClickListener({
+            val map = HashMap<String, Any>()
+            map.put(CARD_ID, card.textcardid!!)
+            map.put(COMMENT_CNT, card.commentcnt)
+            map.put(ex.IS_HOT, false)
+            toActivity(context, COMMENT_DETAIL, map)
+        })
+
         mBinding.tvCreated.typeface = AssetsManager.getFontTypeFace(AssetsManager.ASSETS_FONT4)
         mBinding.tvCategory.typeface = mBinding.tvCreated.typeface
         mBinding.topicBottom.tvTopicReply.typeface = mBinding.tvCreated.typeface

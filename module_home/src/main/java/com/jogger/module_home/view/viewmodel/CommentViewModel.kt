@@ -12,6 +12,7 @@ class CommentViewModel : BaseViewModel() {
     val mCommentsMoreLiveData = MutableLiveData<CommentResponse>()
     val mCommentsFailLiveData = MutableLiveData<Any>()
     val mNewCommentLiveData = MutableLiveData<CommentData>()
+    val mDeleteCommentLiveData = MutableLiveData<Any>()
     var mLastCommentId: String? = null
     var mCardId: String? = null
     fun getCommentsByCard(hot: Int?) {
@@ -42,11 +43,12 @@ class CommentViewModel : BaseViewModel() {
         }, { defUI.toastEvent.postValue(it.errormsg) }, {}, true)
     }
 
-//    fun newComment(content: String) {
-//        launchOnlyresult({
-//            ArticleActionDataSource.newComment(mCardId!!, content, null)
-//        }, {
-//            mNewCommentLiveData.value = it
-//        }, { defUI.toastEvent.postValue(it.errormsg) }, {}, true)
-//    }
+    fun deleteComment(commentId: String) {
+        launchOnlyresult({
+            ArticleActionDataSource.deleteComment(commentId)
+        }, {
+            mDeleteCommentLiveData.value = null
+        }, { defUI.toastEvent.postValue(it.errormsg) }, {
+        }, true)
+    }
 }

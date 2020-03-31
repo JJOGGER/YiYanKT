@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.lifecycle.Observer
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.jogger.base.BaseActivity
-import com.jogger.entity.LoginResult
+import com.jogger.entity.UserHomeData
 import com.jogger.utils.LogUtils
 import com.jogger.yiyan.MainActivity
 import com.jogger.yiyan.databinding.ActivityLoginBinding
@@ -32,7 +32,7 @@ class LoginActivity : BaseActivity<LoginViewModel, ActivityLoginBinding>() {
         mViewModel.mLoginLiveData.observe(this, Observer { handleLogin(it) })
     }
 
-    private fun handleLogin(it: LoginResult?) {
+    private fun handleLogin(it: UserHomeData?) {
         if (it != null) {
             navTo(mContext, MainActivity::class.java)
         }

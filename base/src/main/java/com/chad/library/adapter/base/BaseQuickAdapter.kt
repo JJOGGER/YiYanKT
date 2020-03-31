@@ -530,9 +530,6 @@ abstract class BaseQuickAdapter<T, VH : BaseViewHolder>
         mOnItemChildClickListener?.let {
             for (id in getChildClickViewIds()) {
                 viewHolder.itemView.findViewById<View>(id)?.let { childView ->
-                    if (!childView.isClickable) {
-                        childView.isClickable = true
-                    }
                     childView.setOnClickListener { v ->
                         var position = viewHolder.adapterPosition
                         if (position == RecyclerView.NO_POSITION) {

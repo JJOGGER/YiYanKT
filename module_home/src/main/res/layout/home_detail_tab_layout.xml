@@ -21,6 +21,7 @@
                 app:qmui_border_color="@color/transparent"
                 app:qmui_is_circle="true"
                 android:id="@+id/iv_avatar"
+                android:onClick="@{()->proxy.toUserHomePage(textCard.creator.uid)}"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="@dimen/dp_10"
                 android:layout_height="@dimen/dp_30"/>
@@ -42,6 +43,7 @@
                         app:typeface="@{1}"
                         android:textSize="@dimen/text_size_16"
                         android:id="@+id/tv_name"
+                        android:onClick="@{()->proxy.toUserHomePage(textCard.creator.uid)}"
                         android:text="@{textCard.creator.username}"
                         app:qmui_skin_text_color="?attr/app_skin_common_title_text_color"
                         android:layout_width="wrap_content"
@@ -57,6 +59,7 @@
 
                 <TextView
                         app:typeface="@{1}"
+                        android:onClick="@{()->proxy.toBookPage(textCard.creator.uid,textCard.originbook.bookname)}"
                         android:textSize="@dimen/text_size_17"
                         android:text='@{@string/book_left+textCard.originbook.bookname+@string/book_right}'
                         android:textColor="@color/btn_filled_blue_bg_normal"

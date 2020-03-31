@@ -10,10 +10,10 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.ItemTouchHelper.ACTION_STATE_IDLE
 import androidx.recyclerview.widget.RecyclerView
 import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.listener.OnItemClickListener
 import com.jogger.entity.OriginBook
 import com.jogger.module_mine.R
 import com.jogger.module_mine.adapter.BookRecyclerViewAdapter
-import com.jogger.utils.MConfig
 import com.qmuiteam.qmui.util.QMUIDisplayHelper
 import ex.sApplication
 
@@ -33,6 +33,12 @@ class BookRecyclerView : RecyclerView {
     private var mItemTouchHelper = ItemTouchHelper(mItemTouchHelperCallback())
     private lateinit var mAdapter: BookRecyclerViewAdapter
     private lateinit var mLayoutManager: GridLayoutManager
+    private var mListener: onItemClickListener? = null
+
+    interface onItemClickListener {
+        fun onAddClick()
+        fun onItemClick(book: OriginBook, position: Int)
+    }
 
     constructor(context: Context?) : this(context, null)
     constructor(context: Context?, attrs: AttributeSet?) : this(context, attrs, 0)
@@ -71,13 +77,31 @@ class BookRecyclerView : RecyclerView {
             if (mItemWidth == 0) (QMUIDisplayHelper.getScreenWidth(sApplication) - mOtherItemSpacing) / mItemSpanCount else mItemWidth + mItemSpacing
         overScrollMode = View.OVER_SCROLL_NEVER
         mItemTouchHelper.attachToRecyclerView(this)
-        mLayoutManager = GridLayoutManager(context, mItemSpanCount);
+        mLayoutManager = GridLayoutManager(context, mItemSpanCount)
         layoutManager = mLayoutManager
         addItemDecoration(BookGridDivider.newInstanceWithSpacePx(mItemSpacing / 2))
-        val loginResult = MConfig.getLoginResult()
-        loginResult.booklist?.add(OriginBook())
-        mAdapter = BookRecyclerViewAdapter(loginResult.booklist)
+        mAdapter = BookRecyclerViewAdapter(null)
+        mAdapter.setOnItemClickListener(object : OnItemClickListener {
+            override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
+                val originBook = adapter.getItem(position) as OriginBook?
+                if (originBook == null) return
+                if (mListener == null) return
+                if (originBook.itemType == -1) {
+                    mListener!!.onAddClick()
+                } else {
+                    mListener!!.onItemClick(originBook, position)
+                }
+            }
+        })
         adapter = mAdapter
+    }
+
+    fun setData(list: MutableList<OriginBook>?) {
+        mAdapter.setNewInstance(list)
+    }
+
+    fun setOnItemClickListener(listener: onItemClickListener) {
+        mListener = listener
     }
 
     override fun canScrollVertically(direction: Int): Boolean {

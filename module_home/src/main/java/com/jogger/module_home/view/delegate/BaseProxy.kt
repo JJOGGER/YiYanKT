@@ -8,7 +8,7 @@ import com.jogger.http.datasource.ArticleActionDataSource
 import com.jogger.module_home.databinding.HomeDetailBottomActionBinding
 import com.jogger.module_home.view.activity.CommentActivity
 import com.jogger.utils.ToastHelper
-import ex.showActionAnimation
+import ex.*
 
 abstract class BaseProxy<T>(binding: T, context: Activity) : BaseViewModel() {
     val mBinding: T
@@ -93,5 +93,18 @@ abstract class BaseProxy<T>(binding: T, context: Activity) : BaseViewModel() {
 
     fun finish() {
         mContext.finish()
+    }
+
+    fun toUserHomePage(uid: String) {
+        val map = HashMap<String, Any>()
+        map.put(UID, uid)
+        toActivity(mContext, USER_HOME_PAGE, map)
+    }
+
+    fun toBookPage(uid: String, title: String) {
+        val map = HashMap<String, Any>()
+        map.put(UID, uid)
+        map.put(TITLE, title)
+        toActivity(mContext, USER_BOOK_PAGE, map)
     }
 }

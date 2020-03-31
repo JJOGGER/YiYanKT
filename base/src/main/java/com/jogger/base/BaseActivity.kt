@@ -21,6 +21,7 @@ import com.qmuiteam.qmui.util.QMUIStatusBarHelper
 import com.qmuiteam.qmui.widget.QMUITopBarLayout
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
 import ex.MODULE_LOGIN
+import ex.dismissWindow
 import ex.showToast
 import ex.toActivity
 import kotlinx.android.synthetic.main.activity_base.*
@@ -87,6 +88,7 @@ abstract class BaseActivity<VM : BaseViewModel, DB : ViewDataBinding> : AppCompa
 
     override fun onDestroy() {
         super.onDestroy()
+        dismissWindow()
         if (isNeedEventBus()) {
             if (EventBus.getDefault().isRegistered(this)) {
                 EventBus.getDefault().unregister(this)

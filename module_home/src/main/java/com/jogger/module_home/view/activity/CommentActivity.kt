@@ -16,8 +16,10 @@ import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.alibaba.android.arouter.facade.annotation.Route
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.entity.WindowModel
+import com.chad.library.adapter.base.listener.OnItemChildClickListener
 import com.chad.library.adapter.base.listener.OnItemClickListener
 import com.jogger.base.BaseActivity
 import com.jogger.entity.CommentData
@@ -30,15 +32,16 @@ import com.qmuiteam.qmui.skin.QMUISkinManager
 import com.qmuiteam.qmui.util.QMUIResHelper
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener
-import ex.OnFunctionWindowClickListener
-import ex.showFunctionWindow
+import ex.*
 import kotlinx.android.synthetic.main.home_activity_comment.*
 import kotlinx.android.synthetic.main.home_rv_comment_header.view.*
 
+@Route(path = COMMENT_DETAIL)
 class CommentActivity : BaseActivity<CommentViewModel, HomeActivityCommentBinding>(), OnItemClickListener,
-    OnRefreshLoadMoreListener {
+    OnRefreshLoadMoreListener, OnItemChildClickListener {
     private var mCommontData: CommentData? = null
     private var mReceiverId: String? = null
+    private var mReplyStart: String = ""
     private val mIsHot by lazy {
         intent.getBooleanExtra(ex.IS_HOT, false)
     }
@@ -61,6 +64,7 @@ class CommentActivity : BaseActivity<CommentViewModel, HomeActivityCommentBindin
     private val mAdapter: CommentAdapter by lazy {
         CommentAdapter(null).apply {
             setOnItemClickListener(this@CommentActivity)
+            setOnItemChildClickListener(this@CommentActivity)
         }
     }
     private val mHeader: View by lazy {
@@ -69,6 +73,7 @@ class CommentActivity : BaseActivity<CommentViewModel, HomeActivityCommentBindin
     val mHeaderAdapter: CommentAdapter by lazy {
         CommentAdapter(null).apply {
             setOnItemClickListener(this@CommentActivity)
+            setOnItemChildClickListener(this@CommentActivity)
         }
     }
 
@@ -82,6 +87,25 @@ class CommentActivity : BaseActivity<CommentViewModel, HomeActivityCommentBindin
         rv_content.adapter = mAdapter
         srl_refresh.setOnRefreshLoadMoreListener(this@CommentActivity)
         mAdapter.addHeaderView(mHeader)
+        tv_send.setOnClickListener({
+            var content = et_content.text.toString().trim()
+            if (!TextUtils.isEmpty(content)) {
+                if (!TextUtils.isEmpty(mReplyStart) && content.contains(mReplyStart)) {
+                    content = content.replace(mReplyStart, "");
+                    mViewModel.newComment(content, mCommontData)
+                } else {
+                    mViewModel.newComment(content)
+                }
+            }
+
+        })
+        registerObserver()
+
+
+        srl_refresh.autoRefresh()
+    }
+
+    private fun registerObserver() {
         mViewModel.mCommentsLiveData.observe(this, Observer {
             srl_refresh.closeHeaderOrFooter()
             mAdapter.setNewInstance(it.commentlist)
@@ -94,11 +118,6 @@ class CommentActivity : BaseActivity<CommentViewModel, HomeActivityCommentBindin
             if (it.commentlist.isNullOrEmpty()) {
                 srl_refresh.finishLoadMoreWithNoMoreData()
             }
-        })
-        tv_send.setOnClickListener({
-            val content = et_content.text.toString().trim()
-            if (!TextUtils.isEmpty(content))
-                mViewModel.newComment(content)
         })
         mViewModel.mCommentsMoreLiveData.observe(this, Observer {
             srl_refresh.closeHeaderOrFooter()
@@ -114,15 +133,17 @@ class CommentActivity : BaseActivity<CommentViewModel, HomeActivityCommentBindin
         })
         mViewModel.mNewCommentLiveData.observe(this, Observer {
             mAdapter.data.add(0, it)
+            mReplyStart = ""
+            et_content.text = null
             mInputManager.hideSoftInputFromWindow(et_content.windowToken, 0)
         })
         mViewModel.mNewCommentLiveData.observe(this, Observer {
             mAdapter.data.add(0, it)
             mInputManager.hideSoftInputFromWindow(et_content.windowToken, 0)
         })
-
-
-        srl_refresh.autoRefresh()
+        mViewModel.mDeleteCommentLiveData.observe(this, Observer {
+            mAdapter.remove(mCommontData!!)
+        })
     }
 
     private fun initHeader(): View {
@@ -154,46 +175,78 @@ class CommentActivity : BaseActivity<CommentViewModel, HomeActivityCommentBindin
     }
 
     private fun showWindow() {
-        showFunctionWindow(this, WindowModel("回复"), listener = object : OnFunctionWindowClickListener {
-            override fun onClick(popupWindow: PopupWindow, index: Int) {
-                popupWindow.dismiss()
-                val content = "回复 ${mCommontData!!.creator?.username}："
-                with(et_content) {
-                    setOnKeyListener(object : View.OnKeyListener {
-                        override fun onKey(v: View?, keyCode: Int, event: KeyEvent?): Boolean {
-                            if (keyCode != KeyEvent.KEYCODE_DEL) return false
-                            val data = text.toString()
-                            if (data.startsWith(content)) {
-                                val lastAtIndex = data.lastIndexOf(content)
-                                val newText = data.substring(0, lastAtIndex)
-                                setText(newText)
-                                setSelection(newText.length)
-                                mReceiverId = null
-                                return true
+        val isMine = MConfig.getLoginResult().user?.uid == mCommontData?.creator?.uid
+        showFunctionWindow(
+            this,
+            if (isMine) WindowModel("删除", WindowModel.TYPE_ERROR) else WindowModel("回复"),
+            listener = object : OnFunctionWindowClickListener {
+                override fun onClick(popupWindow: PopupWindow, index: Int) {
+                    popupWindow.dismiss()
+                    if (isMine) {
+                        showFunctionWindow(
+                            this@CommentActivity,
+                            WindowModel("确定删除", WindowModel.TYPE_ERROR),
+                            listener = object : OnFunctionWindowClickListener {
+                                override fun onClick(popupWindow: PopupWindow, index: Int) {
+                                    popupWindow.dismiss()
+                                    mViewModel.deleteComment(mCommontData!!.commentid!!)
+                                }
+
+                            })
+                        return
+                    }
+                    mReplyStart = "回复 ${mCommontData!!.creator?.username}："
+                    with(et_content) {
+                        setOnKeyListener(object : View.OnKeyListener {
+                            override fun onKey(v: View?, keyCode: Int, event: KeyEvent?): Boolean {
+                                if (keyCode != KeyEvent.KEYCODE_DEL) return false
+                                val data = text.toString()
+                                if (data.startsWith(mReplyStart)) {
+                                    val lastAtIndex = data.lastIndexOf(mReplyStart)
+                                    val newText = data.substring(0, lastAtIndex)
+                                    setText(newText)
+                                    setSelection(newText.length)
+                                    mReceiverId = null
+                                    mReplyStart = ""
+                                    return true
+                                }
+                                return false
                             }
-                            return false
-                        }
-                    })
-                    text = SpannableStringBuilder(content)
-                        .apply {
-                            setSpan(
-                                ForegroundColorSpan(
-                                    QMUIResHelper.getAttrColorStateList(
-                                        mContext,
-                                        QMUISkinManager.defaultInstance(mContext).currentTheme,
-                                        R.attr.app_skin_text_selected_color
-                                    )!!.defaultColor
-                                ), 0, content.length - 1, Spannable.SPAN_INCLUSIVE_INCLUSIVE
-                            )
-                        }
-                    //获取焦点并打开输入法
-                    setSelection(content.length)
-                    requestFocus()
-                    mReceiverId = mCommontData!!.creator?.uid
+                        })
+                        text = SpannableStringBuilder(mReplyStart)
+                            .apply {
+                                setSpan(
+                                    ForegroundColorSpan(
+                                        QMUIResHelper.getAttrColorStateList(
+                                            mContext,
+                                            QMUISkinManager.defaultInstance(mContext).currentTheme,
+                                            R.attr.app_skin_text_selected_color
+                                        )!!.defaultColor
+                                    ), 0, mReplyStart.length - 1, Spannable.SPAN_INCLUSIVE_INCLUSIVE
+                                )
+                            }
+                        //获取焦点并打开输入法
+                        setSelection(mReplyStart.length)
+                        requestFocus()
+                        mReceiverId = mCommontData!!.creator?.uid
+                    }
+                    mInputManager.showSoftInput(et_content, 0)
                 }
-                mInputManager.showSoftInput(et_content, 0)
+            })
+    }
+
+    override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
+        val commentData = adapter.getItem(position) as CommentData?
+        if (commentData == null) return
+        when (view.id) {
+            R.id.tv_name, R.id.iv_avatar -> {
+                val map = HashMap<String, Any>()
+                map.put(UID, commentData.creator!!.uid!!)
+                toActivity(mContext, USER_HOME_PAGE, map)
             }
-        })
+            R.id.tv_prise -> {
+            }
+        }
     }
 
     override fun onLoadMore(refreshLayout: RefreshLayout) {

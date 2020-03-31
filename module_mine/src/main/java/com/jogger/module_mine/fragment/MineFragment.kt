@@ -9,7 +9,6 @@ import com.jogger.module_mine.R
 import com.jogger.module_mine.databinding.MineFragmentMineBinding
 import com.jogger.utils.MConfig
 import ex.MODULE_MINE_MAIN
-import kotlinx.android.synthetic.main.mine_fragment_mine.*
 
 /**
  * Created by jogger on 2020/3/19
@@ -20,20 +19,11 @@ class MineFragment : BaseFragment<BaseViewModel, MineFragmentMineBinding>() {
     override fun layoutId() = R.layout.mine_fragment_mine
 
     override fun initView(savedInstanceState: Bundle?) {
-        srl_refresh.setEnableLoadMore(false)
-        srl_refresh.setOnRefreshListener({
 
-        })
-        val loginResult = MConfig.getLoginResult()
         mBinding!!.topbar.setBottomDividerAlpha(0)
-        mBinding!!.userHeader.userData = loginResult.user
-        var cardCount = 0
-        loginResult.booklist?.filter {
-            it.cardcnt != 0
-        }?.forEach {
-            cardCount = cardCount + it.cardcnt
-        }
-        mBinding!!.userHeader.cardCount = cardCount.toString()
+        childFragmentManager.beginTransaction()
+            .replace(R.id.fl_user_home, UserHomeFragment.getInstance(MConfig.getLoginResult()))
+            .commit()
         mBinding!!.ibtnLightMode.setOnClickListener({
             if (QDSkinManager.getCurrentSkin() == QDSkinManager.SKIN_WHITE) {
                 QDSkinManager.changeSkin(QDSkinManager.SKIN_DARK)

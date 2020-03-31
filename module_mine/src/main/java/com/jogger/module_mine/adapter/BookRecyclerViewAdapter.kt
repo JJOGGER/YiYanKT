@@ -1,5 +1,6 @@
 package com.jogger.module_mine.adapter
 
+import android.graphics.Color
 import android.text.TextUtils
 import android.widget.TextView
 import com.bumptech.glide.Glide
@@ -15,6 +16,7 @@ import com.jogger.module_mine.R
  */
 class BookRecyclerViewAdapter(data: MutableList<OriginBook>?) :
     BaseMultiItemQuickAdapter<OriginBook, BaseViewHolder>(data) {
+
     init {
         addItemType(0, R.layout.mine_rv_book_item)
         addItemType(-1, R.layout.mine_rv_book_foot)
@@ -29,7 +31,11 @@ class BookRecyclerViewAdapter(data: MutableList<OriginBook>?) :
             helper.getView<TextView>(R.id.tv_book_name).typeface =
                 AssetsManager.getFontTypeFace(AssetsManager.ASSETS_FONT2)
             helper.setText(R.id.tv_book_size, "${item.cardcnt} 字句")
-            helper.setVisible(R.id.v_shadow, !TextUtils.isEmpty(item.picpath))
+                .setVisible(R.id.v_shadow, !TextUtils.isEmpty(item.picpath))
+            if (!TextUtils.isEmpty(item.picpath)) {
+                helper.setTextColor(R.id.tv_book_name, Color.WHITE)
+                    .setTextColor(R.id.tv_book_size, Color.WHITE)
+            }
         } else {
             helper.setImageResource(
                 R.id.iv_item,
