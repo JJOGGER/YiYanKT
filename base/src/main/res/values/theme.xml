@@ -42,6 +42,7 @@
     <attr name="qmui_skin_topic_tab_normal_color" format="color|reference"/>
     <attr name="qmui_skin_topic_tab_selected_color" format="color|reference"/>
     <attr name="app_skin_text_selected_color" format="color|reference"/>
+    <attr name="app_skin_book_background" format="color|reference"/>
 
     <style name="login_logoTheme" parent="QMUI.Compat.NoActionBar">
         <item name="windowNoTitle">true</item>
@@ -65,7 +66,7 @@
         <item name="qmui_skin_support_tab_bg">@color/qmui_config_color_white</item>
         <item name="qmui_skin_support_tab_separator_color">?attr/qmui_skin_support_color_separator</item>
 
-        <item name="qmui_skin_support_activity_background">?attr/app_skin_common_background</item>
+        <item name="qmui_skin_support_activity_background">?attr/app_skin_common_background_1</item>
 
 
         <item name="qmui_config_color_blue">@color/app_color_blue</item>
@@ -74,10 +75,11 @@
 
 
         <!-- 配置app自己的theme -->
-        <item name="app_content_bg_color">@color/qmui_config_color_white</item>
+        <item name="app_content_bg_color">@color/qmui_config_color_separator</item>
 
         <item name="app_skin_common_background">@color/qmui_config_color_white</item>
         <item name="app_skin_common_background_1">@color/qmui_config_color_background</item>
+        <item name="app_skin_book_background">@color/qmui_config_color_background</item>
         <item name="app_skin_home_text_color">@color/qmui_config_color_gray_8</item>
         <item name="app_skin_card_tag_color">@color/qmui_config_color_gray_1</item>
         <item name="app_skin_common_title_text_color">@color/color_333333</item>
@@ -187,6 +189,7 @@
         <item name="app_primary_color">@color/main_black</item>
         <item name="app_skin_common_background">@color/main_black</item>
         <item name="app_skin_common_background_1">@color/sub_black</item>
+        <item name="app_skin_book_background">@color/main_black</item>
         <item name="app_skin_common_img_tint_color">@color/qmui_config_color_gray_6</item>
         <item name="app_skin_card_function_tint_color">@color/qmui_config_color_gray_6</item>
         <item name="app_skin_card_text_color">@color/qmui_config_color_50_white</item>

@@ -16,7 +16,6 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            app:qmui_skin_background="?attr/app_skin_common_background"
             android:id="@+id/cl_header"
             android:layout_height="wrap_content">
 
@@ -173,9 +172,10 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginEnd="@dimen/dp_16"
                 android:text="订阅"
+                app:qmui_borderColor="@color/transparent"
                 app:qmui_radius="@dimen/dp_2"
                 app:qmui_borderWidth="0dp"
-                app:qmui_backgroundColor="?attr/app_skin_text_selected_color"
+                app:qmui_backgroundColor="@color/color_6a92ad"
                 android:paddingStart="@dimen/dp_12"
                 android:paddingEnd="@dimen/dp_12"
                 android:paddingTop="@dimen/dp_3"

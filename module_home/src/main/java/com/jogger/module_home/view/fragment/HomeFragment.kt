@@ -10,6 +10,7 @@ import com.jogger.manager.QDSkinManager
 import com.jogger.module_home.R
 import com.jogger.module_home.databinding.HomeFragmentHomeBinding
 import com.jogger.module_home.view.viewmodel.HomeViewModel
+import com.jogger.utils.LogUtils
 import com.jogger.widget.YiYanHeader
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener
@@ -29,9 +30,9 @@ class HomeFragment : BaseFragment<HomeViewModel, HomeFragmentHomeBinding>(), OnR
     private lateinit var mHomeAdapter: HomePagerAdapter
     private var mFeedId: String? = ""
     override fun initView(savedInstanceState: Bundle?) {
+        LogUtils.e("---------initview"+QDSkinManager.getCurrentSkin())
         topbar.setTitle("订阅")
         topbar.addRightImageButton(R.drawable.icons8_time_machine_66_3x, R.id.clock_funciton)
-        QDSkinManager.changeSkin(QDSkinManager.SKIN_WHITE)
         mHomeAdapter = HomePagerAdapter()
         srl_refresh.setRefreshHeader(YiYanHeader(mContext!!))
         srl_refresh.setOnRefreshLoadMoreListener(this)
@@ -44,6 +45,9 @@ class HomeFragment : BaseFragment<HomeViewModel, HomeFragmentHomeBinding>(), OnR
         )//触发onPageScrolled，防止初始化时transformPage 所有position都为0
     }
 
+    override fun getBackgroundAttr(): Int {
+        return R.attr.app_skin_common_background_1
+    }
     private fun handleArticlesFailure() {
         srl_refresh.closeHeaderOrFooter()
     }

@@ -11,6 +11,8 @@ import com.jogger.base.BaseViewModel
 import com.jogger.constant.CARD_CATEGORY
 import com.jogger.module_star.R
 import com.jogger.module_star.activity.SearchActivity
+import com.qmuiteam.qmui.kotlin.onClick
+import com.qmuiteam.qmui.kotlin.skin
 import ex.MODULE_STAR_MAIN
 import kotlinx.android.synthetic.main.star_fragment_main.*
 
@@ -25,13 +27,19 @@ class StarMainFragment : BaseFragment<BaseViewModel, ViewDataBinding>() {
     override fun layoutId(): Int = R.layout.star_fragment_main
 
     override fun initView(savedInstanceState: Bundle?) {
+        fl_parent.skin {
+            it.background(R.attr.app_skin_common_background_1)
+        }
         topbar.addRightImageButton(R.drawable.icon_serach_right_22, R.id.search_funciton)
-            .setOnClickListener { navTo(SearchActivity::class.java) }
+            .onClick { navTo(SearchActivity::class.java) }
         vp_content.adapter = StarPageAdapter(childFragmentManager)
         tl_tab.setupWithViewPager(vp_content)
         vp_content.setCurrentItem(1)
     }
 
+    override fun getBackgroundAttr(): Int {
+        return R.attr.app_skin_common_background_1
+    }
 
     inner class StarPageAdapter(f: FragmentManager) : FragmentPagerAdapter(f) {
 

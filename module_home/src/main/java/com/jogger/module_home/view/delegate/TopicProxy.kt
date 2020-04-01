@@ -30,6 +30,8 @@ class TopicProxy(binding: HomeDetailTopicViewBinding, context: Activity) :
             Glide.with(mContext)
                 .load(card.picpath)
                 .into(mBinding.ivHeader)
+        } else {
+            mBinding.ivHeader.visibility = View.GONE
         }
         val drawable = mContext.resources.getDrawable(R.drawable.icon_topicmark_3x)
         drawable.setBounds(0, 0, drawable.intrinsicWidth, drawable.intrinsicHeight)

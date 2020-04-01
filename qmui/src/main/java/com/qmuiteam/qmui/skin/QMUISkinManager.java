@@ -30,47 +30,25 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-
+import androidx.annotation.MainThread;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.collection.SimpleArrayMap;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 import com.qmuiteam.qmui.BuildConfig;
 import com.qmuiteam.qmui.QMUILog;
 import com.qmuiteam.qmui.R;
 import com.qmuiteam.qmui.qqface.QMUIQQFaceView;
 import com.qmuiteam.qmui.skin.annotation.QMUISkinListenWithHierarchyChange;
 import com.qmuiteam.qmui.skin.defaultAttr.IQMUISkinDefaultAttrProvider;
-import com.qmuiteam.qmui.skin.handler.IQMUISkinRuleHandler;
-import com.qmuiteam.qmui.skin.handler.QMUISkinRuleAlphaHandler;
-import com.qmuiteam.qmui.skin.handler.QMUISkinRuleBackgroundHandler;
-import com.qmuiteam.qmui.skin.handler.QMUISkinRuleBgTintColorHandler;
-import com.qmuiteam.qmui.skin.handler.QMUISkinRuleBorderHandler;
-import com.qmuiteam.qmui.skin.handler.QMUISkinRuleHintColorHandler;
-import com.qmuiteam.qmui.skin.handler.QMUISkinRuleMoreBgColorHandler;
-import com.qmuiteam.qmui.skin.handler.QMUISkinRuleMoreTextColorHandler;
-import com.qmuiteam.qmui.skin.handler.QMUISkinRuleProgressColorHandler;
-import com.qmuiteam.qmui.skin.handler.QMUISkinRuleSeparatorHandler;
-import com.qmuiteam.qmui.skin.handler.QMUISkinRuleSrcHandler;
-import com.qmuiteam.qmui.skin.handler.QMUISkinRuleTextColorHandler;
-import com.qmuiteam.qmui.skin.handler.QMUISkinRuleTextCompoundSrcHandler;
-import com.qmuiteam.qmui.skin.handler.QMUISkinRuleTextCompoundTintColorHandler;
-import com.qmuiteam.qmui.skin.handler.QMUISkinRuleTintColorHandler;
-import com.qmuiteam.qmui.skin.handler.QMUISkinRuleUnderlineHandler;
+import com.qmuiteam.qmui.skin.handler.*;
 import com.qmuiteam.qmui.util.QMUILangHelper;
 import com.qmuiteam.qmui.util.QMUIResHelper;
 
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Objects;
-
-import androidx.annotation.MainThread;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.collection.SimpleArrayMap;
-import androidx.core.util.Pair;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewpager.widget.ViewPager;
+import java.util.*;
 
 public final class QMUISkinManager {
     private static final String TAG = "QMUISkinManager";
@@ -450,6 +428,8 @@ public final class QMUISkinManager {
         if (!containSkinObserver(activity)) {
             mSkinObserverList.add(new WeakReference<>(activity));
         }
+//        activity.getWindow().setBackgroundDrawable(QMUIResHelper.getAttrDrawable(
+//                activity, mSkins.get(mCurrentSkin).getTheme(), R.attr.qmui_skin_support_activity_background));
         dispatch(activity.findViewById(Window.ID_ANDROID_CONTENT), mCurrentSkin);
     }
 

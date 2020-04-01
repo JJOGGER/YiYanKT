@@ -55,10 +55,10 @@ abstract class BaseActivity<VM : BaseViewModel, DB : ViewDataBinding> : AppCompa
                 QMUISkinLayoutInflaterFactory(this, layoutInflater)
             )
         }
+        window.setBackgroundDrawable(null)
         super.onCreate(savedInstanceState)
         QMUIStatusBarHelper.translucent(this)
         QMUIStatusBarHelper.setStatusBarDarkMode(this)
-        window.setBackgroundDrawable(null)
         mContext = this
         mSkinManager = QMUISkinManager.defaultInstance(this)
         if (isFullScreen()) {

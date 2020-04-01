@@ -21,13 +21,11 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
+import android.view.*;
 import android.widget.ImageView;
-
+import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.view.GestureDetectorCompat;
 import com.qmuiteam.qmui.QMUIInterpolatorStaticHolder;
 import com.qmuiteam.qmui.R;
 import com.qmuiteam.qmui.alpha.QMUIAlphaImageButton;
@@ -42,10 +40,6 @@ import com.qmuiteam.qmui.widget.IWindowInsetKeyboardConsumer;
 import com.qmuiteam.qmui.widget.QMUIWindowInsetLayout2;
 
 import java.util.ArrayList;
-
-import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.view.GestureDetectorCompat;
 
 import static android.view.WindowManager.LayoutParams.FLAG_LAYOUT_INSET_DECOR;
 import static android.view.WindowManager.LayoutParams.FLAG_LAYOUT_IN_SCREEN;
@@ -162,12 +156,7 @@ public class QMUIFullScreenPopup extends QMUIBasePopup<QMUIFullScreenPopup> {
         closeBtn.setPadding(0, 0, 0, 0);
         closeBtn.setScaleType(ImageView.ScaleType.CENTER);
         closeBtn.setId(R.id.qmui_popup_close_btn_id);
-        closeBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-            }
-        });
+        closeBtn.setOnClickListener(v -> dismiss());
         closeBtn.setFitsSystemWindows(true);
         Drawable drawable = null;
         if(mCloseIcon != null){

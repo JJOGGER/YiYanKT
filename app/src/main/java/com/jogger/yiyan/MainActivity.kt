@@ -9,6 +9,7 @@ import com.jogger.base.BaseViewModel
 import com.jogger.manager.QDSkinManager
 import com.jogger.utils.LogUtils
 import com.jogger.yiyan.databinding.ActivityMainBinding
+import com.qmuiteam.qmui.kotlin.onClick
 import com.qmuiteam.qmui.skin.QMUISkinManager
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper
 import ex.*
@@ -31,22 +32,22 @@ class MainActivity : BaseActivity<BaseViewModel, ActivityMainBinding>() {
         if (savedInstanceState != null) {
             mIndex = savedInstanceState.getInt(TAB_INDEX)
         }
-        fl_home.setOnClickListener({ v ->
+        fl_home.onClick {
             setTabStatus(TAB_HOME)
             showActionAnimation(tab_home)
-        })
-        fl_star.setOnClickListener({ v ->
+        }
+        fl_star.onClick {
             setTabStatus(TAB_STAR)
             showActionAnimation(tab_star)
-        })
-        fl_message.setOnClickListener({ v ->
+        }
+        fl_message.onClick {
             setTabStatus(TAB_MESSAGE)
             showActionAnimation(tab_message)
-        })
-        fl_mine.setOnClickListener({ v ->
+        }
+        fl_mine.onClick {
             setTabStatus(TAB_MINE)
             showActionAnimation(tab_mine)
-        })
+        }
         setTabStatus(mIndex)
     }
 
@@ -66,6 +67,8 @@ class MainActivity : BaseActivity<BaseViewModel, ActivityMainBinding>() {
     override fun onStart() {
         super.onStart()
         QMUISkinManager.defaultInstance(this).addSkinChangeListener(mOnSkinChangeListener)
+        LogUtils.e("------onstart" + QDSkinManager.getCurrentSkin())
+//        QDSkinManager.changeSkin(QDSkinManager.SKIN_WHITE)
     }
 
     override fun onResume() {
@@ -135,10 +138,8 @@ class MainActivity : BaseActivity<BaseViewModel, ActivityMainBinding>() {
         } else {
             fragment = getFragment(tag)
             if (fragment == null) {
-                LogUtils.e(" ----fragment null " + tag)
                 return
-            }
-            else
+            } else
                 transaction.add(R.id.fl_container, fragment, tag)
         }
         if (!mFragments.contains(fragment)) {

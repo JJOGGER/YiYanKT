@@ -16,6 +16,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.jogger.event.Message
 import com.jogger.http.basic.config.HttpCode
 import com.jogger.utils.MConfig
+import com.qmuiteam.qmui.kotlin.skin
 import com.qmuiteam.qmui.skin.QMUISkinManager
 import ex.MODULE_LOGIN
 import ex.showToast
@@ -47,10 +48,17 @@ abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding> : Fragment
             (javaClass.genericSuperclass as ParameterizedType).actualTypeArguments[1] as Class<*>
         if (ViewDataBinding::class.java != cls && ViewDataBinding::class.java.isAssignableFrom(cls)) {
             mBinding = DataBindingUtil.inflate(inflater, layoutId(), container, false)
+            if (getBackgroundAttr() != -1) {
+                mBinding?.root?.skin {
+                    it.background(getBackgroundAttr())
+                }
+            }
             return mBinding?.root
         }
         return inflater.inflate(layoutId(), container, false)
     }
+
+   open fun getBackgroundAttr(): Int = -1
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -74,19 +82,6 @@ abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding> : Fragment
     }
 
     abstract fun initView(savedInstanceState: Bundle?)
-    override fun onStart() {
-        super.onStart()
-        if (mSkinManager != null) {
-            mSkinManager!!.register(this)
-        }
-    }
-
-    override fun onStop() {
-        super.onStop()
-        if (mSkinManager != null) {
-            mSkinManager!!.unRegister(this)
-        }
-    }
 
     override fun onResume() {
         super.onResume()

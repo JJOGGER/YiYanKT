@@ -16,8 +16,9 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.chad.library.adapter.base.entity.WindowModel
 import com.jogger.base.R
 import com.jogger.utils.ToastHelper
+import com.qmuiteam.qmui.kotlin.onClick
+import com.qmuiteam.qmui.kotlin.skin
 import com.qmuiteam.qmui.skin.QMUISkinManager
-import com.qmuiteam.qmui.util.QMUIResHelper
 import java.io.Serializable
 import java.util.*
 
@@ -143,18 +144,23 @@ interface OnFunctionWindowClickListener {
 fun showFunctionWindow(context: Activity, vararg windowModels: WindowModel, listener: OnFunctionWindowClickListener?) {
     val resources = context.resources
     val view = LayoutInflater.from(context).inflate(R.layout.window_common_function, null) as ViewGroup
-    val textColor = QMUIResHelper.getAttrColorStateList(
-        view.getContext(),
-        QMUISkinManager.defaultInstance(context).currentTheme,
-        R.attr.app_skin_common_title_text_color
-    )!!.defaultColor
+
+//    val textColor = QMUIResHelper.getAttrColorStateList(
+//        view.getContext(),
+//        QMUISkinManager.defaultInstance(context).currentTheme,
+//        R.attr.app_skin_common_title_text_color
+//    )!!.defaultColor
     for (i in 0..windowModels.size - 1) {
         view.addView(TextView(context).apply {
             setText(windowModels[i].text)
             if (windowModels[i].type == WindowModel.TYPE_ERROR) {
+                skin {
+                    it.textColor(R.attr.app_skin_common_title_text_color)
+                }
                 setTextColor(Color.RED)
             } else {
-                setTextColor(textColor)
+                skin { it.textColor(R.attr.app_skin_common_title_text_color) }
+//                setTextColor(textColor)
             }
 //            setBackgroundColor(backgroundColor)
             layoutParams =
@@ -170,7 +176,7 @@ fun showFunctionWindow(context: Activity, vararg windowModels: WindowModel, list
             )
             gravity = Gravity.CENTER
             setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimensionPixelOffset(R.dimen.text_size_16).toFloat())
-            setOnClickListener {
+            onClick {
                 if (listener != null)
                     listener.onClick(popupWindow!!, i)
             }
@@ -194,7 +200,10 @@ fun showFunctionWindow(context: Activity, vararg windowModels: WindowModel, list
     val cancel = TextView(context)
         .apply {
             text = "取消"
-            setTextColor(textColor)
+            skin {
+                it.textColor(R.attr.app_skin_common_title_text_color)
+            }
+//            setTextColor(textColor)
             layoutParams =
                 ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
             setPadding(
@@ -205,7 +214,7 @@ fun showFunctionWindow(context: Activity, vararg windowModels: WindowModel, list
             )
             setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimensionPixelOffset(R.dimen.text_size_16).toFloat())
             gravity = Gravity.CENTER
-            setOnClickListener({ popupWindow?.dismiss() })
+            onClick { popupWindow?.dismiss() }
         }
     view.addView(cancel)
     if (popupWindow == null) {
@@ -225,6 +234,7 @@ fun showFunctionWindow(context: Activity, vararg windowModels: WindowModel, list
     }
     backgroundAlpha(context, 0.5f)
     if (context.isFinishing || context.isDestroyed) return
+    QMUISkinManager.defaultInstance(context).register(popupWindow!!)
     popupWindow!!.showAtLocation(view, Gravity.BOTTOM, 0, 0)
 }
 

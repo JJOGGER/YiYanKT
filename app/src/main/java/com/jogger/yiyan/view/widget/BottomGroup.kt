@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import androidx.annotation.IdRes
+import com.qmuiteam.qmui.kotlin.onClick
 
 /**
  * Created by jogger on 2020/2/29
@@ -19,7 +20,7 @@ class BottomGroup(context: Context?, attrs: AttributeSet?) : RadioGroup(context,
         super.addView(child, index, params)
         if (child is RadioButton && child.getVisibility() == View.VISIBLE) run {
             mTitles.add(child)
-            child.setOnClickListener { v ->
+            child.onClick {
                 child.isChecked = true
                 checkRadioButton(child)
                 if (mBottomBarCheckedChangeListener != null) {

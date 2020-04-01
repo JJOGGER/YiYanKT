@@ -16,6 +16,7 @@ import com.jogger.module_star.R
 import com.jogger.module_star.adapter.UserItemAdapter
 import com.jogger.module_star.databinding.StarActivitySearchBinding
 import com.jogger.module_star.viewmodel.SearchViewModel
+import com.qmuiteam.qmui.kotlin.onClick
 import ex.showToast
 import kotlinx.android.synthetic.main.star_activity_search.*
 
@@ -52,21 +53,21 @@ class SearchActivity : BaseActivity<SearchViewModel, StarActivitySearchBinding>(
                 return false
             }
         })
-        tab_text.setOnClickListener({
+        tab_text.onClick {
             tab_user.isSelected = false
             tab_text.isSelected = true
             mCurrentIndex = INDEX_TEXT
             srl_text_refresh.visibility = View.VISIBLE
             srl_user_refresh.visibility = View.GONE
-        })
-        tab_user.setOnClickListener({
+        }
+        tab_user.onClick {
             tab_user.isSelected = true
             tab_text.isSelected = false
             mCurrentIndex = INDEX_USER
             srl_text_refresh.visibility = View.GONE
             srl_user_refresh.visibility = View.VISIBLE
-        })
-        tv_cancel.setOnClickListener { finish() }
+        }
+        tv_cancel.onClick { finish() }
         mTextAdapter = HomePagerAdapter()
         mUserAdapter = UserItemAdapter()
         srl_text_refresh.setEnableRefresh(false)

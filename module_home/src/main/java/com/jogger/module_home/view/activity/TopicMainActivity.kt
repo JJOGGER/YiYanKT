@@ -15,6 +15,7 @@ import com.jogger.module_home.R
 import com.jogger.module_home.adapter.TopicMainPageAdapter
 import com.jogger.module_home.databinding.HomeActivityTopicMainBinding
 import com.jogger.module_home.view.fragment.TopicMainFragment
+import com.qmuiteam.qmui.kotlin.onClick
 import com.qmuiteam.qmui.widget.tab.QMUITab
 import com.qmuiteam.qmui.widget.tab.TabMediator
 import ex.TEXT_CARD
@@ -29,11 +30,9 @@ class TopicMainActivity : BaseActivity<BaseViewModel, HomeActivityTopicMainBindi
     lateinit var mAdapter: TopicMainPageAdapter
     override fun getLayoutId() = R.layout.home_activity_topic_main
     override fun init(savedInstanceState: Bundle?) {
-        mTopBar.addLeftBackImageButton().setOnClickListener({ finish() })
+        mTopBar.addLeftBackImageButton().onClick { finish() }
         mTopBar.addRightImageButton(R.drawable.vmore_22_gray_3x, R.id.ibtn_more)
-            .setOnClickListener({
-
-            })
+            .onClick {}
         val textCard = intent.getParcelableExtra<TextCard>(TEXT_CARD)
         mBinding!!.textCard = textCard
         val fragments = arrayListOf<TopicMainFragment>().apply {

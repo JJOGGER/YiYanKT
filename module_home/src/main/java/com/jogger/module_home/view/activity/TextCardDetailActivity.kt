@@ -9,6 +9,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.launcher.ARouter
 import com.jogger.base.BaseActivity
+import com.jogger.constant.CARD_CATEGORY
 import com.jogger.entity.TextCard
 import com.jogger.module_home.R
 import com.jogger.module_home.adapter.TextCardDetailAdapter
@@ -18,6 +19,7 @@ import com.jogger.utils.LogUtils
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener
 import ex.PAGE_HOME
+import ex.PAGE_STAR
 import kotlinx.android.synthetic.main.home_activity_text_card_detail.*
 
 
@@ -28,6 +30,7 @@ class TextCardDetailActivity : BaseActivity<TextCardDetailViewModel, ViewDataBin
     private var mFromPage = PAGE_HOME
     private var mPosition = 0
     private lateinit var mFragments: ArrayList<TextCardDetailFragment>
+    private var mType: Int? = null
 
     companion object {
         fun navTo(context: Context, textcard: TextCard) {
@@ -44,6 +47,7 @@ class TextCardDetailActivity : BaseActivity<TextCardDetailViewModel, ViewDataBin
         //滚动到差不多一半时，向外通知加载更多，并将数据更新到详情页
         mPosition = intent.getIntExtra(ex.POSITION, 0)
         mFromPage = intent.getIntExtra(ex.FROM_PAGE, PAGE_HOME)
+        mType = intent.getIntExtra(ex.TYPE, CARD_CATEGORY.TYPE_ALL._value)
         mTextCards = intent.getParcelableArrayListExtra<TextCard>(ex.TEXT_CARDS)
         mFragments = arrayListOf()
         mTextCards.forEach {
@@ -88,8 +92,9 @@ class TextCardDetailActivity : BaseActivity<TextCardDetailViewModel, ViewDataBin
     }
 
     override fun onLoadMore(refreshLayout: RefreshLayout) {
-        if (mFromPage == PAGE_HOME) {
-            mViewModel.getSubcribeArticles(mTextCards[mTextCards.size - 1].feedid)
+        when (mFromPage) {
+            PAGE_HOME -> mViewModel.getSubcribeArticles(mTextCards[mTextCards.size - 1].feedid)
+            PAGE_STAR -> mViewModel.getTextCardsByType(mType!!)
         }
     }
 }

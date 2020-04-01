@@ -31,17 +31,25 @@ class CommonCardAdapter(data: MutableList<TextCard>?, type: Int) :
                 CARD_CATEGORY.TYPE_TEXT,
                 CARD_CATEGORY.TYPE_POETRY,
                 CARD_CATEGORY.TYPE_FILM,
-                CARD_CATEGORY.TYPE_WORD ->
+                CARD_CATEGORY.TYPE_WORD -> {
+                    addChildClickViewIds(R.id.iv_avatar, R.id.tv_nickname, R.id.tv_book)
                     addItemType(t._value, R.layout.star_rv_common_item)
+                }
                 CARD_CATEGORY.TYPE_HOT_CARD -> addItemType(t._value, R.layout.star_rv_instrest_item)
-                CARD_CATEGORY.TYPE_TOPIC -> if (mType == CARD_CATEGORY.TYPE_TOPIC._value) addItemType(
-                    t._value,
-                    R.layout.rv_common_topic_item
-                ) else addItemType(
-                    t._value,
-                    R.layout.star_rv_topic_item
-                )
-                else -> addItemType(t._value, R.layout.star_rv_common_item)
+                CARD_CATEGORY.TYPE_TOPIC -> {
+                    if (mType == CARD_CATEGORY.TYPE_TOPIC._value) addItemType(
+                        t._value,
+                        R.layout.rv_common_topic_item
+                    ) else addItemType(
+                        t._value,
+                        R.layout.star_rv_topic_item
+                    )
+                    addChildClickViewIds(R.id.iv_avatar, R.id.tv_nickname, R.id.tv_book)
+                }
+                else -> {
+                    addItemType(t._value, R.layout.star_rv_common_item)
+                    addChildClickViewIds(R.id.iv_avatar, R.id.tv_nickname, R.id.tv_book)
+                }
             }
         }
     }

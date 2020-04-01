@@ -1,7 +1,7 @@
 package com.jogger.module_mine.adapter
 
-import android.graphics.Color
 import android.text.TextUtils
+import android.view.View
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
@@ -9,6 +9,7 @@ import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import com.jogger.entity.OriginBook
 import com.jogger.manager.AssetsManager
 import com.jogger.module_mine.R
+import com.qmuiteam.qmui.kotlin.skin
 
 /**
  * Created by jogger on 2020/3/19
@@ -33,8 +34,16 @@ class BookRecyclerViewAdapter(data: MutableList<OriginBook>?) :
             helper.setText(R.id.tv_book_size, "${item.cardcnt} 字句")
                 .setVisible(R.id.v_shadow, !TextUtils.isEmpty(item.picpath))
             if (!TextUtils.isEmpty(item.picpath)) {
-                helper.setTextColor(R.id.tv_book_name, Color.WHITE)
-                    .setTextColor(R.id.tv_book_size, Color.WHITE)
+                helper.getView<View>(R.id.tv_book_name)
+                    .skin {
+                        it.textColor(R.attr.app_primary_color)
+                    }
+                helper.getView<View>(R.id.tv_book_size)
+                    .skin {
+                        it.textColor(R.attr.app_primary_color)
+                    }
+//                helper.setTextColor(R.id.tv_book_name, Color.WHITE)
+//                    .setTextColor(R.id.tv_book_size, Color.WHITE)
             }
         } else {
             helper.setImageResource(

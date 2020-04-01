@@ -19,6 +19,7 @@ package com.jogger.manager;
 import android.content.Context;
 import android.content.res.Configuration;
 import com.jogger.base.R;
+import com.jogger.utils.LogUtils;
 import com.qmuiteam.qmui.skin.QMUISkinManager;
 import ex.InitConfigKt;
 
@@ -29,11 +30,12 @@ public class QDSkinManager {
 
     public static void install(Context context) {
         QMUISkinManager skinManager = QMUISkinManager.defaultInstance(context);
-        skinManager.addSkin(SKIN_DARK, R.style.app_skin_dark);
         skinManager.addSkin(SKIN_WHITE, R.style.app_skin_white);
+        skinManager.addSkin(SKIN_DARK, R.style.app_skin_dark);
         boolean isDarkMode = (context.getResources().getConfiguration().uiMode
                 & Configuration.UI_MODE_NIGHT_MASK) == Configuration.UI_MODE_NIGHT_YES;
         int storeSkinIndex = QDPreferenceManager.getInstance(context).getSkinIndex();
+        LogUtils.e("-----------storeSkinIndex:" + storeSkinIndex);
         if (isDarkMode && storeSkinIndex != SKIN_DARK) {
             skinManager.changeSkin(SKIN_DARK);
         } else{

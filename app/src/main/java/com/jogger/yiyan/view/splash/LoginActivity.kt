@@ -10,6 +10,7 @@ import com.jogger.utils.LogUtils
 import com.jogger.yiyan.MainActivity
 import com.jogger.yiyan.databinding.ActivityLoginBinding
 import com.jogger.yiyan.viewmodel.LoginViewModel
+import com.qmuiteam.qmui.kotlin.onClick
 import com.sina.weibo.sdk.auth.Oauth2AccessToken
 import com.sina.weibo.sdk.auth.WbAuthListener
 import com.sina.weibo.sdk.auth.WbConnectErrorMessage
@@ -26,7 +27,7 @@ class LoginActivity : BaseActivity<LoginViewModel, ActivityLoginBinding>() {
     private var mSsoHandler: SsoHandler? = null
     override fun init(savedInstanceState: Bundle?) {
         mSsoHandler = SsoHandler(this)
-        tv_sina.setOnClickListener {
+        tv_sina.onClick {
             mSsoHandler!!.authorize(SelfSinaAuthListener())
         }
         mViewModel.mLoginLiveData.observe(this, Observer { handleLogin(it) })

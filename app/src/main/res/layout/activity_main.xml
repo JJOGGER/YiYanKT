@@ -10,7 +10,7 @@
     <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:qmui_skin_background="?attr/app_skin_common_background_1"
+            app:qmui_skin_background="?attr/app_skin_common_background"
             tools:context=".ui.MainActivity">
 
         <FrameLayout

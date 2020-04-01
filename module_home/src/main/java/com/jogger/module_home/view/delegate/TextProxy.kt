@@ -21,7 +21,7 @@ class TextProxy(binding: HomeDetailTextViewBinding, context: Activity) :
         val imgShow = card.type?.split("_")?.get(1)?.toInt()
         val image: ImageView
         image =
-            if (imgShow == 1) {
+            if (imgShow == 1 || imgShow == 11) {
                 mBinding.nsvCommonView.visibility = View.VISIBLE
                 mBinding.ivHeader
             } else if (imgShow == 0) {
@@ -37,6 +37,8 @@ class TextProxy(binding: HomeDetailTextViewBinding, context: Activity) :
                 .load(card.picpath)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(image)
+        } else {
+            mBinding.clImgTxtView.visibility = View.GONE
         }
         if (!TextUtils.isEmpty(card.showtime)) {
             val date = card.showtime!!.split("-", " ")

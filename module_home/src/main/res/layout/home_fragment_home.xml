@@ -10,8 +10,8 @@
     <com.qmuiteam.qmui.widget.QMUIWindowInsetLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:clipChildren="false"
             app:qmui_skin_background="?attr/app_skin_common_background_1"
+            android:clipChildren="false"
             android:layout_height="match_parent">
 
         <com.scwang.smartrefresh.horizontal.SmartRefreshHorizontal

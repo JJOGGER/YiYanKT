@@ -7,7 +7,7 @@
 
     </data>
 
-    <com.qmuiteam.qmui.layout.QMUIFrameLayout
+    <FrameLayout
             android:layout_width="match_parent"
             android:layout_marginTop="?attr/qmui_topbar_height"
             android:layout_height="match_parent">
@@ -43,5 +43,5 @@
 
             </androidx.core.widget.NestedScrollView>
         </com.scwang.smartrefresh.layout.SmartRefreshLayout>
-    </com.qmuiteam.qmui.layout.QMUIFrameLayout>
+    </FrameLayout>
 </layout>

@@ -7,11 +7,11 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.listener.OnItemClickListener
+import com.jogger.adapter.CommonCardAdapter
 import com.jogger.base.BaseFragment
 import com.jogger.constant.CARD_CATEGORY
 import com.jogger.entity.TextCard
 import com.jogger.module_star.R
-import com.jogger.adapter.CommonCardAdapter
 import com.jogger.module_star.viewmodel.StarViewModel
 import com.jogger.widget.YiYanHeader
 import com.scwang.smartrefresh.layout.api.RefreshLayout
@@ -34,6 +34,9 @@ class StarItemFragment : BaseFragment<StarViewModel, ViewDataBinding>(), OnRefre
     }
 
     override fun layoutId(): Int = R.layout.star_fragment_item
+    override fun getBackgroundAttr(): Int {
+        return R.attr.app_skin_common_background_1
+    }
 
     companion object {
         fun getInstance(type: Int): StarItemFragment {
@@ -99,6 +102,7 @@ class StarItemFragment : BaseFragment<StarViewModel, ViewDataBinding>(), OnRefre
         }
         map.put(POSITION, position)
         map.put(FROM_PAGE, PAGE_STAR)
+        map.put(TYPE, mType)
         map.put(TEXT_CARDS, mAdapter.data)
         toActivity(mContext!!, TEXT_CARD_DETAIL, map)
     }

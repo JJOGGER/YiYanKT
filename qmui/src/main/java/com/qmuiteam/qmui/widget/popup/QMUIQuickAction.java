@@ -25,11 +25,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatImageView;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.recyclerview.widget.*;
 import com.qmuiteam.qmui.R;
 import com.qmuiteam.qmui.layout.QMUIConstraintLayout;
 import com.qmuiteam.qmui.skin.QMUISkinHelper;
-import com.qmuiteam.qmui.skin.QMUISkinManager;
 import com.qmuiteam.qmui.skin.QMUISkinValueBuilder;
 import com.qmuiteam.qmui.util.QMUIResHelper;
 import com.qmuiteam.qmui.util.QMUIViewHelper;
@@ -37,16 +40,6 @@ import com.qmuiteam.qmui.widget.QMUIRadiusImageView2;
 
 import java.util.ArrayList;
 import java.util.Objects;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.widget.AppCompatImageView;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.recyclerview.widget.DiffUtil;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.LinearSmoothScroller;
-import androidx.recyclerview.widget.ListAdapter;
-import androidx.recyclerview.widget.RecyclerView;
 
 public class QMUIQuickAction extends QMUINormalPopup<QMUIQuickAction> {
 
@@ -129,18 +122,8 @@ public class QMUIQuickAction extends QMUINormalPopup<QMUIQuickAction> {
             AppCompatImageView leftMoreArrow = createMoreArrowView(true);
             AppCompatImageView rightMoreArrow = createMoreArrowView(false);
 
-            leftMoreArrow.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    recyclerView.smoothScrollToPosition(0);
-                }
-            });
-            rightMoreArrow.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    recyclerView.smoothScrollToPosition(adapter.getItemCount() - 1);
-                }
-            });
+            leftMoreArrow.setOnClickListener(v -> recyclerView.smoothScrollToPosition(0));
+            rightMoreArrow.setOnClickListener(v -> recyclerView.smoothScrollToPosition(adapter.getItemCount() - 1));
 
             ConstraintLayout.LayoutParams leftLp = new ConstraintLayout.LayoutParams(mMoreArrowWidth, 0);
             leftLp.leftToLeft = recyclerView.getId();

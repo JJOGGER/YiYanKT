@@ -1,5 +1,8 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
 
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 //noinspection GroovyMissingReturnStatement
 android {
     compileSdkVersion rootProject.ext.android.compileSdkVersion
@@ -27,6 +30,7 @@ android {
 dependencies {
     api fileTree(include: ['*.jar'], dir: 'libs')
     api rootProject.ext.androidxs
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     api 'androidx.swiperefreshlayout:swiperefreshlayout:1.0.0'
 }
 

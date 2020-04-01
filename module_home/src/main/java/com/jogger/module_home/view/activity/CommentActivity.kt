@@ -28,6 +28,7 @@ import com.jogger.module_home.adapter.CommentAdapter
 import com.jogger.module_home.databinding.HomeActivityCommentBinding
 import com.jogger.module_home.view.viewmodel.CommentViewModel
 import com.jogger.utils.MConfig
+import com.qmuiteam.qmui.kotlin.onClick
 import com.qmuiteam.qmui.skin.QMUISkinManager
 import com.qmuiteam.qmui.util.QMUIResHelper
 import com.scwang.smartrefresh.layout.api.RefreshLayout
@@ -81,13 +82,13 @@ class CommentActivity : BaseActivity<CommentViewModel, HomeActivityCommentBindin
 
     override fun init(savedInstanceState: Bundle?) {
         mTopBar.setTitle(if (mIsHot) "热门" else " 感悟 ")
-        mTopBar.addLeftBackImageButton().setOnClickListener({ finish() })
+        mTopBar.addLeftBackImageButton().onClick { finish() }
         mViewModel.mCardId = intent.getStringExtra(ex.CARD_ID)
         rv_content.layoutManager = LinearLayoutManager(mContext)
         rv_content.adapter = mAdapter
         srl_refresh.setOnRefreshLoadMoreListener(this@CommentActivity)
         mAdapter.addHeaderView(mHeader)
-        tv_send.setOnClickListener({
+        tv_send.onClick {
             var content = et_content.text.toString().trim()
             if (!TextUtils.isEmpty(content)) {
                 if (!TextUtils.isEmpty(mReplyStart) && content.contains(mReplyStart)) {
@@ -98,7 +99,7 @@ class CommentActivity : BaseActivity<CommentViewModel, HomeActivityCommentBindin
                 }
             }
 
-        })
+        }
         registerObserver()
 
 
@@ -155,9 +156,9 @@ class CommentActivity : BaseActivity<CommentViewModel, HomeActivityCommentBindin
         if (!mIsHot) {
             val commentCnt = intent.getIntExtra(ex.COMMENT_CNT, 0)
             header.findViewById<TextView>(R.id.tv_like_count).text = "$commentCnt 同感"
-            header.findViewById<TextView>(R.id.tv_more).setOnClickListener({
+            header.findViewById<TextView>(R.id.tv_more).onClick {
                 navTo(mContext, mViewModel.mCardId!!, commentCnt, true)
-            })
+            }
         } else {
             header.findViewById<View>(R.id.fl_top).visibility = View.GONE
         }

@@ -11,6 +11,7 @@ import com.jogger.module_mine.activity.BookListActivity
 import com.jogger.module_mine.databinding.MineFragmentUserHomeBinding
 import com.jogger.module_mine.viewmodel.UserHomeViewModel
 import com.jogger.module_mine.widget.BookRecyclerView
+import com.qmuiteam.qmui.kotlin.onClick
 import kotlinx.android.synthetic.main.mine_fragment_user_home.*
 import kotlinx.android.synthetic.main.mine_rv_user_header.*
 
@@ -76,9 +77,9 @@ class UserHomeFragment :
             cardCount = cardCount + it.cardcnt
         }
         mBinding!!.userHeader.cardCount = cardCount.toString()
-        mBinding!!.userHeader.tvCards.setOnClickListener({
-
-        })
+        mBinding!!.userHeader.tvCards.onClick {
+            BookListActivity.navTo(mContext!!, userData.user!!.username!!, userData.user!!.uid!!)
+        }
         if (mEditable) {
             userData.booklist?.add(OriginBook())
             btn_subscrib.visibility = View.GONE

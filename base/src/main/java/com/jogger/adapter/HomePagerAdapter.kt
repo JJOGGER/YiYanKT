@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.viewpager.widget.PagerAdapter
 import com.jogger.entity.TextCard
 import com.jogger.widget.TextCardContainer
+import com.qmuiteam.qmui.kotlin.onClick
 import ex.toActivity
 
 /**
@@ -24,14 +25,14 @@ class HomePagerAdapter : PagerAdapter() {
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
         val cardContainer = TextCardContainer(container.context)
         cardContainer.setData(mDatas.get(position))
-        cardContainer.setOnClickListener({
+        cardContainer.onClick {
             val params = mapOf(
                 ex.TEXT_CARD to mDatas.get(position),
                 ex.POSITION to position,
                 ex.TEXT_CARDS to mDatas
             )
             toActivity(container.context, ex.TEXT_CARD_DETAIL, params)
-        })
+        }
         val params = ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
         container.addView(cardContainer, params)
         return cardContainer

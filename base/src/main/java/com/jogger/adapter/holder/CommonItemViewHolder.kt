@@ -6,41 +6,37 @@ import android.view.Gravity
 import android.view.View
 import android.widget.ImageView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.jogger.base.BaseCardViewHolder
 import com.jogger.base.R
 import com.jogger.constant.CARD_CATEGORY
 import com.jogger.entity.TextCard
 import com.jogger.manager.AssetsManager
-import com.qmuiteam.qmui.widget.QMUIRadiusImageView
 
 class CommonItemViewHolder(view: View, context: Context) : BaseCardViewHolder(view, context) {
 
     override fun convert(card: TextCard) {
         setGone(R.id.text_container, false)
         val imgShow = card.type?.split("_")?.get(1)?.toInt()
-        val image: ImageView?
-        if (!TextUtils.isEmpty(card.picpath)) {
-            if (imgShow == 1) {
-                setVisible(R.id.iv_header, true)
-                setVisible(R.id.iv_header2, false)
-                image = getView(R.id.iv_header)
+        val image: ImageView
+        image =
+            if (imgShow == 1 || imgShow == 11) {
+                setVisible(R.id.fl_header, true)
+                getView(R.id.iv_header)
             } else {
-                image = getView(R.id.iv_header2)
-                setVisible(R.id.iv_header, false)
-                setVisible(R.id.iv_header2, true)
-                if (imgShow == 0) {
-                    (image as QMUIRadiusImageView).isCircle = false
-                }
+                setVisible(R.id.fl_header, true)
+                getView(R.id.iv_header2)
             }
-            getView<View>(R.id.fl_header).visibility = View.VISIBLE
+        if (!TextUtils.isEmpty(card.picpath)) {
             image.visibility = View.VISIBLE
             Glide.with(mContext)
                 .load(card.picpath)
-                .centerCrop()
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .into(image)
         } else {
-            getView<View>(R.id.fl_header).visibility = View.GONE
+            setGone(R.id.fl_header, true)
         }
+
         Glide.with(mContext)
             .load(card.creator?.smallavatar)
             .into(getView(R.id.iv_avatar))

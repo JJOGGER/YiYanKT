@@ -135,16 +135,17 @@ interface ApiService {
     @GET("/yiyan/gettextcardbyuser")
     suspend fun getTextCardByUser(
         @Query("v") v: String,
-        @Query("uid") uid: String
-    )
-
-    //用户首页字句(只看自定义卡片)
-    @GET("/yiyan/gettextcardbyuser")
-    suspend fun getTextCardByUser(
-        @Query("v") v: String,
         @Query("uid") uid: String,
-        @Query("jo") jo: Int
-    )
+        @Query("datetime") dateTime: String?,//最后一条的时间2020-03-04 12:29:40
+        @Query("jo") jo: Int?//(1只看自定义卡片)
+    ): ArticleData
+
+    @GET("/yiyan/gettextcardsinbook")
+    suspend fun getTextCardByBook(
+        @Query("v") v: String,
+        @Query("bookid") bookId: String,
+        @Query("datetime") dateTime: String?//最后一条的时间2020-03-04 12:29:40
+    ): ArticleData
 
     //用户主页我同感的
     @POST("/yiyan/getcommentbyuser")

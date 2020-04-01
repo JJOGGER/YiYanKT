@@ -8,6 +8,7 @@ import com.jogger.entity.UserHomeData
 import com.jogger.module_mine.R
 import com.jogger.module_mine.databinding.MineActivityUserHomeBinding
 import com.jogger.module_mine.fragment.UserHomeFragment
+import com.qmuiteam.qmui.kotlin.onClick
 import ex.USER_HOME_PAGE
 
 @Route(path = USER_HOME_PAGE)
@@ -15,7 +16,7 @@ class UserHomeActivity : BaseActivity<BaseViewModel, MineActivityUserHomeBinding
     override fun getLayoutId() = R.layout.mine_activity_user_home
 
     override fun init(savedInstanceState: Bundle?) {
-        mTopBar.addLeftBackImageButton().setOnClickListener({ finish() })
+        mTopBar.addLeftBackImageButton().onClick {finish() }
         val userData: UserHomeData? = intent.getParcelableExtra(ex.USER_DATA)
         supportFragmentManager.beginTransaction()
             .replace(

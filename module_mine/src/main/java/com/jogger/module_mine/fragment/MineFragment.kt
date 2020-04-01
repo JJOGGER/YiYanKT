@@ -8,6 +8,7 @@ import com.jogger.manager.QDSkinManager
 import com.jogger.module_mine.R
 import com.jogger.module_mine.databinding.MineFragmentMineBinding
 import com.jogger.utils.MConfig
+import com.qmuiteam.qmui.kotlin.onClick
 import ex.MODULE_MINE_MAIN
 
 /**
@@ -24,13 +25,13 @@ class MineFragment : BaseFragment<BaseViewModel, MineFragmentMineBinding>() {
         childFragmentManager.beginTransaction()
             .replace(R.id.fl_user_home, UserHomeFragment.getInstance(MConfig.getLoginResult()))
             .commit()
-        mBinding!!.ibtnLightMode.setOnClickListener({
+        mBinding!!.ibtnLightMode.onClick {
             if (QDSkinManager.getCurrentSkin() == QDSkinManager.SKIN_WHITE) {
                 QDSkinManager.changeSkin(QDSkinManager.SKIN_DARK)
             } else {
                 QDSkinManager.changeSkin(QDSkinManager.SKIN_WHITE)
             }
 
-        })
+        }
     }
 }
