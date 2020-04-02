@@ -153,7 +153,8 @@ interface ApiService {
         @Query("v") v: String,
         @Query("u") uid: String,
         @Query("ml") ml: Int?,//1表示同感列表，其他用户ml mc不传默认同感
-        @Query("mc") mc: Int?//1表示评论列表
+        @Query("mc") mc: Int?,//1表示评论列表
+        @Query("ltid") lastCommentId: String?
     ): CommentResponse
 
     /**

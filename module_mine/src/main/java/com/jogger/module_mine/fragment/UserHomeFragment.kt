@@ -8,9 +8,11 @@ import com.jogger.entity.OriginBook
 import com.jogger.entity.UserHomeData
 import com.jogger.module_mine.R
 import com.jogger.module_mine.activity.BookListActivity
+import com.jogger.module_mine.activity.UserCommentsActivity
 import com.jogger.module_mine.databinding.MineFragmentUserHomeBinding
 import com.jogger.module_mine.viewmodel.UserHomeViewModel
 import com.jogger.module_mine.widget.BookRecyclerView
+import com.jogger.utils.MConfig
 import com.qmuiteam.qmui.kotlin.onClick
 import kotlinx.android.synthetic.main.mine_fragment_user_home.*
 import kotlinx.android.synthetic.main.mine_rv_user_header.*
@@ -23,6 +25,7 @@ class UserHomeFragment :
     BaseFragment<UserHomeViewModel, MineFragmentUserHomeBinding>(), BookRecyclerView.onItemClickListener {
     private var mEditable: Boolean = true
     private var mUid: String? = null
+    private var mIsMine: Boolean = false
 
     companion object {
         fun getInstance(userData: UserHomeData): UserHomeFragment {
@@ -44,16 +47,20 @@ class UserHomeFragment :
 
     override fun initView(savedInstanceState: Bundle?) {
         val userData: UserHomeData? = arguments!!.get(ex.USER_DATA) as UserHomeData?
+        if (userData == null) {
+            mUid = arguments!!.get(ex.UID) as String
+        } else {
+            mUid = userData.user!!.uid!!
+        }
         srl_refresh.setEnableLoadMore(false)
         srl_refresh.setOnRefreshListener({
-            if (userData == null) {
-                mUid = arguments!!.get(ex.UID) as String
-            } else {
-                mUid = userData.user!!.uid!!
-            }
             mViewModel.getUserInfo(mUid!!)
         })
         rv_content.setOnItemClickListener(this)
+        mViewModel.mUserHomeDataLiveData.observe(this, Observer {
+            initData(it)
+        })
+        initClick()
         if (userData == null) {
             mEditable = false
             val uid: String = arguments!!.get(ex.UID) as String
@@ -62,9 +69,17 @@ class UserHomeFragment :
             mEditable = true
             initData(userData)
         }
-        mViewModel.mUserHomeDataLiveData.observe(this, Observer {
-            initData(it)
-        })
+    }
+
+    private fun initClick() {
+        mBinding!!.userHeader.tvBooks.onClick {
+            if (mBinding!!.userHeader.userData == null) return@onClick
+            BookListActivity.navTo(mContext!!, mBinding!!.userHeader.userData!!.username!!, mUid!!)
+        }
+        mBinding!!.userHeader.tvSameFeel.onClick {
+            if (mBinding!!.userHeader.userData == null) return@onClick
+            UserCommentsActivity.navTo(mContext!!, mUid!!)
+        }
     }
 
     private fun initData(userData: UserHomeData?) {
@@ -75,6 +90,12 @@ class UserHomeFragment :
             it.cardcnt != 0
         }?.forEach {
             cardCount = cardCount + it.cardcnt
+        }
+        mIsMine = userData.user!!.uid == MConfig.getLoginResult().user!!.uid
+        if (mIsMine) {
+            mBinding!!.userHeader.tvSameFeel.text = "我同感的"
+        } else {
+            mBinding!!.userHeader.tvSameFeel.text = "同感"
         }
         mBinding!!.userHeader.cardCount = cardCount.toString()
         mBinding!!.userHeader.tvCards.onClick {

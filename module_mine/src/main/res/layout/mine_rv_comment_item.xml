@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+        <TextView
+                android:id="@+id/tv_title"
+                android:paddingStart="@dimen/dp_8"
+                android:textSize="@dimen/text_size_16"
+                tools:text="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+                android:paddingEnd="@dimen/dp_16"
+                android:paddingTop="@dimen/dp_4"
+                android:paddingBottom="@dimen/dp_4"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toEndOf="@id/v_line"
+                app:qmui_skin_text_color="?attr/app_skin_card_text_color"
+                android:layout_width="0dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_height="wrap_content"/>
+
+        <View
+                app:layout_constraintStart_toStartOf="parent"
+                android:id="@+id/v_line"
+                android:paddingTop="@dimen/dp_4"
+                android:paddingBottom="@dimen/dp_4"
+                app:qmui_skin_background="?attr/app_skin_line_comment_color"
+                android:layout_marginStart="@dimen/dp_12"
+                app:layout_constraintTop_toTopOf="@id/tv_title"
+                app:layout_constraintBottom_toBottomOf="@id/tv_title"
+                android:layout_width="@dimen/dp_2"
+                tools:background="@color/qmui_config_color_pure_black"
+                android:layout_height="0dp"/>
+
+        <ImageView
+                android:layout_width="@dimen/dp_20"
+                android:id="@+id/iv_avater"
+                app:layout_constraintTop_toBottomOf="@id/v_line"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="@dimen/dp_12"
+                android:layout_marginTop="@dimen/dp_8"
+                android:scaleType="centerCrop"
+                android:src="@drawable/yy_default_avatar"
+                android:layout_height="@dimen/dp_20"/>
+
+        <TextView
+                tools:text="同感了这篇"
+                app:layout_constraintTop_toTopOf="@id/iv_avater"
+                android:paddingTop="@dimen/dp_4"
+                app:layout_constraintStart_toEndOf="@id/iv_avater"
+                android:paddingStart="@dimen/dp_8"
+                android:layout_width="0dp"
+                android:paddingBottom="@dimen/dp_16"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_height="wrap_content"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

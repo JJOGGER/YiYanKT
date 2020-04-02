@@ -148,9 +148,7 @@ class BookListActivity : BaseActivity<BookListViewModel, ViewDataBinding>(), OnI
             R.id.iv_avatar,
             R.id.tv_nickname
             -> {
-                val map = HashMap<String, Any>()
-                map.put(UID, textCard.creator!!.uid!!)
-                toActivity(mContext, USER_HOME_PAGE, map)
+                UserHomeActivity.navTo(mContext, textCard.creator!!.uid!!)
             }
             R.id.tv_book -> {
                 navTo(mContext, textCard.originbook)

@@ -43,6 +43,7 @@
     <attr name="qmui_skin_topic_tab_selected_color" format="color|reference"/>
     <attr name="app_skin_text_selected_color" format="color|reference"/>
     <attr name="app_skin_book_background" format="color|reference"/>
+    <attr name="app_skin_line_comment_color" format="color"/>
 
     <style name="login_logoTheme" parent="QMUI.Compat.NoActionBar">
         <item name="windowNoTitle">true</item>
@@ -80,6 +81,7 @@
         <item name="app_skin_common_background">@color/qmui_config_color_white</item>
         <item name="app_skin_common_background_1">@color/qmui_config_color_background</item>
         <item name="app_skin_book_background">@color/qmui_config_color_background</item>
+        <item name="app_skin_line_comment_color">@color/qmui_config_color_pure_black</item>
         <item name="app_skin_home_text_color">@color/qmui_config_color_gray_8</item>
         <item name="app_skin_card_tag_color">@color/qmui_config_color_gray_1</item>
         <item name="app_skin_common_title_text_color">@color/color_333333</item>
@@ -190,6 +192,7 @@
         <item name="app_skin_common_background">@color/main_black</item>
         <item name="app_skin_common_background_1">@color/sub_black</item>
         <item name="app_skin_book_background">@color/main_black</item>
+        <item name="app_skin_line_comment_color">@color/qmui_config_color_gray_6</item>
         <item name="app_skin_common_img_tint_color">@color/qmui_config_color_gray_6</item>
         <item name="app_skin_card_function_tint_color">@color/qmui_config_color_gray_6</item>
         <item name="app_skin_card_text_color">@color/qmui_config_color_50_white</item>

@@ -157,7 +157,6 @@
                 android:paddingBottom="@dimen/dp_16"
                 app:layout_constraintTop_toTopOf="@id/tv_cards"
                 android:textSize="@dimen/text_size_16"
-                android:text="同感"
                 android:id="@+id/tv_same_feel"
                 android:gravity="center"
                 app:qmui_skin_text_color="?attr/app_skin_common_title_text_color"

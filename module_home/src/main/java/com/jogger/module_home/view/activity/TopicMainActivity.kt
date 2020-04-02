@@ -1,10 +1,7 @@
 package com.jogger.module_home.view.activity
 
 import android.os.Bundle
-import android.text.SpannableStringBuilder
-import android.text.Spanned
 import android.text.TextUtils
-import android.text.style.ImageSpan
 import android.view.View
 import androidx.core.widget.NestedScrollView
 import com.alibaba.android.arouter.facade.annotation.Route
@@ -12,22 +9,20 @@ import com.jogger.base.BaseActivity
 import com.jogger.base.BaseViewModel
 import com.jogger.entity.TextCard
 import com.jogger.module_home.R
-import com.jogger.module_home.adapter.TopicMainPageAdapter
 import com.jogger.module_home.databinding.HomeActivityTopicMainBinding
 import com.jogger.module_home.view.fragment.TopicMainFragment
+import com.jogger.widget.CommonPage2Adapter
 import com.qmuiteam.qmui.kotlin.onClick
 import com.qmuiteam.qmui.widget.tab.QMUITab
 import com.qmuiteam.qmui.widget.tab.TabMediator
 import ex.TEXT_CARD
 import ex.TOPIC_MIAN_DETAIL
-import ex.sApplication
 import kotlinx.android.synthetic.main.home_activity_topic_main.*
 
 @Route(path = TOPIC_MIAN_DETAIL)
 class TopicMainActivity : BaseActivity<BaseViewModel, HomeActivityTopicMainBinding>() {
     private var mTabPosition: Float? = null
-    private var mSpannable = SpannableStringBuilder("[icon] ")
-    lateinit var mAdapter: TopicMainPageAdapter
+    lateinit var mAdapter: CommonPage2Adapter
     override fun getLayoutId() = R.layout.home_activity_topic_main
     override fun init(savedInstanceState: Bundle?) {
         mTopBar.addLeftBackImageButton().onClick { finish() }
@@ -39,13 +34,8 @@ class TopicMainActivity : BaseActivity<BaseViewModel, HomeActivityTopicMainBindi
             add(TopicMainFragment.getInstance(TopicMainFragment.TYPE_ALL, textCard.textcardid!!))
             add(TopicMainFragment.getInstance(TopicMainFragment.TYPE_HOT, textCard.textcardid!!))
         }
-        mAdapter = TopicMainPageAdapter(this, fragments)
+        mAdapter = CommonPage2Adapter(this, fragments)
         vp_content.adapter = mAdapter
-
-        val drawable = sApplication.resources.getDrawable(R.drawable.icon_topicmark_3x)
-        drawable.setBounds(0, 0, drawable.intrinsicWidth, drawable.intrinsicHeight)
-        val imageSpan1 = ImageSpan(drawable, ImageSpan.ALIGN_BASELINE)
-        mSpannable.setSpan(imageSpan1, 0, 6, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
 
         initTab()
         nsv_root.setOnScrollChangeListener(object : NestedScrollView.OnScrollChangeListener {

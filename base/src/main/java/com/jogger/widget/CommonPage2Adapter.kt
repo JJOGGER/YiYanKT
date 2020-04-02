@@ -1,4 +1,4 @@
-package com.jogger.module_home.adapter
+package com.jogger.widget
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -8,7 +8,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
  * Created by jogger on 2020/3/27
  * 描述：
  */
-class TopicMainPageAdapter(activity: FragmentActivity, fragments: ArrayList<out Fragment>) :
+class CommonPage2Adapter(activity: FragmentActivity, fragments: ArrayList<out Fragment>) :
     FragmentStateAdapter(activity) {
     var mFragments = fragments
     override fun getItemCount(): Int = mFragments.size
