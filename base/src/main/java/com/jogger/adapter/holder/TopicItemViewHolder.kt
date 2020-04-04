@@ -37,7 +37,7 @@ class TopicItemViewHolder(view: View, context: Context) : BaseCardViewHolder(vie
                 image = getView(R.id.iv_header2)
                 setVisible(R.id.iv_header, false)
                 setVisible(R.id.iv_header2, true)
-                if (imgShow == 0) {
+                if (imgShow != 0) {
                     (image as QMUIRadiusImageView).isCircle = false
                 }
             }

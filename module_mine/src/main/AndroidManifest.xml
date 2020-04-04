@@ -3,6 +3,10 @@
           package="com.jogger.module_mine">
 
     <application>
+        <activity android:name=".activity.UserFollowersActivity">
+        </activity>
+        <activity android:name=".activity.UserWritersActivity">
+        </activity>
         <activity android:name=".activity.UserCommentsActivity">
         </activity>
         <activity android:name=".activity.UserHomeActivity">

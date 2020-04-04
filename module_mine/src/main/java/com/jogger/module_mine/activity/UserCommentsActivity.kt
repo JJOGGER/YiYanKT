@@ -10,6 +10,7 @@ import com.jogger.module_mine.databinding.MineActivityUserCommentsBinding
 import com.jogger.module_mine.fragment.UserCommentsFragment
 import com.jogger.utils.MConfig
 import com.jogger.widget.CommonPage2Adapter
+import com.qmuiteam.qmui.kotlin.onClick
 import com.qmuiteam.qmui.widget.tab.QMUITab
 import com.qmuiteam.qmui.widget.tab.QMUITabIndicator
 import com.qmuiteam.qmui.widget.tab.QMUITabSegment
@@ -43,6 +44,7 @@ class UserCommentsActivity : BaseActivity<BaseViewModel, MineActivityUserComment
     }
 
     override fun init(savedInstanceState: Bundle?) {
+        mTopBar.addLeftBackImageButton().onClick { finish() }
         vp_content.adapter = mAdapter
         if (mIsMine) {
             val fragment = QMUITabSegment(mContext).apply {

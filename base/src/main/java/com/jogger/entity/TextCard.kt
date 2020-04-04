@@ -9,7 +9,7 @@ import ex.readMutableList
 data class TextCard(
     val picpath: String? = null,
     val MoreTagsData: MoreTagsData? = null,
-    val subcardlist: MutableList<TextCard> = arrayListOf(),
+    var subcardlist: MutableList<TextCard>?,
     val ava: String? = null,
     val commentcnt: Int = 0,
     val commercialtag: String? = null,
@@ -24,11 +24,12 @@ data class TextCard(
     val category: Int = 0,
     val title: String? = null,
     val rec: String? = null,
-    val original: Int= 0,
+    val original: Int = 0,
     val showtime: String? = null,
     val priv: String? = null,
     val replycnt: Int = 0,
-    val datetime: String? = null
+    val datetime: String? = null,
+    val dislikecnt: Int = 0
 ) : MultiItemEntity, Parcelable {
     override var itemType: Int = category
         set(category) {
@@ -58,13 +59,16 @@ data class TextCard(
         parcel.readString(),
         parcel.readString(),
         parcel.readInt(),
-        parcel.readString()
+        parcel.readString(),
+        parcel.readInt()
     ) {
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(picpath)
         parcel.writeParcelable(MoreTagsData, flags)
+        if (subcardlist == null)
+            subcardlist = arrayListOf()
         parcel.writeList(subcardlist)
         parcel.writeString(ava)
         parcel.writeInt(commentcnt)
@@ -85,6 +89,7 @@ data class TextCard(
         parcel.writeString(priv)
         parcel.writeInt(replycnt)
         parcel.writeString(datetime)
+        parcel.writeInt(dislikecnt)
     }
 
     override fun describeContents(): Int {

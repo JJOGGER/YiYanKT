@@ -29,6 +29,7 @@ class TextProxy(binding: HomeDetailTextViewBinding, context: Activity) :
                 mBinding.ivHeader2
             } else {
                 mBinding.clImgTxtView.visibility = View.VISIBLE
+                mBinding.flImgShadow.visibility = View.VISIBLE
                 mBinding.ivHeader3
             }
         if (!TextUtils.isEmpty(card.picpath)) {

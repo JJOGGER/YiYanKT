@@ -16,6 +16,7 @@ import com.jogger.module_mine.databinding.MineFragmentUserCommentsBinding
 import com.jogger.module_mine.viewmodel.UserCommentsViewModel
 import com.scwang.smartrefresh.layout.api.RefreshLayout
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener
+import ex.toActivity
 import kotlinx.android.synthetic.main.mine_fragment_user_comments.*
 
 /**
@@ -79,12 +80,17 @@ class UserCommentsFragment : BaseFragment<UserCommentsViewModel, MineFragmentUse
     override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
         val commentData = adapter.getItem(position) as CommentData?
         if (commentData == null) return
+        UserHomeActivity.navTo(mContext!!, mUid)
+
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
         val commentData = adapter.getItem(position) as CommentData?
         if (commentData == null) return
         UserHomeActivity.navTo(mContext!!, mUid)
+        val map = HashMap<String, Any>()
+        map.put(ex.TEXT_CARDS, listOf(commentData.textcard))
+        toActivity(mContext!!, ex.TEXT_CARD_DETAIL, map)
     }
 
     override fun onLoadMore(refreshLayout: RefreshLayout) {

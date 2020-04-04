@@ -56,23 +56,29 @@ class TextCardContainer : FrameLayout {
     fun setData(card: TextCard) {
         val imgShow = card.type?.split("_")?.get(1)?.toInt()//0圆图，1方形图
         val image: ImageView
-        if (imgShow == 1) {
-            image = mBinding.headerLayout.ivHeader
-        } else {
-            image = mBinding.headerLayout.ivHeader2
-            if (imgShow != 0) {
-                image.isCircle = false
-            }
-        }
         if (!TextUtils.isEmpty(card.picpath)) {
+            if (imgShow == 1) {
+                mBinding.headerLayout.ivHeader.visibility=View.VISIBLE
+                mBinding.headerLayout.ivHeader2.visibility=View.GONE
+                image = mBinding.headerLayout.ivHeader
+            } else {
+                mBinding.headerLayout.ivHeader.visibility=View.GONE
+                mBinding.headerLayout.ivHeader2.visibility=View.VISIBLE
+                image = mBinding.headerLayout.ivHeader2
+                if (imgShow == 0) {
+                    image.isCircle = false
+                }
+            }
             mBinding.headerLayout.flHeader.visibility = View.VISIBLE
             image.visibility = View.VISIBLE
             Glide.with(this)
                 .load(card.picpath)
+                .centerCrop()
                 .into(image)
         } else {
             mBinding.headerLayout.flHeader.visibility = View.GONE
         }
+
         if (!TextUtils.isEmpty(card.title)) {
             mBinding.textLayout.tvTextTitle.text = card.title
         }
@@ -93,7 +99,12 @@ class TextCardContainer : FrameLayout {
             map.put(ex.IS_HOT, false)
             toActivity(context, COMMENT_DETAIL, map)
         }
-
+//        mBinding.commonBottom.tvLike.onClick {
+//            launchOnlyresult({
+//                card.
+//                ArticleActionDataSource.newLike()
+//            }, {})
+//        }
         mBinding.tvCreated.typeface = AssetsManager.getFontTypeFace(AssetsManager.ASSETS_FONT4)
         mBinding.tvCategory.typeface = mBinding.tvCreated.typeface
         mBinding.topicBottom.tvTopicReply.typeface = mBinding.tvCreated.typeface

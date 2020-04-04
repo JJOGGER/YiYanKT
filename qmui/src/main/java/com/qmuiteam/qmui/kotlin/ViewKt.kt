@@ -20,10 +20,10 @@ fun throttleClick(wait: Long = 200, block: ((View) -> Unit)): View.OnClickListen
 fun debounceClick(wait: Long = 200, block: ((View) -> Unit)): View.OnClickListener {
     return View.OnClickListener { v ->
         var action = (v.getTag(R.id.qmui_click_debounce_action) as? DebounceAction)
-        if(action == null){
+        if (action == null) {
             action = DebounceAction(v, block)
             v.setTag(R.id.qmui_click_debounce_action, action)
-        }else{
+        } else {
             action.block = block
         }
         v.removeCallbacks(action)
@@ -31,9 +31,9 @@ fun debounceClick(wait: Long = 200, block: ((View) -> Unit)): View.OnClickListen
     }
 }
 
-class DebounceAction(val view: View,  var block: ((View) -> Unit)): Runnable {
+class DebounceAction(val view: View, var block: ((View) -> Unit)) : Runnable {
     override fun run() {
-        if(view.isAttachedToWindow){
+        if (view.isAttachedToWindow) {
             block(view)
         }
     }
@@ -43,11 +43,17 @@ fun View.onClick(wait: Long = 200, block: ((View) -> Unit)) {
     setOnClickListener(throttleClick(wait, block))
 }
 
+fun registOnClicks(vararg views: View, block: (View) -> Unit) {
+    views.forEach {
+        it.setOnClickListener(throttleClick(200, block))
+    }
+}
+
 fun View.onDebounceClick(wait: Long = 200, block: ((View) -> Unit)) {
     setOnClickListener(debounceClick(wait, block))
 }
 
-fun View.skin(block:((QMUISkinValueBuilder) -> Unit)){
+fun View.skin(block: ((QMUISkinValueBuilder) -> Unit)) {
     val builder = QMUISkinValueBuilder.acquire();
     block(builder)
     QMUISkinHelper.setSkinValue(this, builder)

@@ -59,7 +59,11 @@ class TextCardDetailActivity : BaseActivity<TextCardDetailViewModel, ViewDataBin
         }
         vp_content.adapter = TextCardDetailAdapter(this, mFragments)
         srl_refresh.setEnableRefresh(false)
-        srl_refresh.setOnLoadMoreListener(this)
+        if (mTextCards.size == 1) {
+            srl_refresh.setEnableLoadMore(false)
+        } else {
+            srl_refresh.setOnLoadMoreListener(this)
+        }
         vp_content.setCurrentItem(mPosition, false)
         vp_content.offscreenPageLimit = 3
         vp_content.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {

@@ -9,11 +9,14 @@ import com.jogger.entity.UserHomeData
 import com.jogger.module_mine.R
 import com.jogger.module_mine.activity.BookListActivity
 import com.jogger.module_mine.activity.UserCommentsActivity
+import com.jogger.module_mine.activity.UserFollowersActivity
+import com.jogger.module_mine.activity.UserWritersActivity
 import com.jogger.module_mine.databinding.MineFragmentUserHomeBinding
 import com.jogger.module_mine.viewmodel.UserHomeViewModel
 import com.jogger.module_mine.widget.BookRecyclerView
 import com.jogger.utils.MConfig
 import com.qmuiteam.qmui.kotlin.onClick
+import com.qmuiteam.qmui.kotlin.registOnClicks
 import kotlinx.android.synthetic.main.mine_fragment_user_home.*
 import kotlinx.android.synthetic.main.mine_rv_user_header.*
 
@@ -80,6 +83,13 @@ class UserHomeFragment :
             if (mBinding!!.userHeader.userData == null) return@onClick
             UserCommentsActivity.navTo(mContext!!, mUid!!)
         }
+        registOnClicks(mBinding!!.userHeader.tvSubcribeTitle, mBinding!!.userHeader.tvSubcribe, block = {
+            UserWritersActivity.navTo(mContext!!, mUid!!)
+        })
+        registOnClicks(mBinding!!.userHeader.tvFansTitle, mBinding!!.userHeader.tvFans, block = {
+            UserFollowersActivity.navTo(mContext!!, mUid!!)
+        })
+        mBinding!!.userHeader.tvFansTitle.onClick { }
     }
 
     private fun initData(userData: UserHomeData?) {

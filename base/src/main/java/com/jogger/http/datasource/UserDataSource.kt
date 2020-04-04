@@ -10,4 +10,10 @@ object UserDataSource : BaseDataSource() {
 
     suspend fun getCommentByUser(uid: String, ml: Int?, mc: Int?, lastCommentId: String?) =
         mService.getCommentByuser(APP_VERSION, uid, ml, mc, lastCommentId)
+
+    suspend fun getwriters(uid: String, dateTime: String?, i: Int?) =
+        mService.getwriters(APP_VERSION, uid, dateTime, i)
+
+    suspend fun getFollowers(uid: String, dateTime: String?, i: Int?) =
+        mService.getFollowers(APP_VERSION, uid, dateTime, i)
 }

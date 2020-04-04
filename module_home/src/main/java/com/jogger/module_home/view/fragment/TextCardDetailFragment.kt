@@ -2,6 +2,7 @@ package com.jogger.module_home.view.fragment
 
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 import com.jogger.base.BaseFragment
 import com.jogger.constant.CARD_CATEGORY
 import com.jogger.entity.TextCard
@@ -21,6 +22,7 @@ import com.jogger.module_home.view.viewmodel.TextCardDetailViewModel
 class TextCardDetailFragment :
     BaseFragment<TextCardDetailViewModel, HomeFragmentTextCardDetailBinding>() {
     private lateinit var mDelegate: BaseProxy<*>
+    private lateinit var mTextCard: TextCard
 
     companion object {
         fun getInstance(textCard: TextCard, position: Int): TextCardDetailFragment {
@@ -35,23 +37,33 @@ class TextCardDetailFragment :
 
     override fun layoutId() = R.layout.home_fragment_text_card_detail
     override fun initView(savedInstanceState: Bundle?) {
-
+        if (arguments == null) return
+        mTextCard = arguments!!.getParcelable(ex.TEXT_CARD)!!
     }
 
     override fun lazyLoadData() {
         super.lazyLoadData()
-        if (arguments == null) return
-        val textCard = arguments!!.getParcelable<TextCard>(ex.TEXT_CARD)!!
-        mBinding!!.textCard = textCard
-        when (textCard.category) {
+        mBinding!!.textCard = mTextCard
+        when (mTextCard.category) {
             CARD_CATEGORY.TYPE_TEXT._value,
             CARD_CATEGORY.TYPE_POETRY._value,
             CARD_CATEGORY.TYPE_FILM._value,
             CARD_CATEGORY.TYPE_RECORD._value,
             CARD_CATEGORY.TYPE_WORD._value -> {
-                val inflate = mBinding!!.viewText.viewStub?.inflate()
-                val binding = DataBindingUtil.getBinding<HomeDetailTextViewBinding>(inflate!!)!!
-                mDelegate = TextProxy(binding, mContext!!)
+                if (!mBinding!!.viewText.isInflated) {
+                    val inflate = mBinding!!.viewText.viewStub?.inflate()
+                    val binding = DataBindingUtil.getBinding<HomeDetailTextViewBinding>(inflate!!)!!
+                    binding.srlRefresh.setEnableLoadMore(false)
+                    mViewModel.mTextCardLiveData.observe(this, Observer {
+                        binding.srlRefresh.closeHeaderOrFooter()
+                        mTextCard = it
+                        lazyLoadData()
+                    })
+                    binding.srlRefresh.setOnRefreshListener {
+                        mViewModel.getTextCard(mTextCard.textcardid!!)
+                    }
+                    mDelegate = TextProxy(binding, mContext!!)
+                }
                 mDelegate.initView()
             }
             CARD_CATEGORY.TYPE_TOPIC._value -> {

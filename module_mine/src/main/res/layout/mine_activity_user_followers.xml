@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:layout_width="match_parent"
+            android:id="@+id/srl_refresh"
+            android:layout_height="match_parent"
+            app:qmui_skin_background="?attr/app_skin_common_background_1"
+            tools:context=".activity.UserFollowersActivity">
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                app:qmui_skin_background="?attr/app_skin_common_background"
+                android:id="@+id/rv_content"
+                android:layout_height="wrap_content"/>
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+</layout>

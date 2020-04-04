@@ -18,6 +18,7 @@ class TextCardDetailViewModel : BaseViewModel() {
     val mTextCardsLiveData = MutableLiveData<MutableList<TextCard>>()
     val mTextCardsMoreLiveData = MutableLiveData<MutableList<TextCard>>()
     val mTextCardsFailureLiveData = MutableLiveData<Any>()
+    val mTextCardLiveData = MutableLiveData<TextCard>()
     var mLastCardId: String? = null
     var mMoreExtra: String? = null
     fun getSubcribeArticles(feedid: String?) {
@@ -57,6 +58,17 @@ class TextCardDetailViewModel : BaseViewModel() {
         }, {
             defUI.toastEvent.postValue("${it.errorcode}:${it.errormsg}")
             mTextCardsFailureLiveData.value = it.errorcode
+        })
+    }
+
+    fun getTextCard(cardId: String) {
+        launchOnlyresult({
+            HomeDataSource.getTextCard(cardId)
+        }, {
+            if (it != null)
+                mTextCardLiveData.value = it
+        }, {
+            defUI.toastEvent.postValue(it.errormsg)
         })
     }
 }

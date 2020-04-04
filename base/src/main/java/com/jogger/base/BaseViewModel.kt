@@ -28,28 +28,6 @@ open class BaseViewModel : ViewModel(), LifecycleObserver {
         }
     }
 
-//    fun launchGo(
-//        block: suspend CoroutineScope.() -> Unit,
-//        error: suspend CoroutineScope.(ResponseThrowable) -> Unit = {
-//            defUI.toastEvent.postValue("${it.code}:${it.errMsg}")
-//        },
-//        complete: suspend CoroutineScope.() -> Unit = {},
-//        isShowDialog: Boolean = true
-//    ) {
-//        if (isShowDialog) defUI.showDialog.call()
-//        launchUI {
-//            handleException(
-//                withContext(Dispatchers.IO) { block },
-//
-//                { error(it) },
-//                {
-//                    defUI.dismissDialog.call()
-//                    complete()
-//                }
-//            )
-//        }
-//    }
-
     private suspend fun <T> executeResponse(res: T, success: suspend CoroutineScope.(T) -> Unit) {
         coroutineScope {
             if (res != null)

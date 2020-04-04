@@ -62,7 +62,7 @@ class BookListActivity : BaseActivity<BookListViewModel, ViewDataBinding>(), OnI
             if (book == null) return
             mTopBar.setTitle(book.bookname)
             mViewModel.mBookId = book.bookid!!
-        } else {
+        } else {//当前不为空,表示从用户主页字句跳转
             mTopBar.setTitle(intent.getStringExtra(ex.TITLE))
         }
         mTopBar.addLeftBackImageButton().onClick { finish() }
@@ -151,7 +151,12 @@ class BookListActivity : BaseActivity<BookListViewModel, ViewDataBinding>(), OnI
                 UserHomeActivity.navTo(mContext, textCard.creator!!.uid!!)
             }
             R.id.tv_book -> {
-                navTo(mContext, textCard.originbook)
+                if (mViewModel.mUid != null) {
+                    navTo(mContext, textCard.originbook)
+                } else {
+                    mViewModel.mBookId = textCard.originbook!!.bookid!!
+                    srl_refresh.autoRefresh()
+                }
             }
         }
 

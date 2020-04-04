@@ -36,7 +36,10 @@ object ExceptionHandle {
         } else if (e is java.net.UnknownHostException) {
             ex = ResponseThrowable(ERROR.TIMEOUT_ERROR, e)
         } else {
-            ex = if (e.message.isNullOrEmpty()) ResponseThrowable(1000, e.message!!, e)
+            ex = if (e.message.isNullOrEmpty()) {
+                e.printStackTrace()
+                ResponseThrowable(1000, "", e)
+            }
             else ResponseThrowable(ERROR.UNKNOWN, e)
         }
         return ex

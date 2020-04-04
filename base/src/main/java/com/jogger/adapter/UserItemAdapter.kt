@@ -1,10 +1,10 @@
-package com.jogger.module_star.adapter
+package com.jogger.adapter
 
 import com.bumptech.glide.Glide
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
+import com.jogger.base.R
 import com.jogger.entity.UserData
-import com.jogger.module_star.R
 
 /**
  * Created by jogger on 2020/3/13
@@ -12,10 +12,10 @@ import com.jogger.module_star.R
  */
 class UserItemAdapter :
     BaseQuickAdapter<UserData, BaseViewHolder>(R.layout.star_rv_user_item) {
-    override fun convert(helper: BaseViewHolder, item: UserData) {
-        helper.setText(R.id.tv_nickname, item.username)
+    override fun convert(holder: BaseViewHolder, item: UserData) {
+        holder.setText(R.id.tv_nickname, item.username)
         Glide.with(context)
             .load(item.smallavatar)
-            .into(helper.getView(R.id.iv_avatar))
+            .into(holder.getView(R.id.iv_avatar))
     }
 }

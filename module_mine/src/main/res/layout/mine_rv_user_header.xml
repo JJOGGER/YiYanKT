@@ -89,8 +89,9 @@
                 android:paddingTop="@dimen/dp_20"
                 android:layout_marginStart="@dimen/dp_50"
                 android:text="@{String.valueOf(userData.followcnt)}"
-                android:id="@+id/tv_follow"
+                android:id="@+id/tv_subcribe"
                 android:textSize="@dimen/text_size_15"
+                tools:text="111"
                 app:qmui_skin_text_color="?attr/app_skin_common_title_text_color"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
@@ -98,10 +99,11 @@
         <TextView
                 app:typeface="@{1}"
                 android:text="订阅"
+                android:id="@+id/tv_subcribe_title"
                 android:textSize="@dimen/text_size_14"
                 app:qmui_skin_text_color="?attr/app_skin_card_tag_color"
-                app:layout_constraintLeft_toLeftOf="@id/tv_follow"
-                app:layout_constraintTop_toBottomOf="@+id/tv_follow"
+                app:layout_constraintLeft_toLeftOf="@id/tv_subcribe"
+                app:layout_constraintTop_toBottomOf="@+id/tv_subcribe"
                 android:layout_width="wrap_content"
                 android:paddingTop="@dimen/dp_2"
                 android:layout_height="wrap_content"/>

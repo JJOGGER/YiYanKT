@@ -6,6 +6,9 @@ object HomeDataSource : BaseDataSource() {
     suspend fun getTextCardsByType(type: Int, lastCardId: String?, moreextra: String?) =
         mService.getStarTextCardsByType(APP_VERSION, lastCardId, moreextra, type)
 
+    suspend fun getTextCard( cardId: String) =
+        mService.getTextCard(APP_VERSION, cardId)
+
     suspend fun getAllStarTextCards(lastCardId: String?, moreextra: String?) =
         mService.getAllStarTextCards(APP_VERSION, lastCardId, moreextra)
 

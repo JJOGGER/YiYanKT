@@ -12,10 +12,11 @@ data class UserData(
     val actype: Int = 0,
     val fanscnt: Int = 0,
     val followcnt: Int = 0,
+    val followdatetime: String? = null,//2019-11-28 21:13:45.0
     val smallavatar: String? = null,
     val largeavatar: String? = null,
     val viptype: Int = 1
-):Parcelable{
+) : Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString(),
         parcel.readString(),
@@ -27,12 +28,9 @@ data class UserData(
         parcel.readInt(),
         parcel.readString(),
         parcel.readString(),
+        parcel.readString(),
         parcel.readInt()
     ) {
-    }
-
-    override fun toString(): String {
-        return "UserData(uid=$uid, username=$username, device=$device, gender=$gender, account=$account, actype=$actype, fanscnt=$fanscnt, followcnt=$followcnt, smallavatar=$smallavatar, largeavatar=$largeavatar, viptype=$viptype)"
     }
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
@@ -44,6 +42,7 @@ data class UserData(
         parcel.writeInt(actype)
         parcel.writeInt(fanscnt)
         parcel.writeInt(followcnt)
+        parcel.writeString(followdatetime)
         parcel.writeString(smallavatar)
         parcel.writeString(largeavatar)
         parcel.writeInt(viptype)

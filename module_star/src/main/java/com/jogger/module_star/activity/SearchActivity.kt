@@ -9,11 +9,11 @@ import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.jogger.adapter.HomePagerAdapter
+import com.jogger.adapter.UserItemAdapter
 import com.jogger.base.BaseActivity
 import com.jogger.entity.TextCard
 import com.jogger.entity.UserData
 import com.jogger.module_star.R
-import com.jogger.module_star.adapter.UserItemAdapter
 import com.jogger.module_star.databinding.StarActivitySearchBinding
 import com.jogger.module_star.viewmodel.SearchViewModel
 import com.qmuiteam.qmui.kotlin.onClick

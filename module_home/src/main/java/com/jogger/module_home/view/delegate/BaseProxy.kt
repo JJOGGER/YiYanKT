@@ -54,7 +54,7 @@ abstract class BaseProxy<T>(binding: T, context: Activity) : BaseViewModel() {
      */
     fun likeArticle(cardId: String) {
         mBottomBinding!!.ibtnLike.isSelected = !mBottomBinding!!.tvLike.isSelected
-        if (mIsLike) {
+        if (!mIsLike) {
             launchOnlyresult({
                 ArticleActionDataSource.newLike(cardId)
             }, {

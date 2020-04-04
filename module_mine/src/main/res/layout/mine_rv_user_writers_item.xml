@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <FrameLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_48">
+
+        <com.qmuiteam.qmui.widget.QMUIRadiusImageView
+                android:layout_width="@dimen/dp_32"
+                android:id="@+id/iv_avatar"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/dp_16"
+                android:layout_height="@dimen/dp_32"/>
+
+        <TextView
+                android:layout_marginStart="@dimen/dp_52"
+                android:layout_gravity="center_vertical"
+                android:textSize="@dimen/text_size_16"
+                app:qmui_skin_text_color="?attr/app_skin_common_title_text_color"
+                android:layout_width="wrap_content"
+                android:id="@+id/tv_nickname"
+                android:layout_height="wrap_content"/>
+
+        <TextView
+                android:id="@+id/tv_subcribe"
+                android:layout_gravity="center_vertical|end"
+                android:layout_marginEnd="@dimen/dp_16"
+                android:textSize="@dimen/text_size_16"
+                app:qmui_skin_text_color="?attr/app_skin_common_title_text_color"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+    </FrameLayout>
+</layout>

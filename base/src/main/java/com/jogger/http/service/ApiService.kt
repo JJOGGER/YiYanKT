@@ -162,33 +162,37 @@ interface ApiService {
      */
     @GET("yiyan/getwriters")
     suspend fun getwriters(
+        @Query("v") v: String,
         @Query("uid") uid: String,
         @Query("datetime") dateTime: String?,//2020-03-08 12:05:56
         @Query("i") i: Int?
-    ): CommentResponse
+    ): UsersData
 
     /**
      * 订阅用户
      */
     @POST("yiyan/follow")
     suspend fun followUser(
+        @Query("v") v: String,
         @Query("fid") uid: String,
         @Query("cancel") cancel: Int?//1取消订阅
     )
 
+    //读者列表
     @GET("yiyan/getfollowers")
     suspend fun getFollowers(
+        @Query("v") v: String,
         @Query("uid") uid: String,
         @Query("datetime") dateTime: String?,//当前时间2020-03-08 12:05:56
         @Query("i") i: Int?//当前加载的条数
-    )
+    ): UsersData
 
     //单条卡片信息
     @GET("/yiyan/gettextcard")
     suspend fun getTextCard(
         @Query("v") v: String,
         @Query("cardid") cardid: String
-    )
+    ): TextCard?
 
     //发布卡片
     @POST("/yiyan/newtextcard_np")
