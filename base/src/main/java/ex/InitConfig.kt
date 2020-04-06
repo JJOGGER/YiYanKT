@@ -14,6 +14,7 @@ import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreator
 import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreator
 import com.scwang.smartrefresh.layout.api.RefreshFooter
 import com.scwang.smartrefresh.layout.api.RefreshLayout
+import com.tencent.cos.xml.model.bucket.PutBucketRequest
 import com.tencent.mmkv.MMKV
 
 
@@ -35,6 +36,7 @@ fun initApp(app: Application) {
     ARouter.openDebug()
     ARouter.init(app)
     QDSkinManager.install(app)
+//    initCos()
     QMUIQQFaceCompiler.setDefaultQQFaceManager(QDQQFaceManager.getInstance())
     SmartRefreshLayout.setDefaultRefreshHeaderCreator(object : DefaultRefreshHeaderCreator {
         override fun createRefreshHeader(context: Context, layout: RefreshLayout) = YiYanHeader(app)
@@ -46,6 +48,23 @@ fun initApp(app: Application) {
     })
 
 }
+
+fun initCos() {
+    val putBucketRequest = PutBucketRequest(CosService.BUCKET)
+//发送请求
+//    CosService.getCosXmlService().putBucketAsync(putBucketRequest, object : CosXmlResultListener() {
+//        override fun onSuccess(request: CosXmlRequest?, result: CosXmlResult?) {
+//        }
+//
+//        override fun onFail(
+//            request: CosXmlRequest?,
+//            exception: CosXmlClientException?,
+//            serviceException: CosXmlServiceException?
+//        ) {
+//        }
+//    })
+}
+
 
 inline fun <reified t> Parcel.readMutableList(): MutableList<t> {
     @Suppress("unchecked_cast")

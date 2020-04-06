@@ -44,6 +44,7 @@
     <attr name="app_skin_text_selected_color" format="color|reference"/>
     <attr name="app_skin_book_background" format="color|reference"/>
     <attr name="app_skin_line_comment_color" format="color"/>
+    <attr name="app_skin_mode_background" format="color"/>
 
     <style name="login_logoTheme" parent="QMUI.Compat.NoActionBar">
         <item name="windowNoTitle">true</item>
@@ -127,6 +128,7 @@
         <item name="app_skin_btn_test_border_single">?attr/qmui_config_color_gray_1</item>
         <item name="app_skin_progress_bar_bg_color">@color/qmui_config_color_gray_8</item>
         <item name="app_skin_progress_bar_progress_color">@color/qmui_config_color_gray_1</item>
+        <item name="app_skin_mode_background">@color/color_333333</item>
     </style>
 
     <style name="AppTheme.Launcher">
@@ -193,6 +195,7 @@
         <item name="app_skin_common_background_1">@color/sub_black</item>
         <item name="app_skin_book_background">@color/main_black</item>
         <item name="app_skin_line_comment_color">@color/qmui_config_color_gray_6</item>
+        <item name="app_skin_mode_background">@color/qmui_config_color_50_white</item>
         <item name="app_skin_common_img_tint_color">@color/qmui_config_color_gray_6</item>
         <item name="app_skin_card_function_tint_color">@color/qmui_config_color_gray_6</item>
         <item name="app_skin_card_text_color">@color/qmui_config_color_50_white</item>

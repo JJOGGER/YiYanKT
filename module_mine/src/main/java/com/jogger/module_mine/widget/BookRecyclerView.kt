@@ -32,6 +32,7 @@ class BookRecyclerView : RecyclerView {
     private var mItemWidth = 0
     private var mItemTouchHelper = ItemTouchHelper(mItemTouchHelperCallback())
     private lateinit var mAdapter: BookRecyclerViewAdapter
+    private var mCheckMode = false
     private lateinit var mLayoutManager: GridLayoutManager
     private var mListener: onItemClickListener? = null
 
@@ -89,6 +90,9 @@ class BookRecyclerView : RecyclerView {
                 if (originBook.itemType == -1) {
                     mListener!!.onAddClick()
                 } else {
+                    if (mCheckMode) {
+                        mAdapter.setCurrentCheckMode(position)
+                    }
                     mListener!!.onItemClick(originBook, position)
                 }
             }
@@ -98,6 +102,11 @@ class BookRecyclerView : RecyclerView {
 
     fun setData(list: MutableList<OriginBook>?) {
         mAdapter.setNewInstance(list)
+    }
+
+    fun setCheckMode(checkMode: Boolean) {
+        mCheckMode = checkMode
+        mAdapter.setCheckMode(mCheckMode)
     }
 
     fun setOnItemClickListener(listener: onItemClickListener) {

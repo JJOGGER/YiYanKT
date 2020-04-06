@@ -3,6 +3,14 @@
           package="com.jogger.module_mine">
 
     <application>
+        <activity android:name=".activity.PreviewCardActivity">
+        </activity>
+        <activity android:name=".activity.SelectModeActivity">
+        </activity>
+        <activity android:name=".activity.MyBookActivity">
+        </activity>
+        <activity android:name=".activity.PublishCardActivity">
+        </activity>
         <activity android:name=".activity.UserFollowersActivity">
         </activity>
         <activity android:name=".activity.UserWritersActivity">

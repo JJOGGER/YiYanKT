@@ -198,14 +198,14 @@ interface ApiService {
     @POST("/yiyan/newtextcard_np")
     suspend fun publishTextCard(
         @Query("v") v: String,
-        @Query("priv") priv: Int,//是否私密
-        @Query("title") title: String,
-        @Query("category") category: Int,
-        @Query("original") original: Int,
-        @Query("from") from: String,
-        @Query("content") content: String,
-        @Query("type") type: String,//yyv_0_0_0_0
-        @Query("originbookid") originbookid: String
+        @Query("priv") priv: Int?,//是否私密
+        @Query("title") title: String?,
+        @Query("category") category: Int?,
+        @Query("original") original: Int?,
+        @Query("from") from: String?,
+        @Query("content") content: String?,
+        @Query("type") type: String?,//yyv_0_0_0_0
+        @Query("originbookid") originbookid: String?
     )
 
     @POST("/yiyan/deletecard")

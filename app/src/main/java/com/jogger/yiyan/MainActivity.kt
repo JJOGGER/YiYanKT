@@ -92,6 +92,9 @@ class MainActivity : BaseActivity<BaseViewModel, ActivityMainBinding>() {
         mBottomPath.add(MODULE_STAR_MAIN)
         mBottomPath.add(MODULE_MESSAGE_MAIN)
         mBottomPath.add(MODULE_MINE_MAIN)
+        mBinding!!.flPublish.onClick {
+            toActivity(mContext, PUBLISH_CARD_PAGE)
+        }
     }
 
     private fun setTabStatus(status: Int) {

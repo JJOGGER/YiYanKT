@@ -1,10 +1,7 @@
 package com.jogger.widget
 
 import android.content.Context
-import android.text.SpannableStringBuilder
-import android.text.Spanned
 import android.text.TextUtils
-import android.text.style.ImageSpan
 import android.util.AttributeSet
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -32,7 +29,6 @@ import ex.toActivity
  */
 class TextCardContainer : FrameLayout {
     private lateinit var mBinding: HomeTextCardContainerLayoutBinding
-    var spannable = SpannableStringBuilder("[icon] ")
 
     constructor(context: Context?) : this(context, null)
     constructor(context: Context?, attrs: AttributeSet?) : this(context, attrs, 0)
@@ -47,10 +43,6 @@ class TextCardContainer : FrameLayout {
             this,
             true
         )
-        val drawable = this.resources.getDrawable(R.drawable.icon_topicmark_3x)
-        drawable.setBounds(0, 0, drawable.intrinsicWidth, drawable.intrinsicHeight)
-        val imageSpan1 = ImageSpan(drawable, ImageSpan.ALIGN_BASELINE)
-        spannable.setSpan(imageSpan1, 0, 6, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
     }
 
     fun setData(card: TextCard) {
@@ -136,8 +128,7 @@ class TextCardContainer : FrameLayout {
                         mBinding.tvCategory.text = "#诗"
                     }
                 } else {
-                    spannable.append(card.title)
-                    mBinding.textLayout.tvTextTitle.setText(spannable)
+                    mBinding.textLayout.tvTextTitle.setText("[icon] ${card.title}" )
                     mBinding.topicBottom.topicBottomContainer.visibility = View.VISIBLE
                     mBinding.topicBottom.tvTopicReply.text = "${card.replycnt}条回复"
                     mBinding.topicBottom.tvTopicCreated.text = "${card.creator?.username}发起了话题"

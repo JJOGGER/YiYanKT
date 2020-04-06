@@ -9,8 +9,9 @@ data class OriginBook(
     val bookid: String? = null,
     val ava: String? = null,
     val cardcnt: Int = 0,
-    val bookname: String? = null
-) : MultiItemEntity,Parcelable {
+    val bookname: String? = null,
+    var isCheck: Boolean? = false
+) : MultiItemEntity, Parcelable {
     override val itemType: Int
         get() = if (bookid == null) -1 else 0
 
@@ -19,7 +20,8 @@ data class OriginBook(
         parcel.readString(),
         parcel.readString(),
         parcel.readInt(),
-        parcel.readString()
+        parcel.readString(),
+        parcel.readValue(Boolean::class.java.classLoader) as? Boolean
     ) {
     }
 
@@ -29,6 +31,7 @@ data class OriginBook(
         parcel.writeString(ava)
         parcel.writeInt(cardcnt)
         parcel.writeString(bookname)
+        parcel.writeValue(isCheck)
     }
 
     override fun describeContents(): Int {
@@ -44,6 +47,7 @@ data class OriginBook(
             return arrayOfNulls(size)
         }
     }
+
 }
 
     

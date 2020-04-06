@@ -58,6 +58,17 @@
                     android:textSize="@dimen/text_size_11"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
+
+            <CheckBox
+                    android:layout_gravity="bottom|end"
+                    android:id="@+id/cb_check"
+                    android:visibility="gone"
+                    android:layout_marginEnd="@dimen/dp_10"
+                    android:enabled="false"
+                    android:layout_marginBottom="@dimen/dp_10"
+                    style="@style/Widget.AppCompat.CompoundButton.CheckBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
         </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundFrameLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

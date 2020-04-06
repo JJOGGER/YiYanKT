@@ -99,6 +99,25 @@
                         android:layout_gravity="center"
                         android:gravity="center"/>
             </FrameLayout>
+
+            <FrameLayout
+                    android:id="@+id/fl_publish"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="@dimen/dp_16"
+                    android:layout_height="match_parent">
+
+                <ImageView
+                        android:id="@+id/tab_publish"
+                        android:layout_width="@dimen/dp_16"
+                        android:focusable="true"
+                        app:qmui_skin_tint_color="?attr/app_skin_common_img_tint_color"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/plus_fill_80_gray"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"/>
+            </FrameLayout>
         </LinearLayout>
     </RelativeLayout>
 

@@ -10,6 +10,9 @@ buildscript {
             url 'https://maven.google.com/'
             name 'Google'
         }
+        maven {
+            url "https://dl.bintray.com/tencentqcloudterminal/maven"
+        }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.4.1'

@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <FrameLayout
+                android:id="@+id/fl_img"
+                android:background="@color/qmui_config_color_gray_9"
+                android:layout_width="@dimen/dp_70"
+                android:layout_marginTop="@dimen/dp_20"
+                android:layout_marginBottom="@dimen/dp_20"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="@dimen/dp_70">
+
+            <TextView
+                    android:id="@+id/tv_hint"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:textColor="@color/main_white"
+                    android:layout_width="wrap_content"
+                    android:textSize="@dimen/text_size_14"
+                    android:text="+添加图片\n(可无)"
+                    android:layout_height="wrap_content"/>
+
+            <ImageView
+                    android:layout_width="match_parent"
+                    android:scaleType="centerCrop"
+                    android:id="@+id/iv_img"
+                    android:visibility="gone"
+                    android:layout_height="match_parent"/>
+        </FrameLayout>
+
+        <EditText
+                android:background="@null"
+                android:id="@+id/et_title"
+                android:hint="标题（可无）"
+                android:textColorHint="@color/main_text_gray"
+                android:layout_width="match_parent"
+                app:qmui_skin_text_color="?attr/app_skin_common_title_text_color"
+                app:qmui_skin_background="?attr/app_skin_common_background"
+                android:gravity="center"
+                android:layout_height="@dimen/dp_40"/>
+
+        <View
+                style="@style/CommonLineStyle"
+                android:layout_marginStart="@dimen/dp_16"/>
+
+        <EditText
+                android:id="@+id/et_content"
+                android:minHeight="@dimen/dp_160"
+                android:hint="正文"
+                android:gravity="start"
+                android:background="@null"
+                android:paddingStart="@dimen/dp_16"
+                android:paddingEnd="@dimen/dp_16"
+                android:paddingTop="@dimen/dp_6"
+                android:textColorHint="@color/main_text_gray"
+                android:layout_width="match_parent"
+                app:qmui_skin_text_color="?attr/app_skin_common_title_text_color"
+                app:qmui_skin_background="?attr/app_skin_common_background"
+                android:layout_height="wrap_content"/>
+
+        <View
+                style="@style/CommonLineStyle"
+                android:layout_marginStart="@dimen/dp_16"/>
+
+        <EditText
+                android:hint="出处/作者（可无）"
+                android:id="@+id/et_from"
+                android:background="@null"
+                android:textColorHint="@color/main_text_gray"
+                android:layout_width="match_parent"
+                app:qmui_skin_text_color="?attr/app_skin_common_title_text_color"
+                app:qmui_skin_background="?attr/app_skin_common_background"
+                android:gravity="center"
+                android:layout_height="@dimen/dp_40"/>
+
+        <LinearLayout
+                android:id="@+id/ll_action"
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    app:qmui_skin_background="?attr/app_skin_common_background"
+                    android:layout_height="@dimen/dp_40">
+
+                <TextView
+                        android:paddingStart="@dimen/dp_12"
+                        app:qmui_skin_text_color="?attr/app_skin_common_title_text_color"
+                        android:layout_width="wrap_content"
+                        android:textSize="@dimen/text_size_13"
+                        android:text="选择分类："
+                        android:layout_height="wrap_content"/>
+
+                <RadioGroup
+                        android:layout_marginStart="@dimen/dp_10"
+                        android:layout_marginEnd="@dimen/dp_10"
+                        android:layout_width="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_height="wrap_content">
+
+                    <RadioButton
+                            android:paddingStart="@dimen/dp_6"
+                            android:paddingTop="@dimen/dp_2"
+                            android:paddingBottom="@dimen/dp_2"
+                            android:paddingEnd="@dimen/dp_6"
+                            android:id="@+id/rb_text"
+                            android:background="@drawable/selector_txt_category_bg"
+                            android:button="@null"
+                            android:checked="true"
+                            android:textColor="@color/selector_txt_category_color"
+                            android:textSize="@dimen/text_size_13"
+                            android:text="文字"
+                            android:gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <RadioButton
+                            android:paddingStart="@dimen/dp_6"
+                            android:paddingTop="@dimen/dp_2"
+                            android:paddingBottom="@dimen/dp_2"
+                            android:paddingEnd="@dimen/dp_6"
+                            android:id="@+id/rb_record"
+                            android:background="@drawable/selector_txt_category_bg"
+                            android:button="@null"
+                            android:textColor="@color/selector_txt_category_color"
+                            android:textSize="@dimen/text_size_13"
+                            android:text="语录"
+                            android:layout_marginStart="@dimen/dp_8"
+                            android:gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <RadioButton
+                            android:paddingStart="@dimen/dp_6"
+                            android:paddingTop="@dimen/dp_2"
+                            android:paddingBottom="@dimen/dp_2"
+                            android:paddingEnd="@dimen/dp_6"
+                            android:id="@+id/rb_word"
+                            android:background="@drawable/selector_txt_category_bg"
+                            android:button="@null"
+                            android:textColor="@color/selector_txt_category_color"
+                            android:textSize="@dimen/text_size_13"
+                            android:text="歌词"
+                            android:layout_marginStart="@dimen/dp_8"
+                            android:gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <RadioButton
+                            android:paddingStart="@dimen/dp_6"
+                            android:paddingTop="@dimen/dp_2"
+                            android:paddingBottom="@dimen/dp_2"
+                            android:paddingEnd="@dimen/dp_6"
+                            android:id="@+id/rb_film"
+                            android:background="@drawable/selector_txt_category_bg"
+                            android:button="@null"
+                            android:textColor="@color/selector_txt_category_color"
+                            android:textSize="@dimen/text_size_13"
+                            android:text="电影"
+                            android:layout_marginStart="@dimen/dp_8"
+                            android:gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                    <RadioButton
+                            android:paddingStart="@dimen/dp_6"
+                            android:paddingTop="@dimen/dp_2"
+                            android:paddingBottom="@dimen/dp_2"
+                            android:paddingEnd="@dimen/dp_6"
+                            android:id="@+id/rb_poetry"
+                            android:background="@drawable/selector_txt_category_bg"
+                            android:button="@null"
+                            android:layout_marginStart="@dimen/dp_8"
+                            android:textColor="@color/selector_txt_category_color"
+                            android:textSize="@dimen/text_size_13"
+                            android:text="诗"
+                            android:gravity="center"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+                </RadioGroup>
+            </LinearLayout>
+
+            <View
+                    style="@style/CommonLineStyle"
+                    android:layout_marginStart="@dimen/dp_16"/>
+
+            <FrameLayout
+                    app:qmui_skin_background="?attr/app_skin_common_background"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_40">
+
+                <TextView
+                        android:paddingStart="@dimen/dp_12"
+                        app:qmui_skin_text_color="?attr/app_skin_common_title_text_color"
+                        android:layout_width="wrap_content"
+                        android:textSize="@dimen/text_size_13"
+                        android:text="我是原创："
+                        android:layout_gravity="center_vertical"
+                        android:layout_height="wrap_content"/>
+
+                <androidx.appcompat.widget.SwitchCompat
+                        android:layout_marginEnd="@dimen/dp_16"
+                        android:id="@+id/sc_origin"
+                        style="@style/Widget.AppCompat.CompoundButton.Switch"
+                        android:layout_width="wrap_content"
+                        android:layout_gravity="center_vertical|end"
+                        android:layout_height="wrap_content"/>
+            </FrameLayout>
+
+            <View
+                    style="@style/CommonLineStyle"
+                    android:layout_marginStart="@dimen/dp_16"/>
+
+            <FrameLayout
+                    app:qmui_skin_background="?attr/app_skin_common_background"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/dp_40">
+
+                <TextView
+                        android:paddingStart="@dimen/dp_12"
+                        app:qmui_skin_text_color="?attr/app_skin_common_title_text_color"
+                        android:layout_width="wrap_content"
+                        android:textSize="@dimen/text_size_13"
+                        android:text="私密："
+                        android:layout_gravity="center_vertical"
+                        android:layout_height="wrap_content"/>
+
+                <androidx.appcompat.widget.SwitchCompat
+                        android:layout_marginEnd="@dimen/dp_16"
+                        android:id="@+id/sc_secret"
+                        style="@style/Widget.AppCompat.CompoundButton.Switch"
+                        android:layout_width="wrap_content"
+                        android:layout_gravity="center_vertical|end"
+                        android:layout_height="wrap_content"/>
+            </FrameLayout>
+        </LinearLayout>
+    </LinearLayout>
+</layout>

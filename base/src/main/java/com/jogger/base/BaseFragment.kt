@@ -58,11 +58,12 @@ abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding> : Fragment
         return inflater.inflate(layoutId(), container, false)
     }
 
-   open fun getBackgroundAttr(): Int = -1
+    open fun getBackgroundAttr(): Int = -1
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mSkinManager = QMUISkinManager.defaultInstance(mContext)
+        mSkinManager!!.register(this)
         onVisible()
         createViewModel()
         lifecycle.addObserver(mViewModel)
@@ -89,7 +90,6 @@ abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding> : Fragment
     }
 
     abstract fun layoutId(): Int
-
     /**
      * 是否需要懒加载
      */
@@ -150,8 +150,13 @@ abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding> : Fragment
         if (type is ParameterizedType) {
             val tp = type.actualTypeArguments[0]
             val tClass = tp as? Class<VM> ?: BaseViewModel::class.java
-            mViewModel = ViewModelProvider(this, ViewModelFactory()).get(tClass) as VM
+            mViewModel = ViewModelProvider(this, com.jogger.base.ViewModelFactory()).get(tClass) as VM
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mSkinManager!!.unRegister(this)
     }
 
 }

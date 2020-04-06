@@ -2,6 +2,7 @@ package com.jogger.module_mine.adapter
 
 import android.text.TextUtils
 import android.view.View
+import android.widget.CheckBox
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.chad.library.adapter.base.BaseMultiItemQuickAdapter
@@ -17,28 +18,31 @@ import com.qmuiteam.qmui.kotlin.skin
  */
 class BookRecyclerViewAdapter(data: MutableList<OriginBook>?) :
     BaseMultiItemQuickAdapter<OriginBook, BaseViewHolder>(data) {
+    private var mCheckMode = false
 
     init {
         addItemType(0, R.layout.mine_rv_book_item)
         addItemType(-1, R.layout.mine_rv_book_foot)
     }
 
-    override fun convert(helper: BaseViewHolder, item: OriginBook) {
+    override fun convert(holder: BaseViewHolder, item: OriginBook) {
         if (item.itemType == 0) {
+            holder.setGone(R.id.cb_check, !mCheckMode)
+            holder.getView<CheckBox>(R.id.cb_check).isChecked = item.isCheck!!
             Glide.with(context)
                 .load(item.picpath)
-                .into(helper.getView(R.id.iv_item))
-            helper.getView<TextView>(R.id.tv_book_name).text = item.bookname
-            helper.getView<TextView>(R.id.tv_book_name).typeface =
+                .into(holder.getView(R.id.iv_item))
+            holder.getView<TextView>(R.id.tv_book_name).text = item.bookname
+            holder.getView<TextView>(R.id.tv_book_name).typeface =
                 AssetsManager.getFontTypeFace(AssetsManager.ASSETS_FONT2)
-            helper.setText(R.id.tv_book_size, "${item.cardcnt} 字句")
+            holder.setText(R.id.tv_book_size, "${item.cardcnt} 字句")
                 .setVisible(R.id.v_shadow, !TextUtils.isEmpty(item.picpath))
             if (!TextUtils.isEmpty(item.picpath)) {
-                helper.getView<View>(R.id.tv_book_name)
+                holder.getView<View>(R.id.tv_book_name)
                     .skin {
                         it.textColor(R.attr.app_primary_color)
                     }
-                helper.getView<View>(R.id.tv_book_size)
+                holder.getView<View>(R.id.tv_book_size)
                     .skin {
                         it.textColor(R.attr.app_primary_color)
                     }
@@ -46,7 +50,7 @@ class BookRecyclerViewAdapter(data: MutableList<OriginBook>?) :
 //                    .setTextColor(R.id.tv_book_size, Color.WHITE)
             }
         } else {
-            helper.setImageResource(
+            holder.setImageResource(
                 R.id.iv_item,
                 R.drawable.icon_add_book
             )
@@ -73,6 +77,19 @@ class BookRecyclerViewAdapter(data: MutableList<OriginBook>?) :
         } else {
             notifyItemChanged(headerLayoutCount + position)
         }
+    }
+
+    fun setCheckMode(checkMode: Boolean) {
+        mCheckMode = checkMode
+        notifyDataSetChanged()
+    }
+
+    fun setCurrentCheckMode(position: Int) {
+        data.forEach {
+            it.isCheck = false
+        }
+        data[position].isCheck = true
+        notifyDataSetChanged()
     }
 
     fun notifyItemMovedWrapper(fromPosition: Int, toPosition: Int) {

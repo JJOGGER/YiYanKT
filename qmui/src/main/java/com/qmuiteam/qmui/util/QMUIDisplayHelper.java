@@ -117,7 +117,7 @@ public class QMUIDisplayHelper {
      */
     public static int getScreenHeight(Context context) {
         int screenHeight = getDisplayMetrics(context).heightPixels;
-        if(QMUIDeviceHelper.isXiaomi() && xiaomiNavigationGestureEnabled(context)){
+        if (QMUIDeviceHelper.isXiaomi() && xiaomiNavigationGestureEnabled(context)) {
             screenHeight += getResourceNavHeight(context);
         }
         return screenHeight;
@@ -265,9 +265,9 @@ public class QMUIDisplayHelper {
             return result;
         }
 //        if (isPortrait) {
-            // TODO vivo 设置-系统导航-导航手势样式-显示手势操作区域 打开的情况下，应该减去手势操作区域的高度，但无API
-            // TODO vivo 设置-显示与亮度-第三方应用显示比例 选为安全区域显示时，整个 window 会移动，应该减去移动区域，但无API
-            // TODO oppo 设置-显示与亮度-应用全屏显示-凹形区域显示控制 关闭是，整个 window 会移动，应该减去移动区域，但无API
+        // TODO vivo 设置-系统导航-导航手势样式-显示手势操作区域 打开的情况下，应该减去手势操作区域的高度，但无API
+        // TODO vivo 设置-显示与亮度-第三方应用显示比例 选为安全区域显示时，整个 window 会移动，应该减去移动区域，但无API
+        // TODO oppo 设置-显示与亮度-应用全屏显示-凹形区域显示控制 关闭是，整个 window 会移动，应该减去移动区域，但无API
 //        }
         return result;
     }
@@ -362,7 +362,7 @@ public class QMUIDisplayHelper {
      * @return
      */
     public static int getStatusBarHeight(Context context) {
-        if(QMUIDeviceHelper.isXiaomi()){
+        if (QMUIDeviceHelper.isXiaomi()) {
             int resourceId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
             if (resourceId > 0) {
                 return context.getResources().getDimensionPixelSize(resourceId);
@@ -374,7 +374,7 @@ public class QMUIDisplayHelper {
             Object obj = c.newInstance();
             Field field = c.getField("status_bar_height");
             int x = Integer.parseInt(field.get(obj).toString());
-            if(x > 0){
+            if (x > 0) {
                 return context.getResources().getDimensionPixelSize(x);
             }
         } catch (Exception e) {
@@ -402,7 +402,7 @@ public class QMUIDisplayHelper {
         return getRealScreenSize(context)[1] - getScreenHeight(context);
     }
 
-    private static int getResourceNavHeight(Context context){
+    private static int getResourceNavHeight(Context context) {
         // 小米4没有nav bar, 而 navigation_bar_height 有值
         int resourceId = context.getResources().getIdentifier("navigation_bar_height", "dimen", "android");
         if (resourceId > 0) {

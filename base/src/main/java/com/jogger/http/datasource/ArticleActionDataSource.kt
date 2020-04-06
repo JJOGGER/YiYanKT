@@ -1,5 +1,7 @@
 package com.jogger.http.datasource
 
+import retrofit2.http.Query
+
 object ArticleActionDataSource : BaseDataSource() {
     suspend fun checkLiked(cardId: String) = mService.checkLiked(APP_VERSION, cardId)
     suspend fun newLike(cardId: String) = mService.newLike(APP_VERSION, cardId)
@@ -11,4 +13,11 @@ object ArticleActionDataSource : BaseDataSource() {
         mService.newComment(APP_VERSION, cardId, receiverId, content)
 
     suspend fun deleteComment(commentId: String) = mService.deleteComment(APP_VERSION, commentId)
+
+    suspend fun publishTextCard(
+        priv: Int?, title: String?, category: Int?, original: Int?, from: String?, content: String?,
+        type: String?, originbookid: String?
+    ) =
+        mService.publishTextCard(APP_VERSION, priv, title, category, original, from, content, type, originbookid)
+
 }

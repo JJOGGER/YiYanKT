@@ -32,6 +32,8 @@ const val TOPIC_MIAN_DETAIL = "/module_home/topic_mian_detail"
 const val COMMENT_DETAIL = "/module_home/comment_detail"
 const val USER_HOME_PAGE = "/module_mine/user_home_page"
 const val USER_BOOK_PAGE = "/module_mine/user_book_page"
+const val PUBLISH_CARD_PAGE = "/module_mine/publish_card_page"
+const val MY_BOOK_PAGE = "/module_mine/my_book_page"
 
 /**
  * Created by jogger on 2020/2/26
