@@ -1,6 +1,10 @@
 package com.jogger.http.datasource
 
-import retrofit2.http.Query
+import com.jogger.entity.TextCard
+import okhttp3.MediaType
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import java.io.File
 
 object ArticleActionDataSource : BaseDataSource() {
     suspend fun checkLiked(cardId: String) = mService.checkLiked(APP_VERSION, cardId)
@@ -16,8 +20,26 @@ object ArticleActionDataSource : BaseDataSource() {
 
     suspend fun publishTextCard(
         priv: Int?, title: String?, category: Int?, original: Int?, from: String?, content: String?,
-        type: String?, originbookid: String?
-    ) =
-        mService.publishTextCard(APP_VERSION, priv, title, category, original, from, content, type, originbookid)
+        type: String?, originbookid: String?, pic: String?
+    ) :TextCard {
+        val file = File(pic)
+        val requestFile: RequestBody = RequestBody.create(MediaType.parse("image/jpeg"), file)
+        val body: MultipartBody.Part = MultipartBody.Part.createFormData("pic", "pic.jpg", requestFile)
+        val apply = HashMap<String, Any?>().apply {
+            put("v", APP_VERSION)
+            put("priv", priv)
+            put("title", title)
+            put("category", category)
+            put("original", original)
+            put("from", from)
+            put("content", content)
+            put("type", type)
+            put("originbookid", originbookid)
+        }
+        return mService.publishTextCard(
+            apply,
+            body
+        )
+    }
 
 }

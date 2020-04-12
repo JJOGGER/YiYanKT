@@ -8,6 +8,7 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.jogger.base.BaseActivity
 import com.jogger.entity.OriginBook
 import com.jogger.entity.request.PublishTextCardRequest
+import com.jogger.event.PublishEvent
 import com.jogger.module_mine.R
 import com.jogger.module_mine.databinding.MineActivityMyBookBinding
 import com.jogger.module_mine.viewmodel.MyBookViewModel
@@ -16,6 +17,8 @@ import com.jogger.utils.MConfig
 import com.qmuiteam.qmui.kotlin.onClick
 import com.qmuiteam.qmui.kotlin.skin
 import kotlinx.android.synthetic.main.mine_activity_my_book.*
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 @Route(path = ex.MY_BOOK_PAGE)
 class MyBookActivity : BaseActivity<MyBookViewModel, MineActivityMyBookBinding>(),
@@ -41,6 +44,7 @@ class MyBookActivity : BaseActivity<MyBookViewModel, MineActivityMyBookBinding>(
     override fun getLayoutId() = R.layout.mine_activity_my_book
 
     override fun init(savedInstanceState: Bundle?) {
+        mTopBar.addLeftBackImageButton().onClick { finish() }
         val booklist = MConfig.getLoginResult().booklist
         if (!booklist.isNullOrEmpty()) {
             booklist[0].isCheck = true
@@ -85,5 +89,14 @@ class MyBookActivity : BaseActivity<MyBookViewModel, MineActivityMyBookBinding>(
 
     override fun onAddClick() {
 
+    }
+
+    override fun isNeedEventBus() = true
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onPublishEvent(event: PublishEvent) {
+        if (event.mAction == PublishEvent.PUBLISH_SUCCESS) {
+            finish()
+        }
     }
 }

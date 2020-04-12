@@ -6,6 +6,7 @@ import androidx.lifecycle.Observer
 import com.jogger.base.BaseFragment
 import com.jogger.entity.OriginBook
 import com.jogger.entity.UserHomeData
+import com.jogger.event.PublishEvent
 import com.jogger.module_mine.R
 import com.jogger.module_mine.activity.BookListActivity
 import com.jogger.module_mine.activity.UserCommentsActivity
@@ -19,13 +20,17 @@ import com.qmuiteam.qmui.kotlin.onClick
 import com.qmuiteam.qmui.kotlin.registOnClicks
 import kotlinx.android.synthetic.main.mine_fragment_user_home.*
 import kotlinx.android.synthetic.main.mine_rv_user_header.*
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 /**
  * Created by jogger on 2020/3/31
  * 描述：
  */
 class UserHomeFragment :
-    BaseFragment<UserHomeViewModel, MineFragmentUserHomeBinding>(), BookRecyclerView.onItemClickListener {
+    BaseFragment<UserHomeViewModel, MineFragmentUserHomeBinding>(), BookRecyclerView.onItemClickListener,
+    BookRecyclerView.onItemMoveListener {
+
     private var mEditable: Boolean = true
     private var mUid: String? = null
     private var mIsMine: Boolean = false
@@ -60,8 +65,16 @@ class UserHomeFragment :
             mViewModel.getUserInfo(mUid!!)
         })
         rv_content.setOnItemClickListener(this)
+        rv_content.setOnItemMoveListener(this)
         mViewModel.mUserHomeDataLiveData.observe(this, Observer {
+            srl_refresh.closeHeaderOrFooter()
             initData(it)
+        })
+        mViewModel.mBookSorderDataLiveData.observe(this, Observer {
+            //排序完成，更新本地数据
+            val loginResult = MConfig.getLoginResult()
+            loginResult.booklist = rv_content.getData()
+            MConfig.setLoginResult(loginResult)
         })
         initClick()
         if (userData == null) {
@@ -129,4 +142,23 @@ class UserHomeFragment :
         BookListActivity.navTo(mContext!!, book.bookname!!, mUid!!)
     }
 
+    override fun onItemMoved() {
+        val builder = StringBuilder()
+        val data = rv_content.getData()
+        if (data == null) return
+        for (i in 0..data.size - 1) {
+            builder.append(data[i].bookid)
+            if (i != data.size - 1) {
+                builder.append(",")
+            }
+        }
+        mViewModel.updateBooksSorder(builder.toString())
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onPublishEvent(event: PublishEvent) {
+        if (event.mAction == PublishEvent.PUBLISH_SUCCESS) {
+            initData(MConfig.getLoginResult())
+        }
+    }
 }

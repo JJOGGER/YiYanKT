@@ -16,4 +16,7 @@ object UserDataSource : BaseDataSource() {
 
     suspend fun getFollowers(uid: String, dateTime: String?, i: Int?) =
         mService.getFollowers(APP_VERSION, uid, dateTime, i)
+
+    suspend fun updateBooksSorder(booksorder: String) =
+        mService.updateBooksOrder(APP_VERSION, booksorder)
 }

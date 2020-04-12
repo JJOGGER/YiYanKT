@@ -5,6 +5,7 @@ import com.alibaba.android.arouter.facade.annotation.Route
 import com.jogger.base.BaseActivity
 import com.jogger.base.BaseFragment
 import com.jogger.base.BaseViewModel
+import com.jogger.event.PublishEvent
 import com.jogger.module_mine.R
 import com.jogger.module_mine.databinding.MineActivityPublishCardBinding
 import com.jogger.module_mine.fragment.PublishCardFragment
@@ -17,6 +18,8 @@ import com.qmuiteam.qmui.widget.tab.QMUITabIndicator
 import com.qmuiteam.qmui.widget.tab.QMUITabSegment
 import com.qmuiteam.qmui.widget.tab.TabMediator
 import kotlinx.android.synthetic.main.mine_activity_publish_card.*
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 @Route(path = ex.PUBLISH_CARD_PAGE)
 class PublishCardActivity : BaseActivity<BaseViewModel, MineActivityPublishCardBinding>() {
@@ -68,6 +71,15 @@ class PublishCardActivity : BaseActivity<BaseViewModel, MineActivityPublishCardB
                     }
                 }
             }
+        }
+    }
+
+    override fun isNeedEventBus() = true
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onPublishEvent(event: PublishEvent) {
+        if (event.mAction == PublishEvent.PUBLISH_SUCCESS) {
+            finish()
         }
     }
 }

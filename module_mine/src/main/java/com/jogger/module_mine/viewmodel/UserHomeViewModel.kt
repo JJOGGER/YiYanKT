@@ -11,11 +11,20 @@ import com.jogger.http.datasource.UserDataSource
  */
 class UserHomeViewModel : BaseViewModel() {
     val mUserHomeDataLiveData by lazy { MutableLiveData<UserHomeData>() }
+    val mBookSorderDataLiveData by lazy { MutableLiveData<Any?>() }
     fun getUserInfo(uid: String) {
         launchOnlyresult({
             UserDataSource.getUserinfoAndBooklist(uid)
         }, {
             mUserHomeDataLiveData.value = it
+        })
+    }
+
+    fun updateBooksSorder(booksorder: String) {
+        launchOnlyresult({
+            UserDataSource.updateBooksSorder(booksorder)
+        }, {
+            mBookSorderDataLiveData.value = it
         })
     }
 }

@@ -35,10 +35,15 @@ class BookRecyclerView : RecyclerView {
     private var mCheckMode = false
     private lateinit var mLayoutManager: GridLayoutManager
     private var mListener: onItemClickListener? = null
+    private var mMoveListener: onItemMoveListener? = null
 
     interface onItemClickListener {
         fun onAddClick()
         fun onItemClick(book: OriginBook, position: Int)
+    }
+
+    interface onItemMoveListener {
+        fun onItemMoved()
     }
 
     constructor(context: Context?) : this(context, null)
@@ -104,6 +109,10 @@ class BookRecyclerView : RecyclerView {
         mAdapter.setNewInstance(list)
     }
 
+    fun getData(): MutableList<OriginBook>? {
+        return mAdapter.data.filter { it.bookid != null } as MutableList<OriginBook>
+    }
+
     fun setCheckMode(checkMode: Boolean) {
         mCheckMode = checkMode
         mAdapter.setCheckMode(mCheckMode)
@@ -111,6 +120,10 @@ class BookRecyclerView : RecyclerView {
 
     fun setOnItemClickListener(listener: onItemClickListener) {
         mListener = listener
+    }
+
+    fun setOnItemMoveListener(listener: onItemMoveListener) {
+        mMoveListener = listener
     }
 
     override fun canScrollVertically(direction: Int): Boolean {
@@ -162,6 +175,8 @@ class BookRecyclerView : RecyclerView {
                 return false
             }
             (adapter as BookRecyclerViewAdapter).moveItem(viewHolder.adapterPosition, target.adapterPosition)
+            if (mMoveListener != null)
+                mMoveListener!!.onItemMoved()
             return true
         }
 

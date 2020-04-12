@@ -185,7 +185,7 @@ abstract class BaseActivity<VM : BaseViewModel, DB : ViewDataBinding> : AppCompa
         if (type is ParameterizedType) {
             val tp = type.actualTypeArguments[0]
             val tClass = tp as? Class<VM> ?: BaseViewModel::class.java
-            mViewModel = ViewModelProvider(this, ViewModelFactory()).get(tClass) as VM
+            mViewModel = ViewModelProvider(this, com.jogger.base.ViewModelFactory()).get(tClass) as VM
         }
     }
 }

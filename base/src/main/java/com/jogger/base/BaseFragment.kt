@@ -21,6 +21,7 @@ import com.qmuiteam.qmui.skin.QMUISkinManager
 import ex.MODULE_LOGIN
 import ex.showToast
 import ex.toActivity
+import org.greenrobot.eventbus.EventBus
 import java.lang.reflect.ParameterizedType
 
 /**
@@ -64,6 +65,10 @@ abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding> : Fragment
         super.onViewCreated(view, savedInstanceState)
         mSkinManager = QMUISkinManager.defaultInstance(mContext)
         mSkinManager!!.register(this)
+        if (isNeedEventBus()) {
+            if (!EventBus.getDefault().isRegistered(this))
+                EventBus.getDefault().register(this)
+        }
         onVisible()
         createViewModel()
         lifecycle.addObserver(mViewModel)
@@ -88,7 +93,7 @@ abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding> : Fragment
         super.onResume()
         onVisible()
     }
-
+    open fun isNeedEventBus() = false
     abstract fun layoutId(): Int
     /**
      * 是否需要懒加载
@@ -157,6 +162,11 @@ abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding> : Fragment
     override fun onDestroy() {
         super.onDestroy()
         mSkinManager!!.unRegister(this)
+        if (isNeedEventBus()) {
+            if (EventBus.getDefault().isRegistered(this)) {
+                EventBus.getDefault().unregister(this)
+            }
+        }
     }
 
 }

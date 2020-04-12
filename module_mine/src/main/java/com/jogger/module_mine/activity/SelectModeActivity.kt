@@ -8,9 +8,11 @@ import android.view.Gravity
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.RadioGroup
+import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
 import com.jogger.base.BaseActivity
 import com.jogger.entity.request.PublishTextCardRequest
+import com.jogger.event.PublishEvent
 import com.jogger.manager.AssetsManager
 import com.jogger.module_mine.R
 import com.jogger.module_mine.databinding.MineActivitySelectModeBinding
@@ -21,6 +23,8 @@ import com.qmuiteam.qmui.kotlin.skin
 import com.qmuiteam.qmui.util.QMUIDisplayHelper
 import kotlinx.android.synthetic.main.mine_activity_select_mode.*
 import kotlinx.android.synthetic.main.mine_rv_comment_item.*
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 class SelectModeActivity :
     BaseActivity<PublishCardViewModel, MineActivitySelectModeBinding>() {
@@ -91,8 +95,11 @@ class SelectModeActivity :
             tv_title2.visibility = View.VISIBLE
             tv_title2.text = mRequest.title
         }
-        tv_content1.text =  mRequest.content
-        tv_content2.text =  mRequest.content
+        tv_content1.text = mRequest.content
+        tv_content2.text = mRequest.content
+        mViewModel.mPublishLiveData.observe(this, Observer {
+            finish()
+        })
         initClick()
     }
 
@@ -169,4 +176,13 @@ class SelectModeActivity :
         })
     }
 
+
+    override fun isNeedEventBus() = true
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onPublishEvent(event: PublishEvent) {
+        if (event.mAction == PublishEvent.PUBLISH_SUCCESS) {
+            finish()
+        }
+    }
 }

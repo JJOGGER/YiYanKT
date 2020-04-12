@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.jogger.base.BaseActivity
 import com.jogger.base.BaseViewModel
+import com.jogger.event.PublishEvent
 import com.jogger.manager.QDSkinManager
 import com.jogger.utils.LogUtils
 import com.jogger.yiyan.databinding.ActivityMainBinding
@@ -14,6 +15,8 @@ import com.qmuiteam.qmui.skin.QMUISkinManager
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper
 import ex.*
 import kotlinx.android.synthetic.main.activity_main.*
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 private const val TAB_INDEX = "tabdIndex"
 private const val TAB_HOME = 0
@@ -159,5 +162,13 @@ class MainActivity : BaseActivity<BaseViewModel, ActivityMainBinding>() {
         }
     }
 
+    override fun isNeedEventBus()=true
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onPublishEvent(event: PublishEvent) {
+        if (event.mAction == PublishEvent.PUBLISH_SUCCESS) {
+            setTabStatus(TAB_MINE)
+        }
+    }
 
 }

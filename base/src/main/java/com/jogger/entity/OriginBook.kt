@@ -8,7 +8,7 @@ data class OriginBook(
     val picpath: String? = null,
     val bookid: String? = null,
     val ava: String? = null,
-    val cardcnt: Int = 0,
+    var cardcnt: Int = 0,
     val bookname: String? = null,
     var isCheck: Boolean? = false
 ) : MultiItemEntity, Parcelable {

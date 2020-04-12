@@ -1,9 +1,8 @@
 package com.jogger.http.service
 
 import com.jogger.entity.*
-import retrofit2.http.GET
-import retrofit2.http.POST
-import retrofit2.http.Query
+import okhttp3.MultipartBody
+import retrofit2.http.*
 
 interface ApiService {
 
@@ -195,18 +194,26 @@ interface ApiService {
     ): TextCard?
 
     //发布卡片
+    @Multipart
     @POST("/yiyan/newtextcard_np")
     suspend fun publishTextCard(
-        @Query("v") v: String,
-        @Query("priv") priv: Int?,//是否私密
-        @Query("title") title: String?,
-        @Query("category") category: Int?,
-        @Query("original") original: Int?,
-        @Query("from") from: String?,
-        @Query("content") content: String?,
-        @Query("type") type: String?,//yyv_0_0_0_0
-        @Query("originbookid") originbookid: String?
-    )
+        @QueryMap params: HashMap<String, Any?>,
+        @Part pic: MultipartBody.Part?
+    ): TextCard
+    @Multipart
+    @POST("/yiyan/newtextcard_np")
+    suspend fun publishTextCard(
+        @Part v: String,
+        @Part priv: Int?,//是否私密
+        @Part title: String?,
+        @Part category: Int?,
+        @Part original: Int?,
+        @Part from: String?,
+        @Part content: String?,
+        @Part type: String?,//yyv_0_0_0_0
+        @Part originbookid: String?,
+        @Part pic: String?
+    ): TextCard
 
     @POST("/yiyan/deletecard")
     suspend fun deleteTextCard(

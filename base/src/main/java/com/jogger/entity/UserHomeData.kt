@@ -9,7 +9,7 @@ import ex.readMutableList
  * 描述：
  */
 data class UserHomeData(
-    val booklist: MutableList<OriginBook>? = null,
+    var booklist: MutableList<OriginBook>? = null,
     val user: UserData? = null
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
