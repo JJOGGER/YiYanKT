@@ -10,6 +10,7 @@ import com.jogger.base.BaseCardViewHolder
 import com.jogger.entity.TextCard
 import com.jogger.manager.AssetsManager
 import com.jogger.module_home.R
+import com.qmuiteam.qmui.qqface.QMUIQQFaceView
 import com.qmuiteam.qmui.widget.QMUIRadiusImageView
 
 class TopicItemViewHolder(view: View, context: Context) : BaseCardViewHolder(view, context) {
@@ -56,7 +57,6 @@ class TopicItemViewHolder(view: View, context: Context) : BaseCardViewHolder(vie
                 "${split[0]}:${split[1]}"
             } else ""
         )
-            .setText(R.id.tv_topic_title, if (!TextUtils.isEmpty(card.title)) "[icon] ${card.title}" else "")
             .setText(R.id.tv_content, card.content)
             .setText(
                 R.id.tv_from, if (!TextUtils.isEmpty(card.from)) {
@@ -66,6 +66,7 @@ class TopicItemViewHolder(view: View, context: Context) : BaseCardViewHolder(vie
                     ""
                 }
             )
+        getView<QMUIQQFaceView>(R.id.tv_topic_title).setText(if (!TextUtils.isEmpty(card.title)) "[icon] ${card.title}" else "")
         if (existView(R.id.tv_collection) &&
             existView(R.id.tv_comment) &&
             existView(R.id.tv_like)
@@ -78,13 +79,18 @@ class TopicItemViewHolder(view: View, context: Context) : BaseCardViewHolder(vie
             setText(R.id.tv_topic_reply, "${card.replycnt}条回复")
         }
         setTypeFace(
-            R.id.tv_topic_title, R.id.tv_content, R.id.tv_from, typeface = AssetsManager.getTypeFaceByType(
+            R.id.tv_content, R.id.tv_from, typeface = AssetsManager.getTypeFaceByType(
                 card.type?.split("_")?.get(3)?.toInt() ?: 0
             )
-        )
-        setGravity(
+        ).setGravity(
             R.id.tv_content,
             if (card.type?.split("_")?.get(4)?.toInt() == 1) Gravity.START else Gravity.CENTER_HORIZONTAL
         )
+        getView<QMUIQQFaceView>(R.id.tv_topic_title).setTypeface(
+            AssetsManager.getTypeFaceByType(
+                card.type?.split("_")?.get(3)?.toInt() ?: 0
+            )
+        )
+
     }
 }

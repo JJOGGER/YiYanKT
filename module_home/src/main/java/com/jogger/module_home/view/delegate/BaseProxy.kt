@@ -58,12 +58,12 @@ abstract class BaseProxy<T>(binding: T, context: Activity) : BaseViewModel() {
             launchOnlyresult({
                 ArticleActionDataSource.newLike(cardId)
             }, {
+                mIsLike = !mIsLike
                 if (mBottomBinding != null) {
                     showActionAnimation(mBottomBinding!!.ibtnLike)
-                    mBottomBinding!!.ibtnLike.isSelected = !mBottomBinding!!.ibtnLike.isSelected
-                    mBottomBinding!!.tvLike.text = (mBottomBinding!!.tvLike.text.toString().toInt() - 1).toString()
+                    mBottomBinding!!.ibtnLike.isSelected = mIsLike
+                    mBottomBinding!!.tvLike.text = (mBottomBinding!!.tvLike.text.toString().toInt() + 1).toString()
                 }
-                mIsLike = !mIsLike
             }, {
                 ToastHelper.showToast(it.errormsg)
                 mBottomBinding!!.ibtnLike.isSelected = !mBottomBinding!!.ibtnLike.isSelected
@@ -72,12 +72,12 @@ abstract class BaseProxy<T>(binding: T, context: Activity) : BaseViewModel() {
             launchOnlyresult({
                 ArticleActionDataSource.cancelLike(cardId)
             }, {
+                mIsLike = !mIsLike
                 if (mBottomBinding != null) {
                     showActionAnimation(mBottomBinding!!.ibtnLike)
-                    mBottomBinding!!.ibtnLike.isSelected = !mBottomBinding!!.ibtnLike.isSelected
-                    mBottomBinding!!.tvLike.text = (mBottomBinding!!.tvLike.text.toString().toInt() + 1).toString()
+                    mBottomBinding!!.ibtnLike.isSelected = mIsLike
+                    mBottomBinding!!.tvLike.text = (mBottomBinding!!.tvLike.text.toString().toInt() - 1).toString()
                 }
-                mIsLike = !mIsLike
             }, {
                 ToastHelper.showToast(it.errormsg)
                 mBottomBinding!!.ibtnLike.isSelected = !mBottomBinding!!.ibtnLike.isSelected
