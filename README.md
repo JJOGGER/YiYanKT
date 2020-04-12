@@ -5,4 +5,4 @@
 
 由于个人时间有限，并没有实现一言上的所有功能，基本功能卡片展示，发帖，评论，点赞等皆已实现。
 有时间再更新吧
-
+![image](https://github.com/JJOGGER/YiYanKT/blob/master/app/screen_shot/title.gif)
