@@ -69,5 +69,6 @@ dependencies {
     api 'com.scwang.smartrefresh:SmartRefreshHorizontal:1.0.0-andx-1'
     api 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0'//必须依赖 版本 1.1.0-andx-16 以上
     api 'com.scwang.smartrefresh:SmartRefreshHeader:1.1.0'  //没有使用特殊Header，可以不加这行
+    api rootProject.ext.dependencies.videocache
     implementation 'com.tencent.qcloud:cosxml:5.4.25'
 }

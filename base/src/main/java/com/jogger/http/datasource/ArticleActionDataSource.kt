@@ -17,29 +17,37 @@ object ArticleActionDataSource : BaseDataSource() {
         mService.newComment(APP_VERSION, cardId, receiverId, content)
 
     suspend fun deleteComment(commentId: String) = mService.deleteComment(APP_VERSION, commentId)
-
+    suspend fun deleteCard(cardId: String) = mService.deleteCard(APP_VERSION, cardId, null, 0)
     suspend fun publishTextCard(
         priv: Int?, title: String?, category: Int?, original: Int?, from: String?, content: String?,
         type: String?, originbookid: String?, pic: String?
-    ) :TextCard {
+    ): TextCard {
         val file = File(pic)
         val requestFile: RequestBody = RequestBody.create(MediaType.parse("image/jpeg"), file)
-        val body: MultipartBody.Part = MultipartBody.Part.createFormData("pic", "pic.jpg", requestFile)
-        val apply = HashMap<String, Any?>().apply {
-            put("v", APP_VERSION)
-            put("priv", priv)
-            put("title", title)
-            put("category", category)
-            put("original", original)
-            put("from", from)
-            put("content", content)
-            put("type", type)
-            put("originbookid", originbookid)
-        }
+
+        val body: MultipartBody.Part =
+            MultipartBody.Part.createFormData("pic", "pic.jpg", requestFile)
+        val textType = MediaType.parse("text/plain") // 文本类型
+        val p0 = RequestBody.create(textType, APP_VERSION)
+        val p1 = RequestBody.create(textType, priv.toString())
+        val p2 = RequestBody.create(textType, title.toString())
+        val p3 = RequestBody.create(textType, category.toString())
+        val p4 = RequestBody.create(textType, original.toString())
+        val p5 = RequestBody.create(textType, from.toString())
+        val p6 = RequestBody.create(textType, content.toString())
+        val p7 = RequestBody.create(textType, type.toString())
+        val p8 = RequestBody.create(textType, originbookid.toString())
         return mService.publishTextCard(
-            apply,
-            body
+            p0,
+            p1, p2, p3, p4, p5, p6, p7, p8, body
         )
     }
 
+    suspend fun disLikeCard(cardId: String) {
+        mService.disLikeCard(APP_VERSION, cardId)
+    }
+
+    suspend fun shielduser(uid: String) {
+        mService.shielduser(APP_VERSION, uid, 0)
+    }
 }

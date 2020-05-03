@@ -1,5 +1,7 @@
 package com.chad.library.adapter.base.entity
 
+import ex.OnFunctionWindowClickListener
+
 /**
  * Created by jogger on 2020/3/30
  * 描述：
@@ -7,7 +9,8 @@ package com.chad.library.adapter.base.entity
 
 data class WindowModel(
     val text: String,
-    val type: Int = 0
+    val type: Int = TYPE_COMMON,
+    val listener: OnFunctionWindowClickListener?=null
 ) {
     companion object {
         const val TYPE_ERROR = -1

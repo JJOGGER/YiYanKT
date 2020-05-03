@@ -14,6 +14,8 @@ data class TextCard(
     val commentcnt: Int = 0,
     val commercialtag: String? = null,
     val from: String? = null,
+    val musicurl: String? = null,
+    val musicurl2: String? = null,
     val originbook: OriginBook? = null,//创建所在书籍
     val textcardid: String? = null,
     val type: String? = null,//yyh_0_1_2_0
@@ -31,6 +33,7 @@ data class TextCard(
     val datetime: String? = null,
     val dislikecnt: Int = 0
 ) : MultiItemEntity, Parcelable {
+
     override var itemType: Int = category
         set(category) {
             field = category
@@ -43,6 +46,8 @@ data class TextCard(
         parcel.readMutableList(),
         parcel.readString(),
         parcel.readInt(),
+        parcel.readString(),
+        parcel.readString(),
         parcel.readString(),
         parcel.readString(),
         parcel.readParcelable(OriginBook::class.java.classLoader),
@@ -74,6 +79,8 @@ data class TextCard(
         parcel.writeInt(commentcnt)
         parcel.writeString(commercialtag)
         parcel.writeString(from)
+        parcel.writeString(musicurl)
+        parcel.writeString(musicurl2)
         parcel.writeParcelable(originbook, flags)
         parcel.writeString(textcardid)
         parcel.writeString(type)
@@ -97,6 +104,11 @@ data class TextCard(
     }
 
     companion object CREATOR : Parcelable.Creator<TextCard> {
+        //1代表横向大图,0代表圆图，11代表方正图 88代表占满宽度,且文字排图片里
+        const val TYPE_IMAGE_SHOW_CIRCLE = 0
+        const val TYPE_IMAGE_SHOW_RECTANGLE = 1
+        const val TYPE_IMAGE_SHOW_SQUARE = 11
+        const val TYPE_IMAGE_SHOW_IMG = 88
         override fun createFromParcel(parcel: Parcel): TextCard {
             return TextCard(parcel)
         }
@@ -105,6 +117,7 @@ data class TextCard(
             return arrayOfNulls(size)
         }
     }
+
 
 }
 

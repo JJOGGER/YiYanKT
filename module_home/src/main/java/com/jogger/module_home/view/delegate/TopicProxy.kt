@@ -9,12 +9,13 @@ import android.view.View
 import com.bumptech.glide.Glide
 import com.jogger.base.R
 import com.jogger.module_home.databinding.HomeDetailTopicViewBinding
+import com.jogger.module_home.view.fragment.TextCardDetailFragment
 
 /**
  * Created by jogger on 2020/3/20
  * 描述：
  */
-class TopicProxy(binding: HomeDetailTopicViewBinding, context: Activity) :
+class TopicProxy(binding: HomeDetailTopicViewBinding, context: TextCardDetailFragment) :
     BaseProxy<HomeDetailTopicViewBinding>(binding, context) {
     var spannable = SpannableStringBuilder("[icon] ")
     override fun initView() {

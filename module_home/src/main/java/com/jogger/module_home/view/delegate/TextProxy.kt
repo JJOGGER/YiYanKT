@@ -7,13 +7,15 @@ import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.jogger.constant.CARD_CATEGORY
+import com.jogger.entity.TextCard
 import com.jogger.module_home.databinding.HomeDetailTextViewBinding
+import com.jogger.module_home.view.fragment.TextCardDetailFragment
 
 /**
  * Created by jogger on 2020/3/20
  * 描述：
  */
-class TextProxy(binding: HomeDetailTextViewBinding, context: Activity) :
+class TextProxy(binding: HomeDetailTextViewBinding, context: TextCardDetailFragment) :
     BaseProxy<HomeDetailTextViewBinding>(binding, context) {
 
     override fun initView() {
@@ -21,10 +23,10 @@ class TextProxy(binding: HomeDetailTextViewBinding, context: Activity) :
         val imgShow = card.type?.split("_")?.get(1)?.toInt()
         val image: ImageView
         image =
-            if (imgShow == 1 || imgShow == 11) {
+            if (imgShow == TextCard.TYPE_IMAGE_SHOW_RECTANGLE || imgShow == TextCard.TYPE_IMAGE_SHOW_SQUARE) {
                 mBinding.nsvCommonView.visibility = View.VISIBLE
                 mBinding.ivHeader
-            } else if (imgShow == 0) {
+            } else if (imgShow == TextCard.TYPE_IMAGE_SHOW_CIRCLE) {
                 mBinding.nsvCommonView.visibility = View.VISIBLE
                 mBinding.ivHeader2
             } else {

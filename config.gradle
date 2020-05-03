@@ -80,7 +80,8 @@ ext {
             tinker              : 'com.tencent.tinker:tinker-android-lib:1.9.1',
             rxbinding           : 'com.jakewharton.rxbinding2:rxbinding:2.1.1',
             rxbinding_v7        : 'com.jakewharton.rxbinding2:rxbinding-appcompat-v7:2.1.1',
-            zxing               : 'cn.bingoogolapple:bga-qrcode-zxing:1.3.6'
+            zxing               : 'cn.bingoogolapple:bga-qrcode-zxing:1.3.6',
+            videocache          : 'com.danikula:videocache:2.7.1'
     ]
 
     androidxs = androidx.values()

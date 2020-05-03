@@ -2,6 +2,7 @@ package com.jogger.http.service
 
 import com.jogger.entity.*
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.http.*
 
 interface ApiService {
@@ -51,6 +52,17 @@ interface ApiService {
         @Query("category") category: Int
     ): ArticleData
 
+    /**
+     * 获取下一首歌曲
+     */
+    @POST("yiyan/nextmusic")
+    suspend fun getNextMusics(
+        @Query("v") v: String,
+        @Query("cardid") cardId: String,
+        @Query("datetime") datetime: String?,
+        @Query("moreextra") moreextra: String?,
+        @Query("scene") scene: Int
+    ):ArticleData
     /**
      * 穿越卡片列表
      */
@@ -193,26 +205,19 @@ interface ApiService {
         @Query("cardid") cardid: String
     ): TextCard?
 
-    //发布卡片
     @Multipart
-    @POST("/yiyan/newtextcard_np")
+    @POST("/yiyan/newtextcard")
     suspend fun publishTextCard(
-        @QueryMap params: HashMap<String, Any?>,
+        @Part("v") v: RequestBody,
+        @Part("priv") priv: RequestBody?,//是否私密
+        @Part("title") title: RequestBody?,
+        @Part("category") category: RequestBody?,
+        @Part("original") original: RequestBody?,
+        @Part("from") from: RequestBody?,
+        @Part("content") content: RequestBody?,
+        @Part("type") type: RequestBody?,//yyv_0_0_0_0
+        @Part("originbookid") originbookid: RequestBody,
         @Part pic: MultipartBody.Part?
-    ): TextCard
-    @Multipart
-    @POST("/yiyan/newtextcard_np")
-    suspend fun publishTextCard(
-        @Part v: String,
-        @Part priv: Int?,//是否私密
-        @Part title: String?,
-        @Part category: Int?,
-        @Part original: Int?,
-        @Part from: String?,
-        @Part content: String?,
-        @Part type: String?,//yyv_0_0_0_0
-        @Part originbookid: String?,
-        @Part pic: String?
     ): TextCard
 
     @POST("/yiyan/deletecard")
@@ -269,10 +274,43 @@ interface ApiService {
         @Query("content") content: String?
     ): CommentData
 
+    /**
+     * 反感帖子
+     */
     @POST("yiyan/deletecomment")
     suspend fun deleteComment(
         @Query("v") v: String,
         @Query("commentid") commentId: String
+    )
+
+    /**
+     * 删除卡片
+     */
+    @POST("yiyan/deletecard")
+    suspend fun deleteCard(
+        @Query("v") v: String,
+        @Query("cardid") cardId: String,
+        @Query("b") b: String?,
+        @Query("c") c: Int
+    )
+
+    /**
+     * 屏蔽
+     */
+    @POST("yiyan/shielduser")
+    suspend fun shielduser(
+        @Query("v") v: String,
+        @Query("uid") uid: String,
+        @Query("c") c: Int
+    )
+
+    /**
+     * 取消喜欢
+     */
+    @POST("yiyan/dislikecard")
+    suspend fun disLikeCard(
+        @Query("v") v: String,
+        @Query("cardid") cardId: String
     )
 
     /**

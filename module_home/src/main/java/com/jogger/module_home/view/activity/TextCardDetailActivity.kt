@@ -11,6 +11,7 @@ import com.alibaba.android.arouter.launcher.ARouter
 import com.jogger.base.BaseActivity
 import com.jogger.constant.CARD_CATEGORY
 import com.jogger.entity.TextCard
+import com.jogger.event.CardActionEvent
 import com.jogger.module_home.R
 import com.jogger.module_home.adapter.TextCardDetailAdapter
 import com.jogger.module_home.view.fragment.TextCardDetailFragment
@@ -21,16 +22,20 @@ import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener
 import ex.PAGE_HOME
 import ex.PAGE_STAR
 import kotlinx.android.synthetic.main.home_activity_text_card_detail.*
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 
 @Route(path = ex.TEXT_CARD_DETAIL)
-class TextCardDetailActivity : BaseActivity<TextCardDetailViewModel, ViewDataBinding>(), OnLoadMoreListener {
+class TextCardDetailActivity : BaseActivity<TextCardDetailViewModel, ViewDataBinding>(),
+    OnLoadMoreListener {
 
     private lateinit var mTextCards: ArrayList<TextCard>
     private var mFromPage = PAGE_HOME
     private var mPosition = 0
     private lateinit var mFragments: ArrayList<TextCardDetailFragment>
     private var mType: Int? = null
+    private lateinit var mAdapter: TextCardDetailAdapter
 
     companion object {
         fun navTo(context: Context, textcard: TextCard) {
@@ -48,7 +53,7 @@ class TextCardDetailActivity : BaseActivity<TextCardDetailViewModel, ViewDataBin
         mPosition = intent.getIntExtra(ex.POSITION, 0)
         mFromPage = intent.getIntExtra(ex.FROM_PAGE, PAGE_HOME)
         mType = intent.getIntExtra(ex.TYPE, CARD_CATEGORY.TYPE_ALL._value)
-        mTextCards = intent.getParcelableArrayListExtra<TextCard>(ex.TEXT_CARDS)
+        mTextCards = intent.getParcelableArrayListExtra(ex.TEXT_CARDS)
         mFragments = arrayListOf()
         mTextCards.forEach {
             val fragment = TextCardDetailFragment.getInstance(
@@ -57,7 +62,8 @@ class TextCardDetailActivity : BaseActivity<TextCardDetailViewModel, ViewDataBin
             )
             mFragments.add(fragment)
         }
-        vp_content.adapter = TextCardDetailAdapter(this, mFragments)
+        mAdapter = TextCardDetailAdapter(this, mFragments)
+        vp_content.adapter = mAdapter
         srl_refresh.setEnableRefresh(false)
         if (mTextCards.size == 1) {
             srl_refresh.setEnableLoadMore(false)
@@ -101,4 +107,16 @@ class TextCardDetailActivity : BaseActivity<TextCardDetailViewModel, ViewDataBin
             PAGE_STAR -> mViewModel.getTextCardsByType(mType!!)
         }
     }
+
+    override fun isNeedEventBus() = true
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onDeleteCardEvent(event: CardActionEvent) {
+        if (event.mAction == CardActionEvent.CARD_DELETE_SUCCESS) {
+            val position = event.getIntExtra(ex.POSITION, -1)
+            mAdapter.removeFragment(position)
+            vp_content.adapter = mAdapter
+        }
+    }
+
 }

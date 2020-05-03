@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.ComponentActivity
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
@@ -37,7 +38,7 @@ abstract class BaseFragment<VM : BaseViewModel, DB : ViewDataBinding> : Fragment
     //是否第一次加载
     private var isFirst: Boolean = true
 
-    protected var mContext: Activity? = null
+    protected var mContext: ComponentActivity? = null
     private var mSkinManager: QMUISkinManager? = null
 
     override fun onCreateView(

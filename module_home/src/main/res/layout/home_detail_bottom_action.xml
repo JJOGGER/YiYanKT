@@ -105,6 +105,7 @@
 
             <ImageButton
                     android:id="@+id/ibtn_more"
+                    android:onClick="@{()->proxy.moreAction(textCard)}"
                     android:src="@drawable/more_22_gray_3x"
                     android:background="@null"
                     android:paddingEnd="@dimen/dp_16"

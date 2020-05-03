@@ -18,6 +18,7 @@ import com.jogger.base.BaseActivity
 import com.jogger.constant.CARD_CATEGORY
 import com.jogger.entity.OriginBook
 import com.jogger.entity.TextCard
+import com.jogger.event.CardActionEvent
 import com.jogger.module_mine.R
 import com.jogger.module_mine.viewmodel.BookListViewModel
 import com.qmuiteam.qmui.kotlin.onClick
@@ -26,6 +27,8 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener
 import ex.*
 import kotlinx.android.synthetic.main.mine_activity_book_list.rv_content
 import kotlinx.android.synthetic.main.mine_fragment_user_home.*
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 @Route(path = USER_BOOK_PAGE)
 class BookListActivity : BaseActivity<BookListViewModel, ViewDataBinding>(), OnItemClickListener,
@@ -160,5 +163,14 @@ class BookListActivity : BaseActivity<BookListViewModel, ViewDataBinding>(), OnI
             }
         }
 
+    }
+    override fun isNeedEventBus() = true
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun onDeleteCardEvent(event: CardActionEvent) {
+        if (event.mAction == CardActionEvent.CARD_DELETE_SUCCESS) {
+            mViewModel.mLastDateTime = null
+            initData()
+        }
     }
 }

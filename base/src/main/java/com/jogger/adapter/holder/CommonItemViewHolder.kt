@@ -20,7 +20,7 @@ class CommonItemViewHolder(view: View, context: Context) : BaseCardViewHolder(vi
         val imgShow = card.type?.split("_")?.get(1)?.toInt()
         val image: ImageView
         image =
-            if (imgShow == 1 || imgShow == 11) {
+            if (imgShow == TextCard.TYPE_IMAGE_SHOW_RECTANGLE || imgShow == TextCard.TYPE_IMAGE_SHOW_SQUARE) {
                 setVisible(R.id.fl_header, true)
                 getView(R.id.iv_header)
             } else {

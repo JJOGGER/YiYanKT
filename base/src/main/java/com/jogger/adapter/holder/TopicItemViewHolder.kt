@@ -29,7 +29,7 @@ class TopicItemViewHolder(view: View, context: Context) : BaseCardViewHolder(vie
         val imgShow = card.type?.split("_")?.get(1)?.toInt()
         val image: ImageView?
         if (!TextUtils.isEmpty(card.picpath)) {
-            if (imgShow == 1) {
+            if (imgShow == TextCard.TYPE_IMAGE_SHOW_RECTANGLE) {
                 setVisible(R.id.iv_header, true)
                 setVisible(R.id.iv_header2, false)
                 image = getView(R.id.iv_header)
@@ -37,7 +37,7 @@ class TopicItemViewHolder(view: View, context: Context) : BaseCardViewHolder(vie
                 image = getView(R.id.iv_header2)
                 setVisible(R.id.iv_header, false)
                 setVisible(R.id.iv_header2, true)
-                if (imgShow != 0) {
+                if (imgShow != TextCard.TYPE_IMAGE_SHOW_CIRCLE) {
                     (image as QMUIRadiusImageView).isCircle = false
                 }
             }

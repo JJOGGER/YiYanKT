@@ -19,6 +19,7 @@ import com.jogger.utils.ToastHelper
 import com.qmuiteam.qmui.kotlin.onClick
 import com.qmuiteam.qmui.kotlin.skin
 import com.qmuiteam.qmui.skin.QMUISkinManager
+import org.greenrobot.eventbus.EventBus
 import java.io.Serializable
 import java.util.*
 
@@ -142,16 +143,99 @@ var popupWindow: PopupWindow? = null
 interface OnFunctionWindowClickListener {
     fun onClick(popupWindow: PopupWindow, index: Int)
 }
-
+fun postEvent(event:Any){
+    EventBus.getDefault().post(event)
+}
+fun showFunctionWindow(context: Activity, vararg windowModels: WindowModel) {
+    val resources = context.resources
+    val view = LayoutInflater.from(context).inflate(R.layout.window_common_function, null) as ViewGroup
+    for (i in 0..windowModels.size - 1) {
+        val windowModel = windowModels[i]
+        view.addView(TextView(context).apply {
+            setText(windowModel.text)
+            if (windowModel.type == WindowModel.TYPE_ERROR) {
+                skin {
+                    it.textColor(R.attr.app_skin_common_error_text_color)
+                }
+            } else {
+                skin { it.textColor(R.attr.app_skin_common_title_text_color) }
+            }
+            layoutParams =
+                ViewGroup.MarginLayoutParams(
+                    ViewGroup.MarginLayoutParams.MATCH_PARENT,
+                    ViewGroup.MarginLayoutParams.WRAP_CONTENT
+                )
+            setPadding(
+                0,
+                resources.getDimensionPixelOffset(R.dimen.dp_16),
+                0,
+                resources.getDimensionPixelOffset(R.dimen.dp_16)
+            )
+            gravity = Gravity.CENTER
+            setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimensionPixelOffset(R.dimen.text_size_16).toFloat())
+            onClick {
+                if (windowModel.listener != null)
+                    windowModel.listener.onClick(popupWindow!!, i)
+            }
+        })
+        val line = View(context)
+        if (i == windowModels.size - 1) {
+            line.layoutParams = ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                resources.getDimensionPixelOffset(R.dimen.text_size_6)
+            )
+            line.setBackgroundColor(resources.getColor(R.color.color_80e2e2e2))
+        } else {
+            line.layoutParams = ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                resources.getDimensionPixelOffset(R.dimen.text_size_dot5)
+            )
+            line.setBackgroundColor(resources.getColor(R.color.gray_999999))
+        }
+        view.addView(line)
+    }
+    val cancel = TextView(context)
+        .apply {
+            text = "取消"
+            skin {
+                it.textColor(R.attr.app_skin_common_title_text_color)
+            }
+            layoutParams =
+                ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            setPadding(
+                0,
+                context.resources.getDimensionPixelOffset(R.dimen.dp_16),
+                0,
+                context.resources.getDimensionPixelOffset(R.dimen.dp_16)
+            )
+            setTextSize(TypedValue.COMPLEX_UNIT_PX, resources.getDimensionPixelOffset(R.dimen.text_size_16).toFloat())
+            gravity = Gravity.CENTER
+            onClick { popupWindow?.dismiss() }
+        }
+    view.addView(cancel)
+    if (popupWindow == null) {
+        popupWindow = PopupWindow(
+            view, WindowManager.LayoutParams.MATCH_PARENT,
+            WindowManager.LayoutParams.WRAP_CONTENT
+        )
+        popupWindow!!.setOutsideTouchable(true)
+        popupWindow!!.isFocusable = true
+        popupWindow!!.animationStyle = R.style.AnimBottom
+        popupWindow!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        popupWindow!!.setOnDismissListener {
+            backgroundAlpha(context, 1f)
+        }
+    } else {
+        popupWindow!!.contentView = view
+    }
+    backgroundAlpha(context, 0.5f)
+    if (context.isFinishing || context.isDestroyed) return
+    QMUISkinManager.defaultInstance(context).register(popupWindow!!)
+    popupWindow!!.showAtLocation(view, Gravity.BOTTOM, 0, 0)
+}
 fun showFunctionWindow(context: Activity, vararg windowModels: WindowModel, listener: OnFunctionWindowClickListener?) {
     val resources = context.resources
     val view = LayoutInflater.from(context).inflate(R.layout.window_common_function, null) as ViewGroup
-
-//    val textColor = QMUIResHelper.getAttrColorStateList(
-//        view.getContext(),
-//        QMUISkinManager.defaultInstance(context).currentTheme,
-//        R.attr.app_skin_common_title_text_color
-//    )!!.defaultColor
     for (i in 0..windowModels.size - 1) {
         view.addView(TextView(context).apply {
             setText(windowModels[i].text)
@@ -162,9 +246,7 @@ fun showFunctionWindow(context: Activity, vararg windowModels: WindowModel, list
                 setTextColor(Color.RED)
             } else {
                 skin { it.textColor(R.attr.app_skin_common_title_text_color) }
-//                setTextColor(textColor)
             }
-//            setBackgroundColor(backgroundColor)
             layoutParams =
                 ViewGroup.MarginLayoutParams(
                     ViewGroup.MarginLayoutParams.MATCH_PARENT,
@@ -205,7 +287,6 @@ fun showFunctionWindow(context: Activity, vararg windowModels: WindowModel, list
             skin {
                 it.textColor(R.attr.app_skin_common_title_text_color)
             }
-//            setTextColor(textColor)
             layoutParams =
                 ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
             setPadding(
@@ -239,7 +320,6 @@ fun showFunctionWindow(context: Activity, vararg windowModels: WindowModel, list
     QMUISkinManager.defaultInstance(context).register(popupWindow!!)
     popupWindow!!.showAtLocation(view, Gravity.BOTTOM, 0, 0)
 }
-
 fun dismissWindow() {
     if (popupWindow != null) {
         popupWindow!!.dismiss()

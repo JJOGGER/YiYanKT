@@ -28,5 +28,11 @@
                 app:textCard="@{textCard}"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
+        <ViewStub
+                android:layout="@layout/home_detail_music_view"
+                android:id="@+id/view_music"
+                app:textCard="@{textCard}"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"/>
     </com.qmuiteam.qmui.widget.QMUIWindowInsetLayout>
 </layout>

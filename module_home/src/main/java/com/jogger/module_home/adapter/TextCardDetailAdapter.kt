@@ -12,6 +12,10 @@ class TextCardDetailAdapter(activity: FragmentActivity, fragments: ArrayList<out
     FragmentStateAdapter(activity) {
     var mFragments = fragments
     override fun getItemCount(): Int = mFragments.size
-
     override fun createFragment(position: Int): Fragment = mFragments[position]
+
+    fun removeFragment(position: Int){
+        mFragments.removeAt(position)
+        notifyDataSetChanged()
+    }
 }

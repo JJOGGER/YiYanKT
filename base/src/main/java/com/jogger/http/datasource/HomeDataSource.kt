@@ -21,4 +21,7 @@ object HomeDataSource : BaseDataSource() {
 
     suspend fun getCardInTopic(cardId: String, refreshextra: String?, moreextra: String?) =
         mService.getCardInTopic(APP_VERSION, cardId, refreshextra, moreextra)
+
+    suspend fun getNextMusics(cardId: String,datetime: String?,moreextra: String?)=
+        mService.getNextMusics(APP_VERSION,cardId,datetime,moreextra,1)
 }

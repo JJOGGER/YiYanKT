@@ -25,7 +25,7 @@ import ex.toActivity
 
 /**
  * Created by jogger on 2020/3/3
- * 描述：
+ * 描述：首页卡片
  */
 class TextCardContainer : FrameLayout {
     private lateinit var mBinding: HomeTextCardContainerLayoutBinding
@@ -49,7 +49,7 @@ class TextCardContainer : FrameLayout {
         val imgShow = card.type?.split("_")?.get(1)?.toInt()//0圆图，1方形图
         val image: ImageView
         if (!TextUtils.isEmpty(card.picpath)) {
-            if (imgShow == 1) {
+            if (imgShow == TextCard.TYPE_IMAGE_SHOW_RECTANGLE) {
                 mBinding.headerLayout.ivHeader.visibility=View.VISIBLE
                 mBinding.headerLayout.ivHeader2.visibility=View.GONE
                 image = mBinding.headerLayout.ivHeader
@@ -57,7 +57,7 @@ class TextCardContainer : FrameLayout {
                 mBinding.headerLayout.ivHeader.visibility=View.GONE
                 mBinding.headerLayout.ivHeader2.visibility=View.VISIBLE
                 image = mBinding.headerLayout.ivHeader2
-                if (imgShow == 0) {
+                if (imgShow != TextCard.TYPE_IMAGE_SHOW_CIRCLE) {
                     image.isCircle = false
                 }
             }
